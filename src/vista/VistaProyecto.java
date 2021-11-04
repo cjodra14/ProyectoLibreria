@@ -2,17 +2,19 @@ package vista;
 
 import java.sql.*;
 import java.util.*;
-import java.util.ResourceBundle.Control;
+
+import controlador.ControladorAutor;
+import dao.DAOAutor;
 
 
 public class VistaProyecto {
 
 	private int opcion;
-	private Control controlador;
+	private ControladorAutor controlador;
 	private ResultSet resultado;
 	private Scanner entrada;
 	
-	public VistaProyecto(Control controlador) {
+	public VistaProyecto(ControladorAutor controlador) {
 		this.controlador = controlador;
 	}
 	
@@ -26,10 +28,10 @@ public class VistaProyecto {
 				altaAutores();
 					break;
 			case 2:
-				modificacionAutores();
+				//modificacionAutores();
 					break;
 			case 3:
-				borrarAutores();
+				//borrarAutores();
 					break;
 			case 4:
 				consultaAutores();
@@ -102,7 +104,7 @@ public class VistaProyecto {
 		System.out.println("Codigo Autor");
 		codAutor = entrada.nextLine();
 		
-		}catch(SQLException exc) {
+		}catch(Exception exc) {
 			System.err.println("FALLO AL DAR DE ALTA AL AUTOR");
 			exc.printStackTrace();
 		}
@@ -130,7 +132,23 @@ public class VistaProyecto {
 	
 	
 	private void consultaAutores() {
-		
+		Vector<DAOAutor> autores= controlador.obtenerAutores();
+		System.out.println("\nLISTADO DE AUTORES");
+		System.out.println("======================");
+		try {
+			Iterator<DAOAutor> itAutores = autores.iterator();
+			while(itAutores.hasNext()) {
+				DAOAutor autor= itAutores.next();
+				System.out.println("ID: "+autor.getCod_autor()+" Nombre: "+autor.getNombre_autor()+" primer apel: "+autor.getP_apellido()+"  segundo apellido: "+autor.getS_apellido());
+				
+			}
+				
+				
+		} catch (Exception e) {
+			System.err.println("Vista: FALLO A OBTENER  AUTORES");
+			e.printStackTrace();
+		}
+		}
 		
 		
 		
@@ -150,6 +168,6 @@ public class VistaProyecto {
 	
 	
 	
+
 	
-	
-}
+
