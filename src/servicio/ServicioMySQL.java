@@ -14,7 +14,7 @@ public class ServicioMySQL {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			//Datos para la conexión
-			  final String URL = "Jdbc:mysql://localhost:3306/libreria";
+			  final String URL = "Jdbc:mysql://localhost:3306/libreria?useSSL=false";
 	          String user ="root";
 	          String pass="romaol2";
 			

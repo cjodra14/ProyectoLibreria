@@ -139,7 +139,7 @@ public class VistaProyecto {
 			Iterator<DAOAutor> itAutores = autores.iterator();
 			while(itAutores.hasNext()) {
 				DAOAutor autor= itAutores.next();
-				System.out.println("ID: "+autor.getCod_autor()+" Nombre: "+autor.getNombre_autor()+" primer apel: "+autor.getP_apellido()+"  segundo apellido: "+autor.getS_apellido());
+				System.out.println("ID: "+autor.getCod_autor()+"|| Nombre: "+autor.getNombre_autor()+", "+autor.getP_apellido()+", "+autor.getS_apellido());
 				
 			}
 				
