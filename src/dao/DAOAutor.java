@@ -89,6 +89,35 @@ public class DAOAutor {
 			//Este método devolverá un vector de tipo <AutorDAO>
 			return buscaResultadosUnAutor(sqlQuery);	
 		}
+		//Este método se utiliza para meter datos con la sentencia INSERT
+		public static void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
+			try{
+				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idAutor+"', "+"'"+nombreAutor+"', "+"'"+apel1+"', "+"'"+apel2+"');";
+				DAOAutor.sentencia.execute(sqlQuery);
+				System.out.println("Los datos del autor con el código "+idAutor+"han sido insertados con éxito.");
+			}catch(SQLException e) {
+				System.err.println("No se han podido insertar datos en el autor con el código "+idAutor);
+			}
+		}
+
+		
+		//Este método ejecutará una sentencia UPDATE para modificar un autor
+		//cod_autor, nombre, p_apel, s_apel
+		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2){
+			try {
+				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"', "+"p_apel= '"+apel1+"', "+"s_apel= '"+apel2+"'"+"WHERE cod_autor='"+idAutor+"';";
+				DAOAutor.sentencia.executeUpdate(sqlQuery);	
+				System.out.println("El autor con el código "+idAutor+" ha sido modificado con éxito.");
+			}catch(SQLException e) {
+				System.err.println("Error al modificar el dato.\n"+e.getStackTrace());
+			}
+		} 
+		
+		//Este método ejecutará una sentencia DELETE para eliminar un autor
+		public static void borrarAutor(String idAutor) throws SQLException {
+			String sqlQuery="DELETE FROM libreria.autor WHERE (codAutor="+"'"+idAutor+"')";
+			DAOAutor.sentencia.executeQuery(sqlQuery);
+		}
 		//FIN METODOS CRUD
 		
 		//MÉTODOS UTILITY DE CLASE
