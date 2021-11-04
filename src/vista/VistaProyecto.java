@@ -110,19 +110,20 @@ public class VistaProyecto {
 		
 	}
 	
-	private void modificacionAutores() {
+	private void modificacionAutores(String nombreAutor, String primerApellido, String segundoApellido,String codAutor) {
 		// TODO Auto-generated method stub
 		
 		
-		
+		System.out.println("Escribe idAutor");
+		codAutor = entrada.nextLine();
 		
 		
 	}
 	
 	private void borrarAutores(String codAutor) {
 		
-		
-		
+		System.out.println("Escribe idAutor");
+		codAutor = entrada.nextLine();
 		
 		
 	}
