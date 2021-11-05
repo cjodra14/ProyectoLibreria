@@ -13,10 +13,10 @@ public class VistaAutor {
 	private ControladorAutor controlador;
 	private ResultSet resultado;
 	private Scanner entrada;
-	String nombreAutor;
-	String primerApellido;
-	String segundoApellido;
-	String codAutor;
+	private String nombreAutor;
+	private String primerApellido;
+	private String segundoApellido;
+	private String codAutor;
 	
 	public VistaAutor(ControladorAutor controlador) {
 		this.controlador = controlador;
