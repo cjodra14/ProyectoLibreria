@@ -55,19 +55,19 @@ public class ModeloLibreria {
 			return autores;
 			
 		}
-		
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
 		public DAOAutor obtenerAutor(String idAutor) throws SQLException {
 			return DAOAutor.obtenerAutor(idAutor);
 		}
-		
+		//Este método se utiliza para meter datos con la sentencia INSERT
 		public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
 			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
 		}
-		
+		//Este método ejecutará una sentencia UPDATE para modificar un autor
 		public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
 			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
 		}
-		
+		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public void borrarAutor(String idAutor) throws SQLException {
 			DAOAutor.borrarAutor(idAutor);
 		}
