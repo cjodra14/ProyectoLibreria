@@ -56,6 +56,22 @@ public class ModeloLibreria {
 			
 		}
 		
+		public DAOAutor obtenerAutor(String idAutor) throws SQLException {
+			return DAOAutor.obtenerAutor(idAutor);
+		}
+		
+		public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
+			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
+		}
+		
+		public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
+			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
+		}
+		
+		public void borrarAutor(String idAutor) throws SQLException {
+			DAOAutor.borrarAutor(idAutor);
+		}
+		
 		
 	
 
