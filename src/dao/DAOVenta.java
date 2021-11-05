@@ -106,7 +106,7 @@ public class DAOVenta {
 		DAOVenta venta;
 		
 		while(resultado.next()) {
-			int npedido = resultado.getString(1);
+			int npedido = resultado.getInt(1);
 			String usuario = resultado.getString(2);
 			String fecha= resultado.getString(3);
 			venta = new DAOVenta(npedido,usuario,fecha);
