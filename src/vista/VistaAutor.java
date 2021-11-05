@@ -131,7 +131,7 @@ public class VistaAutor {
 		codAutor = entrada.nextLine();
 		
 		
-		try {
+		try {	
 			controlador.borrarAutor(codAutor);
 			System.out.println("Autor eliminado con exito");
 		} catch (SQLException e) {
