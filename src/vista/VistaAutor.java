@@ -7,14 +7,14 @@ import controlador.ControladorAutor;
 import dao.DAOAutor;
 
 
-public class VistaProyecto {
+public class VistaAutor {
 
 	private int opcion;
 	private ControladorAutor controlador;
 	private ResultSet resultado;
 	private Scanner entrada;
 	
-	public VistaProyecto(ControladorAutor controlador) {
+	public VistaAutor(ControladorAutor controlador) {
 		this.controlador = controlador;
 	}
 	
