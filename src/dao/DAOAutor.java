@@ -113,7 +113,6 @@ public class DAOAutor {
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public static int borrarAutor(String idAutor) throws SQLException {
 			String sqlQuery="DELETE FROM libreria.autor WHERE cod_autor='"+idAutor+"'";
-	
 			return DAOAutor.sentencia.executeUpdate(sqlQuery);
 		}
 		//FIN METODOS CRUD
