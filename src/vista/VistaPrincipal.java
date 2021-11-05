@@ -98,7 +98,7 @@ public class VistaPrincipal {
 		
 		private void terminarAplicacion() {
 			entrada.close();
-			controlador.terminar();
+			//controlador.terminar();
 		}
 		
 		private void altaAutores() {
@@ -148,7 +148,7 @@ public class VistaPrincipal {
 		
 		
 		private void consultaAutores() {
-			Vector<DAOAutor> autores= controlador.obtenerAutores();
+			Vector<DAOAutor> autores= controladorAutor.obtenerAutores();
 			System.out.println("\nLISTADO DE AUTORES");
 			System.out.println("======================");
 			try {

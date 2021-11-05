@@ -105,7 +105,7 @@ public class DAOAutor {
 		//cod_autor, nombre, p_apel, s_apel
 		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2){
 			try {
-				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"', "+"p_apel= '"+apel1+"', "+"s_apel= '"+apel2+"'"+"WHERE cod_autor='"+idAutor+"';";
+				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE cod_autor='"+idAutor+"';";
 				DAOAutor.sentencia.executeUpdate(sqlQuery);	
 				System.out.println("El autor con el código "+idAutor+" ha sido modificado con éxito.");
 			}catch(SQLException e) {
@@ -115,8 +115,9 @@ public class DAOAutor {
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public static void borrarAutor(String idAutor) throws SQLException {
-			String sqlQuery="DELETE FROM libreria.autor WHERE (codAutor="+"'"+idAutor+"')";
-			DAOAutor.sentencia.executeQuery(sqlQuery);
+			String sqlQuery="DELETE FROM libreria.autor WHERE codAutor='"+idAutor+"'";
+			System.out.println("checkDAO");
+			DAOAutor.sentencia.executeUpdate(sqlQuery);
 		}
 		//FIN METODOS CRUD
 		

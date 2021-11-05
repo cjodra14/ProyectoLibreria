@@ -31,7 +31,7 @@ public class VistaAutor {
 				//modificacionAutores();
 					break;
 			case 3:
-				//borrarAutores();
+				borrarAutores();
 					break;
 			case 4:
 				consultaAutores();
@@ -119,16 +119,25 @@ public class VistaAutor {
 		// TODO Auto-generated method stub
 		
 		
-		System.out.println("Escribe idAutor");
+		System.out.println("Escribe idAutor a modificar");
 		codAutor = entrada.nextLine();
 		
 		
 	}
 	
-	private void borrarAutores(String codAutor) {
-		
+	private void borrarAutores() {
+		 String codAutor;
 		System.out.println("Escribe idAutor");
 		codAutor = entrada.nextLine();
+		
+		
+		try {
+			controlador.borrarAutor(codAutor);
+			System.out.println("Autor eliminado con exito");
+		} catch (SQLException e) {
+			System.err.println("Fallo al eliminar el Autor");
+			e.printStackTrace();
+		}
 		
 		
 	}

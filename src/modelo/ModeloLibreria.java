@@ -69,6 +69,7 @@ public class ModeloLibreria {
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public void borrarAutor(String idAutor) throws SQLException {
+			System.out.println("checkModelo\n");
 			DAOAutor.borrarAutor(idAutor);
 		}
 		
