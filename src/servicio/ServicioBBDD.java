@@ -1,12 +1,18 @@
 package servicio;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ServicioBBDD {
 
 	//Definición de los servcios que esta clase puede prestar (public)
+	
 	public static final String MYSQL = "mysql";
 	public static final String ORACLE = "oracle";
 	public static final String POSTGRESQL = "postgresql";
@@ -43,16 +49,25 @@ public class ServicioBBDD {
 	}
 	
 	public static synchronized ServicioBBDD obtenerServicio(String servicioBBDD) {
+		Properties leerConfig = new Properties();
+		try {
+		leerConfig.load(new FileInputStream(new File("serviceconfig.properties")));
+		}catch(FileNotFoundException e) {
+			System.err.println("Archivo de configuración no encontrado");
+		}catch(IOException e) {
+			System.err.println("Error de lectura");
+		}
 		if (ServicioBBDD.servicio == null) {
+			
 			switch (servicioBBDD) {
 				case "mysql":
-					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.MYSQL_DRIVER, ServicioBBDD.MYSQL_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
+					ServicioBBDD.servicio = new ServicioBBDD(leerConfig.getProperty("MYSQL_DRIVER"), leerConfig.getProperty("MYSQL_URL"), leerConfig.getProperty("USER"), leerConfig.getProperty("USER_KEY"));
 					break;
 				case "oracle":
-					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.ORACLE_DRIVER, ServicioBBDD.ORACLE_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
+					ServicioBBDD.servicio = new ServicioBBDD(leerConfig.getProperty("ORACLE_DRIVER"), leerConfig.getProperty("ORACLE_URL"), leerConfig.getProperty("USER"), leerConfig.getProperty("USER_KEY"));
 					break;
 				case "postgreSQL":
-					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.POSTGRE_DRIVER, ServicioBBDD.POSTGRESQL_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
+					ServicioBBDD.servicio = new ServicioBBDD(leerConfig.getProperty("POSTGRE_DRIVER"), leerConfig.getProperty("POSTRESQL_URL"), leerConfig.getProperty("USER"), leerConfig.getProperty("USER_KEY"));
 					break;
 			}
 		}
