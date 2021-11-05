@@ -28,6 +28,7 @@ public class VistaProyecto {
 				altaAutores();
 					break;
 			case 2:
+				
 				//modificacionAutores();
 					break;
 			case 3:
