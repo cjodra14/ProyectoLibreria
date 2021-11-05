@@ -70,7 +70,6 @@ public class DAOAutor {
 		//La clase DAO debe tener conexión con la BBDD para conectarse con su tabla
 		private static Statement sentencia;
 		private static ResultSet resultado;
-		private int retorno;
 		
 		public static void setConexionBBDD(Statement sentencia, ResultSet resultado) {
 			DAOAutor.sentencia = sentencia;
@@ -86,7 +85,6 @@ public class DAOAutor {
 		}
 		public static DAOAutor obtenerAutor(String codAutor) throws SQLException{
 			String sqlQuery = "select * from autor WHERE cod_autor='"+codAutor+"';";
-			//Este método devolverá un vector de tipo <AutorDAO>
 			return buscaResultadosUnAutor(sqlQuery);	
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
@@ -102,7 +100,6 @@ public class DAOAutor {
 
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		//cod_autor, nombre, p_apel, s_apel
 		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2){
 			try {
 				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE cod_autor='"+idAutor+"';";
