@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.Vector;
 
 import modelo.ModeloLibreria;
@@ -20,8 +21,6 @@ public class ControladorAutor {
 		autores=modelo.obtenerAutores();
 		return autores;
 	}
-<<<<<<< HEAD
-=======
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
 	public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
@@ -38,7 +37,7 @@ public class ControladorAutor {
 		modelo.borrarAutor(idAutor);
 	}
 	
->>>>>>> branch 'master' of https://github.com/cjodra14/ProyectoLibreria.git
+
 	//Ejecutamos el método terminar para liberar memoria
 	public void terminar() {
 		modelo.terminar();
