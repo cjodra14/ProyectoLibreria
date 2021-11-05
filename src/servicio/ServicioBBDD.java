@@ -11,22 +11,7 @@ import java.util.Properties;
 
 public class ServicioBBDD {
 
-	//Definición de los servcios que esta clase puede prestar (public)
-	
-	public static final String MYSQL = "mysql";
-	public static final String ORACLE = "oracle";
-	public static final String POSTGRESQL = "postgresql";
-	
-	private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String ORACLE_DRIVER = "oracle.jdbc.OracleDriver";
-	private static final String POSTGRE_DRIVER = "orf.postgresql.Driver";
 
-	private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/libreria?useSSL=false";
-	private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost";
-	private static final String POSTGRESQL_URL = "jdbc:postgresql://localhost:0000/libreria";
-	
-	private static final String USER="root";
-	private static final String USER_KEY = "romaol2";
 	
 	private static ServicioBBDD servicio;
 	private Connection conexion;
