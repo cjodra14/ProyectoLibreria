@@ -1,8 +1,12 @@
 package modelo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.Vector;
 
 import dao.DAOAutor;
@@ -13,11 +17,20 @@ public class ModeloLibreria {
 		private Statement sentencia;
 		private DAOAutor autor;
 		private Vector<DAOAutor> autores;
+		Properties servicioElegido= new Properties();
 		
 		public ModeloLibreria() {
 			try {
-			this.conexionBBDD = servicio.ServicioMySQL.obtenerServicio().obtenerConexion();
+				try {
+					servicioElegido.load(new FileInputStream(new File("serviceElegido.properties")));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			this.conexionBBDD = servicio.ServicioBBDD.obtenerServicio(servicioElegido.getProperty("servicio")).obtenerConexion();
 			this.sentencia = this.conexionBBDD.createStatement();
+			DAOAutor.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -45,7 +58,7 @@ public class ModeloLibreria {
 			try {
 				
 			
-			DAOAutor.setConexionBBDD(sentencia, null);
+			
 			autores=DAOAutor.obtenerAutores();
 			
 			} catch (SQLException e) {
@@ -68,9 +81,9 @@ public class ModeloLibreria {
 			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
-		public void borrarAutor(String idAutor) throws SQLException {
-			System.out.println("checkModelo\n");
-			DAOAutor.borrarAutor(idAutor);
+		public int borrarAutor(String idAutor) throws SQLException {
+			
+			return DAOAutor.borrarAutor(idAutor);
 		}
 		
 		

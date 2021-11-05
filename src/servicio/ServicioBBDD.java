@@ -15,12 +15,12 @@ public class ServicioBBDD {
 	private static final String ORACLE_DRIVER = "oracle.jdbc.OracleDriver";
 	private static final String POSTGRE_DRIVER = "orf.postgresql.Driver";
 
-	private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/libreria";
+	private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/libreria?useSSL=false";
 	private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost";
 	private static final String POSTGRESQL_URL = "jdbc:postgresql://localhost:0000/libreria";
 	
-	private static final String USER="admin";
-	private static final String USER_KEY = "20cd20";
+	private static final String USER="root";
+	private static final String USER_KEY = "romaol2";
 	
 	private static ServicioBBDD servicio;
 	private Connection conexion;
@@ -45,13 +45,13 @@ public class ServicioBBDD {
 	public static synchronized ServicioBBDD obtenerServicio(String servicioBBDD) {
 		if (ServicioBBDD.servicio == null) {
 			switch (servicioBBDD) {
-				case ServicioBBDD.MYSQL:
+				case "mysql":
 					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.MYSQL_DRIVER, ServicioBBDD.MYSQL_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
 					break;
-				case ServicioBBDD.ORACLE:
+				case "oracle":
 					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.ORACLE_DRIVER, ServicioBBDD.ORACLE_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
 					break;
-				case ServicioBBDD.POSTGRESQL:
+				case "postgreSQL":
 					ServicioBBDD.servicio = new ServicioBBDD(ServicioBBDD.POSTGRE_DRIVER, ServicioBBDD.POSTGRESQL_URL, ServicioBBDD.USER, ServicioBBDD.USER_KEY);
 					break;
 			}
@@ -59,7 +59,7 @@ public class ServicioBBDD {
 		return servicio;
 	}
 	
-	public Connection obetenerConexion() {
+	public Connection obtenerConexion() {
 		return this.conexion;
 	}
 }

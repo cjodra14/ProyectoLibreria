@@ -22,6 +22,12 @@ public class ControladorAutor {
 		return autores;
 	}
 	
+	public DAOAutor obtenerAutor(String idAutor) throws SQLException {
+		DAOAutor autor;
+		autor=modelo.obtenerAutor(idAutor);
+		return autor;
+	}
+	
 	//Este método se utiliza para meter datos con la sentencia INSERT
 	public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
 		modelo.insertarDatos(idAutor,nombreAutor,apel1,apel2);
@@ -33,9 +39,9 @@ public class ControladorAutor {
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un autor
-	public void borrarAutor(String idAutor) throws SQLException{
-		System.out.println("checkControlador");
-		modelo.borrarAutor(idAutor);
+	public int borrarAutor(String idAutor) throws SQLException{
+		
+		 return modelo.borrarAutor(idAutor);
 	}
 	
 

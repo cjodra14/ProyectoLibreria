@@ -155,10 +155,7 @@ public class VistaPrincipal {
 				Iterator<DAOAutor> itAutores = autores.iterator();
 				while(itAutores.hasNext()) {
 					DAOAutor autor= itAutores.next();
-					System.out.print("ID: "+autor.getCod_autor()+"|| Nombre: "+autor.getNombre_autor());
-							if(autor.getP_apellido()!=null)System.out.print(", "+autor.getP_apellido());
-							if(autor.getS_apellido()!=null)System.out.print(", "+autor.getS_apellido());
-					System.out.println();
+					DAOAutor.mostrarAutor(autor);
 					
 				}
 					

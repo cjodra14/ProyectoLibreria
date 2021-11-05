@@ -13,6 +13,10 @@ public class VistaAutor {
 	private ControladorAutor controlador;
 	private ResultSet resultado;
 	private Scanner entrada;
+	String nombreAutor;
+	String primerApellido;
+	String segundoApellido;
+	String codAutor;
 	
 	public VistaAutor(ControladorAutor controlador) {
 		this.controlador = controlador;
@@ -28,7 +32,11 @@ public class VistaAutor {
 				altaAutores();
 					break;
 			case 2:
-				//modificacionAutores();
+				try {
+					modificacionAutores();
+				}catch (Exception e) {
+					System.err.println("Ha habido un error al modificar el autor");
+				}
 					break;
 			case 3:
 				borrarAutores();
@@ -89,10 +97,7 @@ public class VistaAutor {
 	
 	private void altaAutores() {
 		
-		String nombreAutor;
-		String primerApellido;
-		String segundoApellido;
-		String codAutor;
+		
 		
 		
 		try {
@@ -115,12 +120,23 @@ public class VistaAutor {
 		
 	}
 	
-	private void modificacionAutores(String nombreAutor, String primerApellido, String segundoApellido,String codAutor) {
-		// TODO Auto-generated method stub
+	private void modificacionAutores() throws SQLException {
+		
 		
 		
 		System.out.println("Escribe idAutor a modificar");
 		codAutor = entrada.nextLine();
+		DAOAutor autor=controlador.obtenerAutor(codAutor);
+		DAOAutor.mostrarAutor(autor);
+		System.out.println("Nombre Autor");
+		nombreAutor = entrada.nextLine();
+		System.out.println("Primer Apellido");
+		primerApellido = entrada.nextLine();
+		System.out.println("Segundo Apellido");
+		segundoApellido = entrada.nextLine();
+		DAOAutor.modificarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
+		
+		
 		
 		
 	}
@@ -132,8 +148,11 @@ public class VistaAutor {
 		
 		
 		try {	
-			controlador.borrarAutor(codAutor);
-			System.out.println("Autor eliminado con exito");
+			if(controlador.borrarAutor(codAutor)>0) {
+			System.out.println("Autor eliminado con exito");}
+			else {
+				System.out.println("No se ha eliminado ningun autor");
+			}
 		} catch (SQLException e) {
 			System.err.println("Fallo al eliminar el Autor");
 			e.printStackTrace();
@@ -151,10 +170,7 @@ public class VistaAutor {
 			Iterator<DAOAutor> itAutores = autores.iterator();
 			while(itAutores.hasNext()) {
 				DAOAutor autor= itAutores.next();
-				System.out.print("ID: "+autor.getCod_autor()+"|| Nombre: "+autor.getNombre_autor());
-						if(autor.getP_apellido()!=null)System.out.print(", "+autor.getP_apellido());
-						if(autor.getS_apellido()!=null)System.out.print(", "+autor.getS_apellido());
-				System.out.println();
+				DAOAutor.mostrarAutor(autor);
 				
 			}
 				

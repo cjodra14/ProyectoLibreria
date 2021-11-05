@@ -96,7 +96,7 @@ public class DAOAutor {
 				DAOAutor.sentencia.execute(sqlQuery);
 				System.out.println("Los datos del autor con el código "+idAutor+" han sido insertados con éxito.");
 			}catch(SQLException e) {
-				System.err.println("No se han podido insertar datos en el autor con el código "+idAutor);
+				System.err.println("\nNo se han podido insertar datos en el autor con el código "+idAutor);
 			}
 		}
 
@@ -114,10 +114,10 @@ public class DAOAutor {
 		} 
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
-		public static void borrarAutor(String idAutor) throws SQLException {
-			String sqlQuery="DELETE FROM libreria.autor WHERE codAutor='"+idAutor+"'";
-			System.out.println("checkDAO");
-			DAOAutor.sentencia.executeUpdate(sqlQuery);
+		public static int borrarAutor(String idAutor) throws SQLException {
+			String sqlQuery="DELETE FROM libreria.autor WHERE cod_autor='"+idAutor+"'";
+	
+			return DAOAutor.sentencia.executeUpdate(sqlQuery);
 		}
 		//FIN METODOS CRUD
 		
@@ -163,6 +163,13 @@ public class DAOAutor {
 			}
 			
 			return autor;
+		}
+		
+		public static void mostrarAutor(DAOAutor autor) {
+			System.out.print("ID: "+autor.getCod_autor()+"|| Nombre: "+autor.getNombre_autor());
+			if(autor.getP_apellido()!=null)System.out.print(", "+autor.getP_apellido());
+			if(autor.getS_apellido()!=null)System.out.print(", "+autor.getS_apellido());
+	System.out.println();
 		}
 		//FIN MÉTODOS UTILITY DE CLASE
 
