@@ -55,6 +55,7 @@ public class VistaAutor {
 
 		private void getMenu() {
 			
+			System.out.println("\n==============================");
 			System.out.println("APLICACION PROYECTO LIBRERIA");
 			System.out.println("==============================");
 			System.out.println("Menu");
@@ -72,6 +73,7 @@ public class VistaAutor {
 			System.out.println("Introduzca una opcion: ");
 		try {
 			opcion = entrada.nextInt();
+			entrada.nextLine();
 		}catch(InputMismatchException exc) {
 			opcion = -1;
 		}
@@ -92,7 +94,6 @@ public class VistaAutor {
 		String segundoApellido;
 		String codAutor;
 		
-		entrada = new Scanner(System.in);
 		
 		try {
 		System.out.println("Nombre Autor");
@@ -103,6 +104,8 @@ public class VistaAutor {
 		segundoApellido = entrada.nextLine();
 		System.out.println("Codigo Autor");
 		codAutor = entrada.nextLine();
+		
+		controlador.insertarDatos(codAutor, nombreAutor, primerApellido, segundoApellido);
 		
 		}catch(Exception exc) {
 			System.err.println("FALLO AL DAR DE ALTA AL AUTOR");

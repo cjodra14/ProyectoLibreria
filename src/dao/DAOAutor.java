@@ -92,9 +92,9 @@ public class DAOAutor {
 		//Este método se utiliza para meter datos con la sentencia INSERT
 		public static void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
 			try{
-				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idAutor+"', "+"'"+nombreAutor+"', "+"'"+apel1+"', "+"'"+apel2+"');";
+				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idAutor+"','"+nombreAutor+"','"+apel1+"','"+apel2+"');";
 				DAOAutor.sentencia.execute(sqlQuery);
-				System.out.println("Los datos del autor con el código "+idAutor+"han sido insertados con éxito.");
+				System.out.println("Los datos del autor con el código "+idAutor+" han sido insertados con éxito.");
 			}catch(SQLException e) {
 				System.err.println("No se han podido insertar datos en el autor con el código "+idAutor);
 			}
