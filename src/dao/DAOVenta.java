@@ -69,7 +69,7 @@ public class DAOVenta {
 		try {
 			String sqlQuery = "INSERT INTO libreria.venta VALUES ('"+npedido+"','"+usuario+"','"+fecha+"');";
 			DAOVenta.sentencia.execute(sqlQuery);
-			System.out.println("Los datos del autor con el código "+npedido+" han sido insertados con éxito.");
+			System.out.println("La venta con el número de pedido "+npedido+" ha sido insertada con éxito.");
 		}catch(SQLException e) {
 			System.err.println("\nNo se han podido insertar datos en la venta con el código "+npedido);
 		}
@@ -86,7 +86,7 @@ public class DAOVenta {
 				}
 			} 
 			
-	//Este método ejecutará una sentencia DELETE para eliminar un autor
+	//Este método ejecutará una sentencia DELETE para eliminar una venta
 	public static int borrarVenta(String npedido) throws SQLException {
 		String sqlQuery="DELETE FROM libreria.venta WHERE npedido='"+npedido+"'";
 		return DAOVenta.sentencia.executeUpdate(sqlQuery);
@@ -115,4 +115,30 @@ public class DAOVenta {
 		
 		return ventas;
 }
+	private static DAOVenta buscaResultadosUnaVenta(String consulta) throws SQLException{
+		resultado = DAOVenta.sentencia.executeQuery(consulta);
+		return cargaResultSetToVenta(resultado);
+		
+	}
+	
+	private static DAOVenta cargaResultSetToVenta(ResultSet resultado) throws SQLException {
+		
+		DAOVenta venta = null;
+		
+		while(resultado.next()) {
+			int npedido = resultado.getInt(1);
+			String usuario= resultado.getString(2);
+			String fecha = resultado.getString(3);
+			venta = new DAOVenta(npedido,usuario,fecha);			
+		}
+		
+		return venta;
+	}
+	public static void mostrarVenta(DAOVenta venta) {
+		System.out.println("El usuario: "+venta.getUsuario()+" hizo una compra el día "+venta.getFecha()+" con el número de pedido: "+venta.getNpedido()+".");
+
+
+	}
+	//FIN MÉTODOS UTILITY DE CLASE
+
 }
