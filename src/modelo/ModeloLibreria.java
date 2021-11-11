@@ -97,7 +97,7 @@ public class ModeloLibreria {
 		
 		
 		//////////////////////////   Categoria  //////////////////////////////////
-		public Vector<DAOCategoria> obtenerCategoria(){
+		public Vector<DAOCategoria> obtenerCategorias(){
 			try {
 				
 			
@@ -120,8 +120,8 @@ public class ModeloLibreria {
 			DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		public void modificarCategoria(String idAutor, String nombreAutor, String apel1, String apel2) {
-			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
+		public void modificarCategoria(String nombreCategoria,String idCategoria ) {
+			DAOCategoria.modificarCategoria(nombreCategoria, idCategoria);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public int borrarCategoria(String idCategoria) throws SQLException {
