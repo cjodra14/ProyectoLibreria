@@ -39,7 +39,7 @@ public class VistaPrincipal {
 					vistaCategoria.getAccion();
 						break;
 				case 4:
-					//
+					vistaLibro.getAccion();
 						break;
 					default:
 					System.out.println("La opcion no es correcta. \n");

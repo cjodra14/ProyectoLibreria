@@ -25,6 +25,7 @@ public class VistaLibro {
 		private String cod_editorial;
 		private String cod_categoria;
 		
+		
 		public VistaLibro(ControladorLibro controlador) {
 			this.controlador = controlador;
 		}
@@ -105,6 +106,7 @@ public class VistaLibro {
 		private void altaLibros() {
 
 			try {
+				do {
 			System.out.println("ISBN");
 			isbn = entrada.nextInt();
 			System.out.println("Titulo");
@@ -120,7 +122,7 @@ public class VistaLibro {
 			System.out.println("Código de la editorial");
 			cod_editorial = entrada.nextLine();
 			System.out.println("Código de la categoria");
-			cod_categoria = entrada.nextLine();
+			cod_categoria = entrada.nextLine();}while(String.valueOf(isbn).equals("")||titulo.equals("")||String.valueOf(precio).equals("")||String.valueOf(ud_stock).equals("")||cod_editorial.equals("")||cod_categoria.equals(""));
 			
 			controlador.insertarLibros(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
 			
@@ -135,11 +137,12 @@ public class VistaLibro {
 		private void modificacionLibros() throws SQLException {
 			
 			
-			
+			do {
 			System.out.println("Escribe el ISBN del libro a modificar");
-			isbn = entrada.nextInt();
+			isbn = entrada.nextInt();}while(String.valueOf(isbn).equals(""));
 			DAOLibro libro=controlador.obtenerLibro(isbn);
 			DAOLibro.mostrarLibro(libro);
+			do {
 			System.out.println("Titulo");
 			titulo = entrada.nextLine();
 			System.out.println("Precio");
@@ -153,7 +156,7 @@ public class VistaLibro {
 			System.out.println("Código de la editorial");
 			cod_editorial = entrada.nextLine();
 			System.out.println("Código de la categoria");
-			cod_categoria = entrada.nextLine();
+			cod_categoria = entrada.nextLine();}while(titulo.equals("")||String.valueOf(precio).equals("")||String.valueOf(ud_stock).equals("")||cod_editorial.equals("")||cod_categoria.equals(""));
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
 			
 		}

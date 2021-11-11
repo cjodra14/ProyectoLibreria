@@ -98,6 +98,7 @@ public class VistaAutor {
 	private void altaAutores() {
 
 		try {
+			do {
 		System.out.println("Nombre Autor");
 		nombreAutor = entrada.nextLine();
 		System.out.println("Primer Apellido");
@@ -105,7 +106,8 @@ public class VistaAutor {
 		System.out.println("Segundo Apellido");
 		segundoApellido = entrada.nextLine();
 		System.out.println("Codigo Autor");
-		codAutor = entrada.nextLine();
+		codAutor = entrada.nextLine();}while(nombreAutor.equals("")||codAutor.equals(""));
+			
 		
 		controlador.insertarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
 		
@@ -120,17 +122,20 @@ public class VistaAutor {
 	private void modificacionAutores() throws SQLException {
 		
 		
-		
+		do {
 		System.out.println("Escribe idAutor a modificar");
 		codAutor = entrada.nextLine();
+		}while(codAutor.equals(""));
 		DAOAutor autor=controlador.obtenerAutor(codAutor);
 		DAOAutor.mostrarAutor(autor);
+		do {
 		System.out.println("Nombre Autor");
-		nombreAutor = entrada.nextLine();
+		nombreAutor = entrada.nextLine();}while(nombreAutor.equals(""));
 		System.out.println("Primer Apellido");
 		primerApellido = entrada.nextLine();
 		System.out.println("Segundo Apellido");
 		segundoApellido = entrada.nextLine();
+		
 		DAOAutor.modificarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
 		
 		

@@ -99,10 +99,11 @@ public class VistaCategoria {
 		
 		
 		try {
+			do {
 		System.out.println("Nombre de la Categoria");
 		nombreCategoria = entrada.nextLine();
 		System.out.println("Codigo para la Categoria");
-		codCategoria = entrada.nextLine();
+		codCategoria = entrada.nextLine();}while(nombreCategoria.equals("")||codCategoria.equals(""));
 		
 		controlador.insertarCategoria(codCategoria, nombreCategoria);
 		
@@ -117,13 +118,14 @@ public class VistaCategoria {
 	private void modificacionCategoria() throws SQLException {
 		
 		
-		
+		do {
 		System.out.println("Escribe idCategoria a modificar");
-		codCategoria = entrada.nextLine();
+		codCategoria = entrada.nextLine();}while(codCategoria.equals(""));
 		DAOCategoria categoria=controlador.obtenerCategoria(codCategoria);
 		DAOCategoria.mostrarCategoria(categoria);
+		do {
 		System.out.println("Nombre Categoria");
-		nombreCategoria = entrada.nextLine();
+		nombreCategoria = entrada.nextLine();}while(nombreCategoria.equals("")||codCategoria.equals(""));
 
 		DAOCategoria.modificarCategoria(codCategoria, nombreCategoria);
 		

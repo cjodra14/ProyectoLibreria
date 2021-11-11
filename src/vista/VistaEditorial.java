@@ -99,10 +99,11 @@ public class VistaEditorial {
 		
 		
 		try {
+			do {
 		System.out.println("Nombre Editorial");
 		nombreEditorial = entrada.nextLine();
 		System.out.println("Codigo Editorial");
-		codEditorial = entrada.nextLine();
+		codEditorial = entrada.nextLine();}while(nombreEditorial.equals("")||codEditorial.equals(""));
 		
 		controlador.insertarEditorial(codEditorial, nombreEditorial);
 		
@@ -117,13 +118,15 @@ public class VistaEditorial {
 	private void modificacionEditorial() throws SQLException {
 		
 		
-		
+		do {
 		System.out.println("Escribe el código de la Editorial a modificar");
 		codEditorial = entrada.nextLine();
+		}while(codEditorial.equals(""));
 		DAOEditorial editorial=controlador.obtenerEditorial(codEditorial);
 		DAOEditorial.mostrarEditorial(editorial);
+		do {
 		System.out.println("Nombre Editorial");
-		nombreEditorial = entrada.nextLine();
+		nombreEditorial = entrada.nextLine();}while(nombreEditorial.equals(""));
 
 		DAOEditorial.modificarEditorial(codEditorial, nombreEditorial);
 		

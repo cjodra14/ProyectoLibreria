@@ -3,6 +3,7 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 public class DAOLibro {
@@ -266,7 +267,8 @@ public class DAOLibro {
 		}
 		
 		public static void mostrarLibro(DAOLibro libro) {
-			System.out.print("ISBN: "+libro.getIsbn()+"|| Titulo del libro: "+libro.getTitulo()+"|| Precio: "+libro.getPrecio()+"|| ud_stock: "+libro.ud_stock+"|| imagen: "+libro.getImagen()+"|| descripcion: "+libro.getDescripcion()+"|| cod_editorial: "+libro.getCod_editorial()+"|| cod_categoria: "+libro.getCod_categoria());
+			DecimalFormat dosDecimales = new DecimalFormat("0.00");
+			System.out.print("ISBN: "+libro.getIsbn()+"|| Titulo del libro: "+libro.getTitulo()+"|| Precio: "+dosDecimales.format(libro.getPrecio())+"€ || ud_stock: "+libro.ud_stock+"|| imagen: "+libro.getImagen()+"|| descripcion: "+libro.getDescripcion()+"|| cod_editorial: "+libro.getCod_editorial()+"|| cod_categoria: "+libro.getCod_categoria());
 			
 	System.out.println();
 		}

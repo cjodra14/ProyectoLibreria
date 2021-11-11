@@ -15,11 +15,13 @@ public class TestPruebas {
 		ControladorEditorial controladorEditorial = new ControladorEditorial(modelo);
 		ControladorAutor controladorAutor = new ControladorAutor(modelo);
 		ControladorCategoria controladorCategoria = new ControladorCategoria(modelo);
+		ControladorLibro controladorLibro = new ControladorLibro(modelo);
 		VistaAutor vistaAutor = new VistaAutor(controladorAutor);
 		VistaCategoria vistaCategoria = new VistaCategoria(controladorCategoria);
-		VistaLibro vistaLibro=null;
-		VistaEditorial vistaEditorial=null;
-		vistaEditorial= new VistaEditorial(controladorEditorial);
+		VistaLibro vistaLibro= new VistaLibro(controladorLibro);
+		VistaEditorial vistaEditorial= new VistaEditorial(controladorEditorial);
+		
+		
 		VistaPrincipal visor = new VistaPrincipal(vistaAutor, vistaEditorial, vistaCategoria, vistaLibro);
 		
 		visor.getAccion();
