@@ -31,7 +31,7 @@ public class ControladorEditorial {
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
 	public void insertarEditorial(String idEditorial, String nombreEditorial) throws SQLException{
-		modelo.insertarEditorial(idEditorial, nombreEditorial);;
+		modelo.insertarEditorial(idEditorial, nombreEditorial);
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una editorial

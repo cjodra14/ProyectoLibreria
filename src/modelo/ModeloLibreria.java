@@ -18,9 +18,11 @@ public class ModeloLibreria {
 		private DAOAutor autor;
 		private DAOCategoria categoria;
 		private DAOEditorial editorial;
+		private DAOLibro libro;
 		private Vector<DAOAutor> autores;
 		private Vector<DAOCategoria> categorias;
 		private Vector<DAOEditorial> editoriales;
+		private Vector<DAOLibro> libros;
 		
 		Properties servicioElegido= new Properties();
 		
@@ -38,6 +40,7 @@ public class ModeloLibreria {
 			DAOAutor.setConexionBBDD(sentencia, null);
 			DAOEditorial.setConexionBBDD(sentencia, null);
 			DAOCategoria.setConexionBBDD(sentencia, null);
+			DAOLibro.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -159,6 +162,37 @@ public class ModeloLibreria {
 		public int borrarEditorial(String codEditorial) throws SQLException {
 			
 			return DAOEditorial.borrarEditorial(codEditorial);
+		}
+		
+		
+		/////////////////////// Libro /////////////////////////
+		
+		public Vector<DAOLibro> obtenerLibros(){
+			try {				
+			libros=DAOLibro.obtenerLibros();
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  EDITORIAL");
+				e.printStackTrace();
+			}
+			return libros;
+			
+		}
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		public DAOLibro obtenerLibro(int isbn) throws SQLException {
+			return DAOLibro.obtenerlibro(isbn);
+		}
+		//Este método se utiliza para meter datos con la sentencia INSERT
+		public void insertarLibros(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException {
+			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
+		}
+		//Este método ejecutará una sentencia UPDATE para modificar una editorial
+		public void modificarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
+			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
+		}
+		//Este método ejecutará una sentencia DELETE para eliminar una editorial
+		public int borrarLibro(int isbn) throws SQLException {
+			
+			return DAOLibro.borrarLibro(isbn);
 		}
 		
 	
