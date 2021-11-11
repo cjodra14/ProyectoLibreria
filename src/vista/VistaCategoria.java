@@ -62,7 +62,7 @@ public class VistaCategoria {
 		private void getMenu() {
 			
 			System.out.println("\n==============================");
-			System.out.println("APLICACION PROYECTO LIBRERIA");
+			System.out.println("	MANTENIMIENTO CATEGORÍA		");
 			System.out.println("==============================");
 			System.out.println("Menu");
 			System.out.println("-----");
