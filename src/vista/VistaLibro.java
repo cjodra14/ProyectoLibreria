@@ -14,6 +14,7 @@ public class VistaLibro {
 		
 		private int opcion;
 		private int isbn;
+		private ControladorLibro controlador;
 		private ResultSet resultado;
 		private Scanner entrada;
 		private String titulo;
@@ -121,7 +122,7 @@ public class VistaLibro {
 			System.out.println("Código de la categoria");
 			cod_categoria = entrada.nextLine();
 			
-			controlador.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
+			controlador.insertarLibros(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
 			
 			}catch(Exception exc) {
 				System.err.println("FALLO AL DAR DE ALTA AL LIBRO");
