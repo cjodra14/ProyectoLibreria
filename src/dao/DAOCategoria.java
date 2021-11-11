@@ -53,7 +53,7 @@ public class DAOCategoria {
 	//Metodo que extrae todos los registros de la tabla
 	
 	public static Vector<DAOCategoria> obtenerCategorias() throws SQLException {
-		String sqlQuery = "select * from categoria";
+		String sqlQuery = "SELECT * FROM libreria.categoria;";
 		//Este metodo devolvera un vector de tipo <CategoriaDAO>
 		return buscaResultadosConConsulta(sqlQuery);
 		
@@ -69,9 +69,9 @@ public class DAOCategoria {
 	public static void insertarCategoria(String idCategoria, String nombreCategoria) {
 		
 			try{
-				String sqlQuery = "INSERT INTO libreria.categoria VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
+				String sqlQuery = "INSERT INTO categoria VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
 				DAOCategoria.sentencia.execute(sqlQuery);
-				System.out.println("Los datos del autor con el código "+idCategoria+" han sido insertados con éxito.");
+				System.out.println("Los datos de la categoria con el código "+idCategoria+" han sido insertados con éxito.");
 			}catch(SQLException e) {
 				System.err.println("\nNo se han podido insertar datos en la categoría con el código "+idCategoria);
 			}

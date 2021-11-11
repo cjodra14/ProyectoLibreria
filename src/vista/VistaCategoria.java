@@ -33,7 +33,7 @@ public class VistaCategoria {
 				try {
 					modificacionCategoria();
 				}catch (Exception e) {
-					System.err.println("Ha habido un error al modificar el autor");
+					System.err.println("Ha habido un error al modificar las categoria");
 				}
 					break;
 			case 3:
@@ -62,7 +62,7 @@ public class VistaCategoria {
 		private void getMenu() {
 			
 			System.out.println("\n==============================");
-			System.out.println("APLICACION PROYECTO LIBRERIA");
+			System.out.println("	MANTENIMIENTO CATEGORÍA		");
 			System.out.println("==============================");
 			System.out.println("Menu");
 			System.out.println("-----");
@@ -99,15 +99,15 @@ public class VistaCategoria {
 		
 		
 		try {
-		System.out.println("Nombre Autor");
+		System.out.println("Nombre de la Categoria");
 		nombreCategoria = entrada.nextLine();
-		System.out.println("Codigo Autor");
+		System.out.println("Codigo para la Categoria");
 		codCategoria = entrada.nextLine();
 		
 		controlador.insertarCategoria(codCategoria, nombreCategoria);
 		
 		}catch(Exception exc) {
-			System.err.println("FALLO AL DAR DE ALTA AL AUTOR");
+			System.err.println("FALLO AL DAR DE ALTA LA CATEGORIA");
 			exc.printStackTrace();
 		}
 		
@@ -155,9 +155,9 @@ public class VistaCategoria {
 		System.out.println("\nLISTADO DE CATEGORIAS");
 		System.out.println("======================");
 		try {
-			Iterator<DAOCategoria> itCategoria = categorias.iterator();
-			while(itCategoria.hasNext()) {
-				DAOCategoria categoria= itCategoria.next();
+			Iterator<DAOCategoria> itCategorias = categorias.iterator();
+			while(itCategorias.hasNext()) {
+				DAOCategoria categoria= itCategorias.next();
 				DAOCategoria.mostrarCategoria(categoria);
 				
 			}

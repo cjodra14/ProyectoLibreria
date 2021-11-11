@@ -16,9 +16,11 @@ public class ModeloLibreria {
 		private Connection conexionBBDD;
 		private Statement sentencia;
 		private DAOAutor autor;
-		private DAOCategoria caetgoria;
+		private DAOCategoria categoria;
+		private DAOEditorial editorial;
 		private Vector<DAOAutor> autores;
 		private Vector<DAOCategoria> categorias;
+		private Vector<DAOEditorial> editoriales;
 		
 		Properties servicioElegido= new Properties();
 		
@@ -105,7 +107,7 @@ public class ModeloLibreria {
 			categorias=DAOCategoria.obtenerCategorias();
 			
 			} catch (SQLException e) {
-				System.err.println("Modelo: FALLO A OBTENER  AUTOR");
+				System.err.println("Modelo: FALLO A OBTENER  CATEGORIA");
 				e.printStackTrace();
 			}
 			return categorias;
@@ -119,11 +121,11 @@ public class ModeloLibreria {
 		public void insertarCategoria(String idCategoria, String nombreCategoria) {
 			DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
 		}
-		//Este método ejecutará una sentencia UPDATE para modificar un autor
+		//Este método ejecutará una sentencia UPDATE para modificar una categoria
 		public void modificarCategoria(String nombreCategoria,String idCategoria ) {
 			DAOCategoria.modificarCategoria(nombreCategoria, idCategoria);
 		}
-		//Este método ejecutará una sentencia DELETE para eliminar un autor
+		//Este método ejecutará una sentencia DELETE para eliminar una categoria
 		public int borrarCategoria(String idCategoria) throws SQLException {
 			
 			return DAOCategoria.borrarCategoria(idCategoria);
@@ -131,8 +133,37 @@ public class ModeloLibreria {
 		
 		
 		//////////////////////   Editorial ////////////////////////////////////
-		
-		
+		public Vector<DAOEditorial> obtenerEditoriales(){
+			try {
+				
+			
+			
+			editoriales=DAOEditorial.obtenerEditoriales();
+			
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  EDITORIAL");
+				e.printStackTrace();
+			}
+			return editoriales;
+			
+		}
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		public DAOEditorial obtenerEditorial(String cod_editorial) throws SQLException {
+			return DAOEditorial.obtenerEditorial(cod_editorial);
+		}
+		//Este método se utiliza para meter datos con la sentencia INSERT
+		public void insertarEditorial(String codEditorial, String nombreEditorial) throws SQLException {
+			DAOEditorial.insertarEditorial(codEditorial, nombreEditorial);
+		}
+		//Este método ejecutará una sentencia UPDATE para modificar una editorial
+		public void modificarEditorial(String codEditorial,String nombreEditorial ) {
+			DAOEditorial.modificarEditorial(codEditorial, nombreEditorial);
+		}
+		//Este método ejecutará una sentencia DELETE para eliminar una editorial
+		public int borrarEditorial(String codEditorial) throws SQLException {
+			
+			return DAOEditorial.borrarEditorial(codEditorial);
+		}
 		
 	
 

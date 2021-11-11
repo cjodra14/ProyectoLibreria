@@ -64,7 +64,7 @@ public class VistaAutor {
 		private void getMenu() {
 			
 			System.out.println("\n==============================");
-			System.out.println("APLICACION PROYECTO LIBRERIA");
+			System.out.println("	MANTENIMIENTO AUTOR		");
 			System.out.println("==============================");
 			System.out.println("Menu");
 			System.out.println("-----");
