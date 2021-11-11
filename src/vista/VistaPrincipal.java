@@ -1,12 +1,7 @@
 
 package vista;
 
-import java.sql.*;
 import java.util.*;
-
-import controlador.ControladorAutor;
-import dao.DAOAutor;
-import modelo.ModeloLibreria;
 
 public class VistaPrincipal {
 	VistaAutor vistaAutor;
@@ -41,7 +36,7 @@ public class VistaPrincipal {
 					//modificacionAutores();
 						break;
 				case 3:
-					//borrarAutores();
+					vistaCategoria.getAccion();
 						break;
 				case 4:
 					//

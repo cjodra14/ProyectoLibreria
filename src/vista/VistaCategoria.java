@@ -104,7 +104,7 @@ public class VistaCategoria {
 		System.out.println("Codigo Autor");
 		codCategoria = entrada.nextLine();
 		
-		controlador.insertarDatos(codCategoria, nombreCategoria);
+		controlador.insertarCategoria(codCategoria, nombreCategoria);
 		
 		}catch(Exception exc) {
 			System.err.println("FALLO AL DAR DE ALTA AL AUTOR");
@@ -151,7 +151,7 @@ public class VistaCategoria {
 	
 	
 	private void consultaCategoria() {
-		Vector<DAOCategoria> categorias= controlador.obtenerCategoria();
+		Vector<DAOCategoria> categorias= controlador.obtenerCategorias();
 		System.out.println("\nLISTADO DE CATEGORIAS");
 		System.out.println("======================");
 		try {
