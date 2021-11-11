@@ -1,8 +1,8 @@
 package Test;
 
-import controlador.ControladorAutor;
+import controlador.*;
 import modelo.ModeloLibreria;
-import vista.VistaAutor;
+import vista.*;
 
 public class TestPruebas {
 
@@ -13,7 +13,12 @@ public class TestPruebas {
 	public static void main(String[] args) {
 		ModeloLibreria modelo = new ModeloLibreria();
 		ControladorAutor controlador = new ControladorAutor(modelo);
-		VistaAutor visor = new VistaAutor(controlador);
+		VistaAutor vistaAutor = new VistaAutor(controlador);
+		VistaLibro vistaLibro=null;
+		VistaEditorial vistaEditorial=null;
+		VistaCategoria vistaCategoria=null;
+		VistaPrincipal visor = new VistaPrincipal(vistaAutor, vistaEditorial, vistaCategoria, vistaLibro);
+		
 		visor.getAccion();
 
 	}

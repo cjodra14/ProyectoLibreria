@@ -1,7 +1,3 @@
-//POr ahora esta clase no es valida
-//Es para hacer un menú unico
-
-
 
 package vista;
 
@@ -13,26 +9,24 @@ import dao.DAOAutor;
 import modelo.ModeloLibreria;
 
 public class VistaPrincipal {
+	VistaAutor vistaAutor;
+	VistaEditorial vistaEditorial;
+	VistaCategoria vistaCategoria; 
+	VistaLibro vistaLibro;
 	
 	
-	ModeloLibreria modelo;
-	ControladorAutor controladorAutor= new ControladorAutor(modelo);
-	VistaAutor ventanaAutores= new VistaAutor(controladorAutor);
+	
+	
+	
 	private int opcion;	
 	private Scanner entrada;
-	
-	public VistaPrincipal(ModeloLibreria modelo) {
-		super();
-		this.modelo = modelo;
-	}
-
-
 		
-		
-		
-		public VistaPrincipal() {
-			this.controladorAutor = controladorAutor;
-		}
+		public VistaPrincipal(VistaAutor vistaAutor, VistaEditorial vistaEditorial, VistaCategoria vistaCategoria, VistaLibro vistaLibro) {
+		this.vistaAutor=vistaAutor;
+		this.vistaEditorial=vistaEditorial;
+		this.vistaCategoria=vistaCategoria;
+		this.vistaLibro=vistaLibro;
+	}		
 		
 		public void getAccion() {
 			getMenu();
@@ -41,7 +35,7 @@ public class VistaPrincipal {
 			do {
 				switch(opcion) {
 				case 1:
-					altaAutores();
+					vistaAutor.getAccion();
 						break;
 				case 2:
 					//modificacionAutores();
@@ -50,7 +44,7 @@ public class VistaPrincipal {
 					//borrarAutores();
 						break;
 				case 4:
-					consultaAutores();
+					//
 						break;
 					default:
 					System.out.println("La opcion no es correcta. \n");
@@ -75,10 +69,10 @@ public class VistaPrincipal {
 				System.out.println("==============================");
 				System.out.println("Menu");
 				System.out.println("-----");
-				System.out.println("1 - Alta Autores");
-				System.out.println("2 - Modificar Autores");
-				System.out.println("3 - Borrar Autores");
-				System.out.println("4 - Consulta Autores");
+				System.out.println("1 - Mantenimientos de Autores");
+				System.out.println("2 - Mantenimiento de Editoriales");
+				System.out.println("3 - Mantenimiento de Categorias");
+				System.out.println("4 - Mantenimiento de Libros");
 				System.out.println("0 - Salir");
 				
 		}
@@ -101,73 +95,8 @@ public class VistaPrincipal {
 			//controlador.terminar();
 		}
 		
-		private void altaAutores() {
-			
-			String nombreAutor;
-			String primerApellido;
-			String segundoApellido;
-			String codAutor;
-			
-			entrada = new Scanner(System.in);
-			
-			try {
-			System.out.println("Nombre Autor");
-			nombreAutor = entrada.nextLine();
-			System.out.println("Primer Apellido");
-			primerApellido = entrada.nextLine();
-			System.out.println("Segundo Apellido");
-			segundoApellido = entrada.nextLine();
-			System.out.println("Codigo Autor");
-			codAutor = entrada.nextLine();
-			
-			}catch(Exception exc) {
-				System.err.println("FALLO AL DAR DE ALTA AL AUTOR");
-				exc.printStackTrace();
-			}
-			
-			
-		}
-		
-		private void modificacionAutores(String nombreAutor, String primerApellido, String segundoApellido,String codAutor) {
-			// TODO Auto-generated method stub
-			
-			
-			System.out.println("Escribe idAutor");
-			codAutor = entrada.nextLine();
-			
-			
-		}
-		
-		private void borrarAutores(String codAutor) {
-			
-			System.out.println("Escribe idAutor");
-			codAutor = entrada.nextLine();
-			
-			
-		}
-		
-		
-		private void consultaAutores() {
-			Vector<DAOAutor> autores= controladorAutor.obtenerAutores();
-			System.out.println("\nLISTADO DE AUTORES");
-			System.out.println("======================");
-			try {
-				Iterator<DAOAutor> itAutores = autores.iterator();
-				while(itAutores.hasNext()) {
-					DAOAutor autor= itAutores.next();
-					DAOAutor.mostrarAutor(autor);
-					
-				}
-					
-					
-			} catch (Exception e) {
-				System.err.println("Vista: FALLO A OBTENER  AUTORES");
-				e.printStackTrace();
-			}
-			}
 			
 			
 			
-			
-		}
+}
 
