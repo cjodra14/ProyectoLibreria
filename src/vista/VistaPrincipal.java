@@ -33,7 +33,7 @@ public class VistaPrincipal {
 					vistaAutor.getAccion();
 						break;
 				case 2:
-					//modificacionAutores();
+					vistaEditorial.getAccion();
 						break;
 				case 3:
 					vistaCategoria.getAccion();

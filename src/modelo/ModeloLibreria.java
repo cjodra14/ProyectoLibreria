@@ -36,6 +36,8 @@ public class ModeloLibreria {
 			this.conexionBBDD = servicio.ServicioBBDD.obtenerServicio(servicioElegido.getProperty("servicio")).obtenerConexion();
 			this.sentencia = this.conexionBBDD.createStatement();
 			DAOAutor.setConexionBBDD(sentencia, null);
+			DAOEditorial.setConexionBBDD(sentencia, null);
+			DAOCategoria.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -100,9 +102,7 @@ public class ModeloLibreria {
 		
 		//////////////////////////   Categoria  //////////////////////////////////
 		public Vector<DAOCategoria> obtenerCategorias(){
-			try {
-				
-			
+			try {		
 			
 			categorias=DAOCategoria.obtenerCategorias();
 			
@@ -134,12 +134,8 @@ public class ModeloLibreria {
 		
 		//////////////////////   Editorial ////////////////////////////////////
 		public Vector<DAOEditorial> obtenerEditoriales(){
-			try {
-				
-			
-			
+			try {				
 			editoriales=DAOEditorial.obtenerEditoriales();
-			
 			} catch (SQLException e) {
 				System.err.println("Modelo: FALLO A OBTENER  EDITORIAL");
 				e.printStackTrace();

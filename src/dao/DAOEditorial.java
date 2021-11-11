@@ -47,7 +47,7 @@ public class DAOEditorial {
 	//READ
 	//Método que extrae todos los registros de la tabla
 	public static Vector<DAOEditorial> obtenerEditoriales() throws SQLException{
-		String sqlQuery = "select * from editorial";
+		String sqlQuery = "SELECT * FROM libreria.editorial; ;";
 		return buscaResultadosConConsulta(sqlQuery);
 	}
 	
@@ -86,7 +86,9 @@ public class DAOEditorial {
 	//MÉTODOS UTILITY DE CLASE
 	//Método que extrae filas de la tabla a través de una consulta
 	private static Vector<DAOEditorial> buscaResultadosConConsulta(String consulta) throws SQLException{
+		
 		resultado = DAOEditorial.sentencia.executeQuery(consulta);
+		
 		return cargaResultSetToVector(resultado);
 		
 	}
@@ -104,6 +106,7 @@ public class DAOEditorial {
 		return editoriales;
 	}
 	private static DAOEditorial buscaResultadosUnaEditorial(String consulta) throws SQLException{
+		
 		resultado = DAOEditorial.sentencia.executeQuery(consulta);
 		return cargaResultSetToEditorial(resultado);
 	}
