@@ -170,43 +170,44 @@ public class DAOLibro {
 		//MÉTODOS CRUD
 		//READ
 		//Método que extrae todos los registros de la tabla
-		public static Vector<DAOLibro> obtenerAutores() throws SQLException{
+		public static Vector<DAOLibro> obtenerLibros() throws SQLException{
 			String sqlQuery = "select * from libro";
 			//Este método devolverá un vector de tipo <DAOLibro>
 			return buscaResultadosConConsulta(sqlQuery);	
 		}
-		public static DAOLibro obtenerAutor(int isbn) throws SQLException{
-			String sqlQuery = "select * from libro WHERE cod_autor='"+isbn+"';";
-			//Este método devolverá un vector de tipo <AutorDAO>
-			return buscaResultadosUnAutor(sqlQuery);	
+		public static DAOLibro obtenerlibro(int isbn) throws SQLException{
+			String sqlQuery = "select * from libro WHERE isbn='"+isbn+"';";
+			//Este método devolverá un vector de tipo <DAOLibro>
+			return buscaResultadosUnLibro(sqlQuery);	
 		}
+		
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public static void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
+		public static void insertarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
 			try{
-				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idAutor+"','"+nombreAutor+"','"+apel1+"','"+apel2+"');";
+				String sqlQuery = "INSERT INTO libreria.libro VALUES ('"+isbn+"','"+titulo+"','"+precio+"','"+ud_stock+"','"+imagen+"','"+descripcion+"','"+cod_editorial+"','"+cod_categoria+"');";
 				DAOLibro.sentencia.execute(sqlQuery);
-				System.out.println("Los datos del autor con el código "+idAutor+" han sido insertados con éxito.");
+				System.out.println("Los datos del libro con el isbn "+isbn+" han sido insertados con éxito.");
 			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar datos en el autor con el código "+idAutor);
+				System.err.println("\nNo se han podido insertar datos en el libro con el isbn "+isbn);
 			}
 		}
 
 		
-		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		//cod_autor, nombre, p_apel, s_apel
-		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2){
+		//Este método ejecutará una sentencia UPDATE para modificar un libro
+		
+		public static void modificarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria){
 			try {
-				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE cod_autor='"+idAutor+"';";
+				String sqlQuery = "UPDATE libreria.libro SET titulo= '"+titulo+"',precio= '"+precio+"',ud_stock= '"+ud_stock+"',imagen= '"+imagen+"'descripcion= '"+descripcion+"',cod_editorial= '"+cod_editorial+"',precio= '"+precio+"',cod_categoria= '"+cod_categoria+"'WHERE isbn='"+isbn+"';";
 				DAOLibro.sentencia.executeUpdate(sqlQuery);	
-				System.out.println("El autor con el código "+idAutor+" ha sido modificado con éxito.");
+				System.out.println("El libro con el isbn"+isbn+" ha sido modificado con éxito.");
 			}catch(SQLException e) {
-				System.err.println("Error al modificar el dato.\n"+e.getStackTrace());
+				System.err.println("Error al modificar el libro.\n"+e.getStackTrace());
 			}
 		} 
 		
-		//Este método ejecutará una sentencia DELETE para eliminar un autor
-		public static int borrarAutor(String idAutor) throws SQLException {
-			String sqlQuery="DELETE FROM libreria.autor WHERE cod_autor='"+idAutor+"'";
+		//Este método ejecutará una sentencia DELETE para eliminar un libro
+		public static int borrarLibro(int isbn) throws SQLException {
+			String sqlQuery="DELETE FROM libreria.libro WHERE isbn='"+isbn+"'";
 	
 			return DAOLibro.sentencia.executeUpdate(sqlQuery);
 		}
@@ -229,37 +230,44 @@ public class DAOLibro {
 				String titulo = resultado.getString(2);
 				double precio = resultado.getDouble(3);
 				int ud_stock = resultado.getInt(4);
-				//autor = new DAOLibro(codAutor,nombreAutor,pApelAutor,sApelAutor);
-				//autores.addElement(autor);
+				String imagen = resultado.getString(5);
+				String descripcion = resultado.getString(6);
+				String cod_editorial = resultado.getString(7);
+				String cod_categoria = resultado.getString(8);
+				libro = new DAOLibro(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
+				libros.addElement(libro);
 			}
 			
 			return libros;
 		}
-		private static DAOLibro buscaResultadosUnAutor(String consulta) throws SQLException{
+		private static DAOLibro buscaResultadosUnLibro(String consulta) throws SQLException{
 			resultado = DAOLibro.sentencia.executeQuery(consulta);
-			return cargaResultSetToAutor(resultado);
+			return cargaResultSetToLibro(resultado);
 			
 		}
 		
-		private static DAOLibro cargaResultSetToAutor(ResultSet resultado) throws SQLException {
+		private static DAOLibro cargaResultSetToLibro(ResultSet resultado) throws SQLException {
 			
-			DAOLibro autor = null;
+			DAOLibro libro = null;
 			
 			while(resultado.next()) {
-				String codAutor = resultado.getString(1);
-				String nombreAutor = resultado.getString(2);
-				String pApelAutor = resultado.getString(3);
-				String sApelAutor = resultado.getString(4);
-				//autor = new DAOLibro(codAutor,nombreAutor,pApelAutor,sApelAutor);			
+				int isbn = resultado.getInt(1);
+				String titulo = resultado.getString(2);
+				double precio = resultado.getDouble(3);
+				int ud_stock = resultado.getInt(4);
+				String imagen = resultado.getString(5);
+				String descripcion = resultado.getString(6);
+				String cod_editorial = resultado.getString(7);
+				String cod_categoria = resultado.getString(8);
+				libro = new DAOLibro(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
 			}
 			
-			return autor;
+			return libro;
 		}
 		
-		public static void mostrarAutor(DAOLibro autor) {
-			//System.out.print("ID: "+autor.getCod_autor()+"|| Nombre: "+autor.getNombre_autor());
-			//if(autor.getP_apellido()!=null)System.out.print(", "+autor.getP_apellido());
-			//if(autor.getS_apellido()!=null)System.out.print(", "+autor.getS_apellido());
+		public static void mostrarLibro(DAOLibro libro) {
+			System.out.print("ISBN: "+libro.getIsbn()+"|| Titulo del libro: "+libro.getTitulo()+"|| Precio: "+libro.getPrecio()+"|| ud_stock: "+libro.ud_stock+"|| imagen: "+libro.getImagen()+"|| descripcion: "+libro.getDescripcion()+"|| cod_editorial: "+libro.getCod_editorial()+"|| cod_categoria: "+libro.getCod_categoria());
+			
 	System.out.println();
 		}
 		//FIN MÉTODOS UTILITY DE CLASE
