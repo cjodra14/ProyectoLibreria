@@ -96,10 +96,7 @@ public class VistaAutor {
 	}
 	
 	private void altaAutores() {
-		
-		
-		
-		
+
 		try {
 		System.out.println("Nombre Autor");
 		nombreAutor = entrada.nextLine();
