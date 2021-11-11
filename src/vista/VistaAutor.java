@@ -110,7 +110,7 @@ public class VistaAutor {
 		System.out.println("Codigo Autor");
 		codAutor = entrada.nextLine();
 		
-		controlador.insertarDatos(codAutor, nombreAutor, primerApellido, segundoApellido);
+		controlador.insertarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
 		
 		}catch(Exception exc) {
 			System.err.println("FALLO AL DAR DE ALTA AL AUTOR");

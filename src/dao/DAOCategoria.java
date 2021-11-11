@@ -52,7 +52,7 @@ public class DAOCategoria {
 	//READ
 	//Metodo que extrae todos los registros de la tabla
 	
-	public static Vector<DAOCategoria> obtenerCategoria() throws SQLException {
+	public static Vector<DAOCategoria> obtenerCategorias() throws SQLException {
 		String sqlQuery = "select * from categoria";
 		//Este metodo devolvera un vector de tipo <CategoriaDAO>
 		return buscaResultadosConConsulta(sqlQuery);
@@ -66,7 +66,7 @@ public class DAOCategoria {
 	}
 	
 	//Este metodo se utiliza para meter datos con la sentencia INSERT
-	public static void insertarDatos(String idCategoria, String nombreCategoria) {
+	public static void insertarCategoria(String idCategoria, String nombreCategoria) {
 		
 			try{
 				String sqlQuery = "INSERT INTO libreria.categoria VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
@@ -90,7 +90,7 @@ public class DAOCategoria {
 			} 
 			
 			//Este método ejecutará una sentencia DELETE para eliminar un autor
-			public static int borrarAutor(String idCategoria) throws SQLException {
+			public static int borrarCategoria(String idCategoria) throws SQLException {
 				String sqlQuery="DELETE FROM libreria.categoria WHERE cod_categoria='"+idCategoria+"'";
 		
 				return DAOCategoria.sentencia.executeUpdate(sqlQuery);
