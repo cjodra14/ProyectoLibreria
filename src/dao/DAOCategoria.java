@@ -59,7 +59,7 @@ public class DAOCategoria {
 		
 	}
 	public static DAOCategoria obtenerCategoria(String codCategoria) throws SQLException {
-		String sqlQuery = "select * from categotia WHERE cod_categoria= '" + codCategoria + "';";
+		String sqlQuery = "select * from categoria WHERE cod_categoria= '" + codCategoria + "';";
 		//Este metodo devolvera un vector tipo <CategoriaDAO>
 		return buscaResultadosUnaCategoria(sqlQuery);
 		
@@ -69,19 +69,19 @@ public class DAOCategoria {
 	public static void insertarDatos(String idCategoria, String nombreCategoria) {
 		
 			try{
-				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
+				String sqlQuery = "INSERT INTO libreria.categoria VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
 				DAOCategoria.sentencia.execute(sqlQuery);
 				System.out.println("Los datos del autor con el código "+idCategoria+" han sido insertados con éxito.");
 			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar datos en el autor con el código "+idCategoria);
+				System.err.println("\nNo se han podido insertar datos en la categoría con el código "+idCategoria);
 			}
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un autor
 			//nombre_categoria
-			public static void modificarAutor(String nombreCategoria, String idCategoria){
+			public static void modificarCategoria(String nombreCategoria, String idCategoria){
 				try {
-					String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreCategoria+"' WHERE cod_categoria='"+idCategoria+"';";
+					String sqlQuery = "UPDATE libreria.categoria SET nombre_categoria= '"+nombreCategoria+"' WHERE cod_categoria='"+idCategoria+"';";
 					DAOCategoria.sentencia.executeUpdate(sqlQuery);	
 					System.out.println("La categoria con el código "+idCategoria+" ha sido modificado con éxito.");
 				}catch(SQLException e) {

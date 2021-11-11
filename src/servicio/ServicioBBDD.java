@@ -11,8 +11,6 @@ import java.util.Properties;
 
 public class ServicioBBDD {
 
-
-	
 	private static ServicioBBDD servicio;
 	private Connection conexion;
 	
