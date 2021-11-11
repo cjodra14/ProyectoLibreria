@@ -29,8 +29,8 @@ public class ControladorAutor {
 	}
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
-		modelo.insertarDatos(idAutor,nombreAutor,apel1,apel2);
+	public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
+		modelo.insertarAutor(idAutor,nombreAutor,apel1,apel2);
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un autor

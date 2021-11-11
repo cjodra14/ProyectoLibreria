@@ -56,7 +56,7 @@ public class DAOEditorial {
 		return buscaResultadosUnaEditorial(sqlQuery);
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public static void insertarDatos(String codEditorial, String nombreEditorial) throws SQLException{
+	public static void insertarEditorial(String codEditorial, String nombreEditorial) throws SQLException{
 		try {
 			String sqlQuery = "INSERT INTO libreria.editorial VALUES ('"+codEditorial+"','"+nombreEditorial+"');";
 			DAOEditorial.sentencia.execute(sqlQuery);

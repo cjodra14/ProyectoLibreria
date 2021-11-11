@@ -65,7 +65,7 @@ public class DAOVenta {
 		return buscaResultadosUnaVenta(sqlQuery);
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public static void insertarDatos(int npedido, String usuario, String fecha) {
+	public static void insertarVenta(int npedido, String usuario, String fecha) {
 		try {
 			String sqlQuery = "INSERT INTO libreria.venta VALUES ('"+npedido+"','"+usuario+"','"+fecha+"');";
 			DAOVenta.sentencia.execute(sqlQuery);

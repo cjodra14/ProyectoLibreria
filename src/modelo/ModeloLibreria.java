@@ -9,14 +9,17 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.Vector;
 
-import dao.DAOAutor;
+import dao.*;
 
 public class ModeloLibreria {
 
 		private Connection conexionBBDD;
 		private Statement sentencia;
 		private DAOAutor autor;
+		private DAOCategoria caetgoria;
 		private Vector<DAOAutor> autores;
+		private Vector<DAOCategoria> categorias;
+		
 		Properties servicioElegido= new Properties();
 		
 		public ModeloLibreria() {
@@ -54,6 +57,11 @@ public class ModeloLibreria {
 		///// INICIO DE LA PARTE DE NEGOCIO ///////////////////////////
 		//////////////////////////////////////////////////////////////
 		
+		
+		
+		
+		
+		///////////////  Autor //////////////////////////////////////////
 		public Vector<DAOAutor> obtenerAutores(){
 			try {
 				
@@ -73,7 +81,7 @@ public class ModeloLibreria {
 			return DAOAutor.obtenerAutor(idAutor);
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
+		public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
 			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
@@ -85,6 +93,45 @@ public class ModeloLibreria {
 			
 			return DAOAutor.borrarAutor(idAutor);
 		}
+		
+		
+		
+		//////////////////////////   Categoria  //////////////////////////////////
+		public Vector<DAOCategoria> obtenerCategorias(){
+			try {
+				
+			
+			
+			categorias=DAOCategoria.obtenerCategorias();
+			
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  AUTOR");
+				e.printStackTrace();
+			}
+			return categorias;
+			
+		}
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		public DAOCategoria obtenerCategoria(String cod_categoria) throws SQLException {
+			return DAOCategoria.obtenerCategoria(cod_categoria);
+		}
+		//Este método se utiliza para meter datos con la sentencia INSERT
+		public void insertarCategoria(String idCategoria, String nombreCategoria) {
+			DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
+		}
+		//Este método ejecutará una sentencia UPDATE para modificar un autor
+		public void modificarCategoria(String nombreCategoria,String idCategoria ) {
+			DAOCategoria.modificarCategoria(nombreCategoria, idCategoria);
+		}
+		//Este método ejecutará una sentencia DELETE para eliminar un autor
+		public int borrarCategoria(String idCategoria) throws SQLException {
+			
+			return DAOCategoria.borrarCategoria(idCategoria);
+		}
+		
+		
+		//////////////////////   Editorial ////////////////////////////////////
+		
 		
 		
 	
