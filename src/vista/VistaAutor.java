@@ -183,24 +183,4 @@ public class VistaAutor {
 		}
 		}
 		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-

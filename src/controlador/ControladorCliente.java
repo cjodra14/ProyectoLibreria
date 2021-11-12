@@ -17,8 +17,8 @@ public class ControladorCliente {
 	}
 	
 	//Este metodo retorna un vector de autores y lo obtiene del metodo obtenerAutores()
-	public Vector<DAOCliente> obtenerCliente(){
-		clientes=modelo.obtenerCliente();
+	public Vector<DAOCliente> obtenerClientes(){
+		clientes=modelo.obtenerClientes();
 		return clientes;
 	}
 	
