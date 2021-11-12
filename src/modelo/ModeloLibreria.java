@@ -249,6 +249,42 @@ public class ModeloLibreria {
 					
 					return DAOCliente.borrarCliente(usuario);
 				}
+				
+				
+				/////////////////////// VENTAS /////////////////////////
+				
+				// Extrae todos los registros de la tabla de Clientes
+				public Vector<DAOVenta> obtenerventas(){
+					try {
+						
+					
+					
+					ventas=DAOVenta.obtenerVentas();
+					
+					} catch (SQLException e) {
+						System.err.println("Modelo: FALLO A OBTENER  VENTAS");
+						e.printStackTrace();
+					}
+					return ventas;
+					
+				}
+				//Método que extrae un registro de la tabla con una sentencia SELECT de una sola venta
+				public DAOVenta  obtenerVentas(String npedido) throws SQLException {
+					return DAOVenta.obtenerVenta(npedido);
+				}
+				//Este método se utiliza para meter datos con la sentencia INSERT en venta
+				public void insertarVenta(int npedido, String usuario, String fecha) {
+					DAOVenta.insertarVenta(npedido, usuario, fecha);
+				}
+				//Este método ejecutará una sentencia UPDATE para modificar una venta
+				public void modificarVenta(int npedido, String usuario, String fecha) {
+					DAOVenta.modificarVenta(npedido, usuario, fecha);
+				}
+				//Este método ejecutará una sentencia DELETE para eliminar una venta
+				public int borrarVenta(String npedido) throws SQLException {
+					
+					return DAOVenta.borrarVenta(npedido);
+				}
 		
 		
 		
