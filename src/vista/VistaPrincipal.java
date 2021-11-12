@@ -8,6 +8,7 @@ public class VistaPrincipal {
 	VistaEditorial vistaEditorial;
 	VistaCategoria vistaCategoria; 
 	VistaLibro vistaLibro;
+	VistaCliente vistaCliente;
 	
 	
 	
@@ -16,11 +17,12 @@ public class VistaPrincipal {
 	private int opcion;	
 	private Scanner entrada;
 		
-		public VistaPrincipal(VistaAutor vistaAutor, VistaEditorial vistaEditorial, VistaCategoria vistaCategoria, VistaLibro vistaLibro) {
+		public VistaPrincipal(VistaAutor vistaAutor, VistaEditorial vistaEditorial, VistaCategoria vistaCategoria, VistaLibro vistaLibro, VistaCliente vistaCliente) {
 		this.vistaAutor=vistaAutor;
 		this.vistaEditorial=vistaEditorial;
 		this.vistaCategoria=vistaCategoria;
 		this.vistaLibro=vistaLibro;
+		this.vistaCliente=vistaCliente;
 	}		
 		
 		public void getAccion() {
@@ -40,6 +42,9 @@ public class VistaPrincipal {
 						break;
 				case 4:
 					vistaLibro.getAccion();
+						break;
+				case 5:
+					vistaCliente.getAccion();
 						break;
 					default:
 					System.out.println("La opcion no es correcta. \n");
@@ -68,6 +73,7 @@ public class VistaPrincipal {
 				System.out.println("2 - Mantenimiento de Editoriales");
 				System.out.println("3 - Mantenimiento de Categorias");
 				System.out.println("4 - Mantenimiento de Libros");
+				System.out.println("5 - Mantenimiento de Cliente");
 				System.out.println("0 - Salir");
 				
 		}

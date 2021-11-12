@@ -68,7 +68,7 @@ public class DAOEditorial {
 	//Este método ejecutará una sentencia UPDATE para modificar una editorial
 	public static void modificarEditorial(String codEditorial, String nombreEditorial) {
 		try {
-			String sqlQuery = "UPDATE libreria.editorial SET nombre_editorial= '"+nombreEditorial+"';";
+			String sqlQuery = "UPDATE libreria.editorial SET nombre_editorial= '"+nombreEditorial+"' WHERE cod_editorial='"+codEditorial+"';";
 			DAOEditorial.sentencia.executeUpdate(sqlQuery);
 			System.out.println("La editorial con el código "+codEditorial+" ha sido modificada con éxito.");
 		}catch(SQLException e) {
