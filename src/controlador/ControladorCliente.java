@@ -17,14 +17,14 @@ public class ControladorCliente {
 	}
 	
 	//Este metodo retorna un vector de autores y lo obtiene del metodo obtenerAutores()
-	public Vector<DAOCliente> obtenerClientes(){
-		clientes=modelo.obtenerClientes();
+	public Vector<DAOCliente> obtenerCliente(){
+		clientes=modelo.obtenerCliente();
 		return clientes;
 	}
 	
-	public DAOCliente obtenerCliente(String idCliente) throws SQLException {
+	public DAOCliente obtenerCliente(String usuario) throws SQLException {
 		DAOCliente cliente;
-		cliente=modelo.obtenerCliente(idCliente);
+		cliente=modelo.obtenerCliente(usuario);
 		return cliente;
 	}
 	
