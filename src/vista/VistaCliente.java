@@ -41,16 +41,16 @@ public class VistaCliente {
 					break;
 			case 2:
 				try {
-					modificacionClientes();
+					modificacionCliente();
 				}catch (Exception e) {
 					System.err.println("Ha habido un error al modificar el cliente");
 				}
 					break;
 			case 3:
-				borrarClientes();
+				borrarCliente();
 					break;
 			case 4:
-				consultaClientes();
+				consultaCliente();
 					break;
 				default:
 				System.out.println("La opcion no es correcta. \n");
@@ -182,26 +182,22 @@ public class VistaCliente {
 	
 	
 	private void consultaCliente() {
-		Vector<DAOCliente> autores= controlador.obtenerClientes();
+		Vector<DAOCliente> clientes= controlador.obtenerClientes();
 		System.out.println("\nLISTADO DE CLIENTES");
 		System.out.println("======================");
 		try {
 			Iterator<DAOCliente> itClientes = clientes.iterator();
 			while(itClientes.hasNext()) {
-				DAOCliente autor= itClientes.next();
+				DAOCliente cliente= itClientes.next();
 				DAOCliente.mostrarCliente(cliente);
 				
 			}
-				
-				
+						
 		} catch (Exception e) {
 			System.err.println("Vista: FALLO A OBTENER  CLIENTES");
 			e.printStackTrace();
 		}
 		}
-		
-		
-		
 		
 	}
 	
