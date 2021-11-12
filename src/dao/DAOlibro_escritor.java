@@ -11,7 +11,7 @@ public class DAOlibro_escritor {
 		
 	}
 	
-	public DAOlibro_escritor(int isbn, String cod_autor){
+	public DAOlibro_escritor(int isbn, String cod_autor, String nombreAutor, String pApelAutor, String sApelAutor, String tituloLibro){
 		this.isbn = isbn;
 		this.cod_autor = cod_autor;
 	}
@@ -52,7 +52,7 @@ public class DAOlibro_escritor {
 	//Metodo que extrae todos los registros de la tabla
 	
 	public static Vector<DAOlibro_escritor> obtenerLibroEscritor() throws SQLException {
-		String sqlQuery = "SELECT * FROM libreria.libro_escritor;";
+		String sqlQuery = "SELECT L.titulo,A.nombre, A.p_apel, A.s_apel FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn;";
 		//Este metodo devolvera un vector de tipo <DAOlibro_escritor>
 		return buscaResultadosConConsulta(sqlQuery);
 		
