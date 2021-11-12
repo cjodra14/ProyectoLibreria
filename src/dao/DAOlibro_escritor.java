@@ -87,7 +87,7 @@ public class DAOlibro_escritor {
 	//READ
 	//Metodo que extrae todos los registros de la tabla
 	
-	public static Vector<DAOlibro_escritor> obtenerLibroEscritor() throws SQLException {
+	public static Vector<DAOlibro_escritor> obtenerLibrosEscritores() throws SQLException {
 		String sqlQuery = "SELECT L.titulo,A.nombre, A.p_apel, A.s_apel FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn;";
 		//Este metodo devolvera un vector de tipo <DAOlibro_escritor>
 		return buscaResultadosConConsulta(sqlQuery);

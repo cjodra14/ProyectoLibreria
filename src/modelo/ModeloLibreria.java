@@ -15,28 +15,37 @@ public class ModeloLibreria {
 
 		private Connection conexionBBDD;
 		private Statement sentencia;
+		
 		private DAOAutor autor;
 		private DAOCategoria categoria;
 		private DAOEditorial editorial;
 		private DAOLibro libro;
+		private DAOlibro_escritor libro_escritor;
+		
 		private Vector<DAOAutor> autores;
 		private Vector<DAOCategoria> categorias;
 		private Vector<DAOEditorial> editoriales;
 		private Vector<DAOLibro> libros;
+		private Vector<DAOlibro_escritor> libros_escritores;
 		
 		Properties servicioElegido= new Properties();
 		
 		public ModeloLibreria() {
 			try {
 				try {
+					//Carga el archivo que elige que base de datos vamos a usar
 					servicioElegido.load(new FileInputStream(new File("serviceElegido.properties")));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
+				
+				//Hace la conexion segun los los parametros indicados en el archivo de propiedades
 			this.conexionBBDD = servicio.ServicioBBDD.obtenerServicio(servicioElegido.getProperty("servicio")).obtenerConexion();
 			this.sentencia = this.conexionBBDD.createStatement();
+			
+			// añade la conexión a cada DAO enviando el Statement a la DAO
 			DAOAutor.setConexionBBDD(sentencia, null);
 			DAOEditorial.setConexionBBDD(sentencia, null);
 			DAOCategoria.setConexionBBDD(sentencia, null);
@@ -50,6 +59,8 @@ public class ModeloLibreria {
 		}
 		public void terminar () {
 			try {
+				
+				// Cierra procesos de conexión para liberar la memoria
 					sentencia.close();
 					conexionBBDD.close();
 				
@@ -69,6 +80,9 @@ public class ModeloLibreria {
 		
 		
 		///////////////  Autor //////////////////////////////////////////
+		
+		
+		// Extrae todos los registros de la tabla de Autores
 		public Vector<DAOAutor> obtenerAutores(){
 			try {
 				
@@ -83,11 +97,11 @@ public class ModeloLibreria {
 			return autores;
 			
 		}
-		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		//Método que extrae un registro de la tabla con una sentencia SELECT de un solo autor
 		public DAOAutor obtenerAutor(String idAutor) throws SQLException {
 			return DAOAutor.obtenerAutor(idAutor);
 		}
-		//Este método se utiliza para meter datos con la sentencia INSERT
+		//Este método se utiliza para meter datos con la sentencia INSERT en el autor
 		public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
 			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
 		}
@@ -104,6 +118,8 @@ public class ModeloLibreria {
 		
 		
 		//////////////////////////   Categoria  //////////////////////////////////
+		
+		// Extrae todos los registros de la tabal Categoria
 		public Vector<DAOCategoria> obtenerCategorias(){
 			try {		
 			
@@ -116,7 +132,7 @@ public class ModeloLibreria {
 			return categorias;
 			
 		}
-		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		//Método que extrae un registro de la tabla con una sentencia SELECT 
 		public DAOCategoria obtenerCategoria(String cod_categoria) throws SQLException {
 			return DAOCategoria.obtenerCategoria(cod_categoria);
 		}
@@ -136,6 +152,7 @@ public class ModeloLibreria {
 		
 		
 		//////////////////////   Editorial ////////////////////////////////////
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
 		public Vector<DAOEditorial> obtenerEditoriales(){
 			try {				
 			editoriales=DAOEditorial.obtenerEditoriales();
@@ -146,7 +163,7 @@ public class ModeloLibreria {
 			return editoriales;
 			
 		}
-		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		//Método que extrae un registro de la tabla con una sentencia SELECT
 		public DAOEditorial obtenerEditorial(String cod_editorial) throws SQLException {
 			return DAOEditorial.obtenerEditorial(cod_editorial);
 		}
@@ -166,7 +183,7 @@ public class ModeloLibreria {
 		
 		
 		/////////////////////// Libro /////////////////////////
-		
+		//Método que extrae todos los registros de la tabla con una sentencia SELECT
 		public Vector<DAOLibro> obtenerLibros(){
 			try {				
 			libros=DAOLibro.obtenerLibros();
@@ -177,7 +194,7 @@ public class ModeloLibreria {
 			return libros;
 			
 		}
-		//Método que extrae todos los registros de la tabla con una sentencia SELECT
+		//Método que extrae un registro de la tabla con una sentencia SELECT
 		public DAOLibro obtenerLibro(int isbn) throws SQLException {
 			return DAOLibro.obtenerlibro(isbn);
 		}
@@ -185,15 +202,35 @@ public class ModeloLibreria {
 		public void insertarLibros(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException {
 			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
-		//Este método ejecutará una sentencia UPDATE para modificar una editorial
+		//Este método ejecutará una sentencia UPDATE para modificar un libro
 		public void modificarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 		}
-		//Este método ejecutará una sentencia DELETE para eliminar una editorial
-		public int borrarLibro(int isbn) throws SQLException {
-			
+		//Este método ejecutará una sentencia DELETE para eliminar un libro 
+		public int borrarLibro(int isbn) throws SQLException {			
 			return DAOLibro.borrarLibro(isbn);
 		}
+		
+		
+		
+		///////////////// Relación de libros con Autores /////////////////////
+		
+		//Muestra todos los libros con sus correspondientes autores
+		public Vector<DAOlibro_escritor> obtenerLibrosEscritores(){
+			try {
+				
+			
+			
+			libros_escritores=DAOlibro_escritor.obtenerLibrosEscritores();
+			
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  LOS LIBROS ESCRITOS POR CADA AUTOR");
+				e.printStackTrace();
+			}
+			return libros_escritores;
+			
+		}
+		
 		
 	
 
