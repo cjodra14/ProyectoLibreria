@@ -146,7 +146,7 @@ public class DAOCliente {
 
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un cliente
-	public static void modificarAutor(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass){
+	public static void modificarCliente(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass){
 		try {
 			String sqlQuery = "UPDATE libreria.cliente SET nombre= '"+nombreCliente+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"', direccion='"+direccion+"', email='"+email+"', f_nacimiento='"+f_nacimiento+"' WHERE usuario='"+usuario+"';";
 			DAOCliente.sentencia.executeUpdate(sqlQuery);	
