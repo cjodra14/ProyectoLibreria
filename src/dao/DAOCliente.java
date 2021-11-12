@@ -130,7 +130,7 @@ public class DAOCliente {
 		return buscaResultadosConConsulta(sqlQuery);	
 	}
 	public static DAOCliente obtenerCliente(String usuario) throws SQLException{
-		String sqlQuery = "select * from autor WHERE usuario='"+usuario+"';";
+		String sqlQuery = "select * from cliente WHERE usuario='"+usuario+"';";
 		return buscaResultadosUnCliente(sqlQuery);	
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
@@ -138,9 +138,9 @@ public class DAOCliente {
 		try{
 			String sqlQuery = "INSERT INTO libreria.cliente VALUES ('"+usuario+"','"+nombreCliente+"','"+apel1+"','"+apel2+"','"+direccion+"','"+email+"','"+f_nacimiento+"','"+pass+");";
 			DAOCliente.sentencia.execute(sqlQuery);
-			System.out.println("Los datos del autor con el código "+usuario+" han sido insertados con éxito.");
+			System.out.println("Los datos del cliente con el nombre de usuario: "+usuario+" han sido insertados con éxito.");
 		}catch(SQLException e) {
-			System.err.println("\nNo se han podido insertar datos en el autor con el código "+usuario);
+			System.err.println("\nNo se han podido insertar datos en el cliente con el usuario "+usuario);
 		}
 	}
 
@@ -148,7 +148,7 @@ public class DAOCliente {
 	//Este método ejecutará una sentencia UPDATE para modificar un cliente
 	public static void modificarAutor(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass){
 		try {
-			String sqlQuery = "UPDATE libreria.cliente SET nombre= '"+nombreCliente+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE usuario='"+usuario+"';";
+			String sqlQuery = "UPDATE libreria.cliente SET nombre= '"+nombreCliente+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"', direccion='"+direccion+"', email='"+email+"', f_nacimiento='"+f_nacimiento+"' WHERE usuario='"+usuario+"';";
 			DAOCliente.sentencia.executeUpdate(sqlQuery);	
 			System.out.println("El usuario con el código "+usuario+" ha sido modificado con éxito.");
 		}catch(SQLException e) {
@@ -156,7 +156,7 @@ public class DAOCliente {
 		}
 	} 
 	
-	//Este método ejecutará una sentencia DELETE para eliminar un autor
+	//Este método ejecutará una sentencia DELETE para eliminar un cliente
 	public static int borrarCliente(String usuario) throws SQLException {
 		String sqlQuery="DELETE FROM libreria.autor WHERE cod_autor='"+usuario+"'";
 		return DAOCliente.sentencia.executeUpdate(sqlQuery);
@@ -225,6 +225,9 @@ public class DAOCliente {
 		if(cliente.getP_apellido()!=null)System.out.print(", "+cliente.getP_apellido());
 		if(cliente.getS_apellido()!=null)System.out.print(", "+cliente.getS_apellido());
 System.out.println();
+		if(cliente.getDireccion()!=null)System.out.println("Dirección: "+cliente.getDireccion());
+		System.out.println("Email: "+cliente.getEmail());
+		if(cliente.getF_nacimiento()!=null)System.out.println("Fecha de nacimiento: "+cliente.getF_nacimiento());
 	}
 	//FIN MÉTODOS UTILITY DE CLASE
 
