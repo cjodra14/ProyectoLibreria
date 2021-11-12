@@ -77,9 +77,9 @@ public class DAOCategoria {
 			}
 	}
 	
-	//Este método ejecutará una sentencia UPDATE para modificar un autor
+	//Este método ejecutará una sentencia UPDATE para modificar una categoria
 			//nombre_categoria
-			public static void modificarCategoria(String nombreCategoria, String idCategoria){
+			public static void modificarCategoria(String idCategoria,  String nombreCategoria){
 				try {
 					String sqlQuery = "UPDATE libreria.categoria SET nombre_categoria= '"+nombreCategoria+"' WHERE cod_categoria='"+idCategoria+"';";
 					DAOCategoria.sentencia.executeUpdate(sqlQuery);	

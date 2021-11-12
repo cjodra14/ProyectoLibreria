@@ -13,13 +13,13 @@ import dao.DAOLibro;
 public class VistaLibro {
 		
 		private int opcion;
-		private int isbn;
+		private int isbn=-1;
 		private ControladorLibro controlador;
 		private ResultSet resultado;
 		private Scanner entrada;
 		private String titulo;
-		private double precio;
-		private int ud_stock;
+		private double precio=-1;
+		private int ud_stock=-1;
 		private String imagen;
 		private String descripcion;
 		private String cod_editorial;
@@ -109,6 +109,7 @@ public class VistaLibro {
 				do {
 			System.out.println("ISBN");
 			isbn = entrada.nextInt();
+			entrada.hasNextLine();
 			System.out.println("Titulo");
 			titulo = entrada.nextLine();
 			System.out.println("Precio");
@@ -122,7 +123,7 @@ public class VistaLibro {
 			System.out.println("Código de la editorial");
 			cod_editorial = entrada.nextLine();
 			System.out.println("Código de la categoria");
-			cod_categoria = entrada.nextLine();}while(String.valueOf(isbn).equals("")||titulo.equals("")||String.valueOf(precio).equals("")||String.valueOf(ud_stock).equals("")||cod_editorial.equals("")||cod_categoria.equals(""));
+			cod_categoria = entrada.nextLine();}while(isbn!=-1||titulo.equals("")||precio!=-1||ud_stock!=-1||cod_editorial.equals("")||cod_categoria.equals(""));
 			
 			controlador.insertarLibros(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
 			
@@ -142,6 +143,7 @@ public class VistaLibro {
 			isbn = entrada.nextInt();}while(String.valueOf(isbn).equals(""));
 			DAOLibro libro=controlador.obtenerLibro(isbn);
 			DAOLibro.mostrarLibro(libro);
+			entrada.nextLine();
 			do {
 			System.out.println("Titulo");
 			titulo = entrada.nextLine();

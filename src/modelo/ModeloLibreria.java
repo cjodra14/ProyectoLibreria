@@ -54,6 +54,7 @@ public class ModeloLibreria {
 			DAOEditorial.setConexionBBDD(sentencia, null);
 			DAOCategoria.setConexionBBDD(sentencia, null);
 			DAOLibro.setConexionBBDD(sentencia, null);
+			DAOCliente.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -145,8 +146,8 @@ public class ModeloLibreria {
 			DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar una categoria
-		public void modificarCategoria(String nombreCategoria,String idCategoria ) {
-			DAOCategoria.modificarCategoria(nombreCategoria, idCategoria);
+		public void modificarCategoria(String idCategoria,String  nombreCategoria) {
+			DAOCategoria.modificarCategoria(idCategoria,  nombreCategoria);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar una categoria
 		public int borrarCategoria(String idCategoria) throws SQLException {
@@ -237,8 +238,8 @@ public class ModeloLibreria {
 					return DAOCliente.obtenerCliente(usuario);
 				}
 				//Este método se utiliza para meter datos con la sentencia INSERT en el cliente
-				public void insertarDatos(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
-					DAOCliente.insertarDatos(usuario, dni, nombreCliente, apel1, apel2, direccion, email, f_nacimiento, pass);
+				public void insertarCliente(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
+					DAOCliente.insertarCliente(usuario, dni, nombreCliente, apel1, apel2, direccion, email, f_nacimiento, pass);
 				}
 				//Este método ejecutará una sentencia UPDATE para modificar un cliente
 				public void modificarCliente(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {

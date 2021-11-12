@@ -134,9 +134,11 @@ public class DAOCliente {
 		return buscaResultadosUnCliente(sqlQuery);	
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public static void insertarDatos(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
+	public static void insertarCliente(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
 		try{
-			String sqlQuery = "INSERT INTO libreria.cliente VALUES ('"+usuario+"','"+nombreCliente+"','"+apel1+"','"+apel2+"','"+direccion+"','"+email+"','"+f_nacimiento+"','"+pass+");";
+			//INSERT INTO `libreria`.`cliente` (`usuario`, `dni`, `nombre`, `p_apellido`, `s_apellido`, `direccion`, `email`, `f_nacimiento`, `pass`) VALUES ('asministrador', '12345678A', 'Julen', 'Chris', 'Imanol', 'iturribide', 'email@email.com', '1995-01-01', 'pass123');
+
+			String sqlQuery = "INSERT INTO`libreria`.`cliente` (`usuario`, `dni`, `nombre`, `p_apellido`, `s_apellido`, `direccion`, `email`, `f_nacimiento`, `pass`) VALUES ('"+usuario+"','"+dni+"','"+nombreCliente+"','"+apel1+"','"+apel2+"','"+direccion+"','"+email+"','"+f_nacimiento+"','"+pass+");";
 			DAOCliente.sentencia.execute(sqlQuery);
 			System.out.println("Los datos del cliente con el nombre de usuario: "+usuario+" han sido insertados con éxito.");
 		}catch(SQLException e) {
