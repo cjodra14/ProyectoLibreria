@@ -22,6 +22,7 @@ public class ModeloLibreria {
 		private DAOLibro libro;
 		private DAOCliente cliente;
 		private DAOlibro_escritor libro_escritor;
+		private DAOVenta venta;
 	
 		
 		private Vector<DAOAutor> autores;
@@ -30,6 +31,7 @@ public class ModeloLibreria {
 		private Vector<DAOLibro> libros;
 		private Vector<DAOCliente> clientes;
 		private Vector<DAOlibro_escritor> libros_escritores;
+		private Vector<DAOVenta> ventas;
 	
 		
 		Properties servicioElegido= new Properties();
@@ -55,6 +57,7 @@ public class ModeloLibreria {
 			DAOCategoria.setConexionBBDD(sentencia, null);
 			DAOLibro.setConexionBBDD(sentencia, null);
 			DAOCliente.setConexionBBDD(sentencia, null);
+			DAOVenta.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -255,11 +258,11 @@ public class ModeloLibreria {
 				/////////////////////// VENTAS /////////////////////////
 				
 				// Extrae todos los registros de la tabla de Clientes
+				
+				
 				public Vector<DAOVenta> obtenerventas(){
 					try {
 						
-					
-					
 					ventas=DAOVenta.obtenerVentas();
 					
 					} catch (SQLException e) {
