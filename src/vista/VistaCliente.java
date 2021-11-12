@@ -41,16 +41,16 @@ public class VistaCliente {
 					break;
 			case 2:
 				try {
-					modificacionClientes();
+					modificacionCliente();
 				}catch (Exception e) {
 					System.err.println("Ha habido un error al modificar el cliente");
 				}
 					break;
 			case 3:
-				borrarClientes();
+				borrarCliente();
 					break;
 			case 4:
-				consultaClientes();
+				consultaCliente();
 					break;
 				default:
 				System.out.println("La opcion no es correcta. \n");
