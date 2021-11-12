@@ -20,13 +20,17 @@ public class ModeloLibreria {
 		private DAOCategoria categoria;
 		private DAOEditorial editorial;
 		private DAOLibro libro;
+		private DAOCliente cliente;
 		private DAOlibro_escritor libro_escritor;
+	
 		
 		private Vector<DAOAutor> autores;
 		private Vector<DAOCategoria> categorias;
 		private Vector<DAOEditorial> editoriales;
 		private Vector<DAOLibro> libros;
+		private Vector<DAOCliente> clientes;
 		private Vector<DAOlibro_escritor> libros_escritores;
+	
 		
 		Properties servicioElegido= new Properties();
 		
@@ -210,6 +214,41 @@ public class ModeloLibreria {
 		public int borrarLibro(int isbn) throws SQLException {			
 			return DAOLibro.borrarLibro(isbn);
 		}
+		
+		//////////////////// Cliente /////////////////////////////////////////
+		
+		// Extrae todos los registros de la tabla de Clientes
+				public Vector<DAOCliente> obtenerClientes(){
+					try {
+						
+					
+					
+					clientes=DAOCliente.obtenerClientes();
+					
+					} catch (SQLException e) {
+						System.err.println("Modelo: FALLO A OBTENER  CLIENTES");
+						e.printStackTrace();
+					}
+					return clientes;
+					
+				}
+				//Método que extrae un registro de la tabla con una sentencia SELECT de un solo cliente
+				public DAOCliente  obtenerCliente(String usuario) throws SQLException {
+					return DAOCliente.obtenerCliente(usuario);
+				}
+				//Este método se utiliza para meter datos con la sentencia INSERT en el cliente
+				public void insertarDatos(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
+					DAOCliente.insertarDatos(usuario, dni, nombreCliente, apel1, apel2, direccion, email, f_nacimiento, pass);
+				}
+				//Este método ejecutará una sentencia UPDATE para modificar un cliente
+				public void modificarCliente(String usuario, String dni, String nombreCliente, String apel1, String apel2, String direccion, String email, String f_nacimiento, String pass) {
+					DAOCliente.modificarCliente(usuario, dni, nombreCliente, apel1, apel2, direccion, email, f_nacimiento, pass);
+				}
+				//Este método ejecutará una sentencia DELETE para eliminar un cliente
+				public int borrarCliente(String usuario) throws SQLException {
+					
+					return DAOCliente.borrarCliente(usuario);
+				}
 		
 		
 		

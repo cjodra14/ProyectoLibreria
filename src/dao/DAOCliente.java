@@ -124,7 +124,7 @@ public class DAOCliente {
 	//MÉTODOS CRUD
 	//READ
 	//Método que extrae todos los registros de la tabla
-	public static Vector<DAOCliente> obtenerCliente() throws SQLException{
+	public static Vector<DAOCliente> obtenerClientes() throws SQLException{
 		String sqlQuery = "select * from cliente";
 		//Este método devolverá un vector de tipo <ClienteDAO>
 		return buscaResultadosConConsulta(sqlQuery);	
