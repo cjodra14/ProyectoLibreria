@@ -9,11 +9,12 @@ import java.util.Vector;
 
 import controlador.ControladorLibro;
 import dao.DAOLibro;
+import dao.DAOlibro_escritor;
 
 public class VistaLibro {
 		
 		private int opcion;
-		private int isbn=-1;
+		private long isbn=-1;
 		private ControladorLibro controlador;
 		private ResultSet resultado;
 		private Scanner entrada;
@@ -52,6 +53,9 @@ public class VistaLibro {
 				case 4:
 					consultaLibros();
 						break;
+				case 5:
+					obtenerLibrosEscritores();
+						break;
 					default:
 					System.out.println("La opcion no es correcta. \n");
 						
@@ -80,6 +84,7 @@ public class VistaLibro {
 				System.out.println("2 - Modificar Libros");
 				System.out.println("3 - Borrar Libros");
 				System.out.println("4 - Consulta Libros");
+				System.out.println("5 - Obtener autores de los libros");
 				System.out.println("0 - Salir");
 				
 		}
@@ -108,14 +113,15 @@ public class VistaLibro {
 			try {
 				do {
 			System.out.println("ISBN");
-			isbn = entrada.nextInt();
-			entrada.hasNextLine();
+			isbn = entrada.nextLong();
+			entrada.nextLine();
 			System.out.println("Titulo");
 			titulo = entrada.nextLine();
 			System.out.println("Precio");
-			precio = entrada.nextInt();
+			precio = entrada.nextDouble();
 			System.out.println("Unidades en stock");
 			ud_stock = entrada.nextInt();
+			entrada.nextLine();
 			System.out.println("Ruta de la imagen");
 			imagen = entrada.nextLine();
 			System.out.println("Descripcion");
@@ -148,7 +154,7 @@ public class VistaLibro {
 			System.out.println("Titulo");
 			titulo = entrada.nextLine();
 			System.out.println("Precio");
-			precio = entrada.nextInt();
+			precio = entrada.nextDouble();
 			System.out.println("Unidades en stock");
 			ud_stock = entrada.nextInt();
 			System.out.println("Ruta de la imagen");
@@ -201,6 +207,12 @@ public class VistaLibro {
 				e.printStackTrace();
 			}
 			}
+		public void  obtenerLibrosEscritores(){
+			Vector<DAOlibro_escritor> escritoresDeCadaLibro= controlador.obtenerLibrosEscritores();
+			for (DAOlibro_escritor daOlibro_escritor : escritoresDeCadaLibro) {
+				DAOlibro_escritor.mostrarLibroEscritor(daOlibro_escritor);
+			}
+		}
 			
 			
 			

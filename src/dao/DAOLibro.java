@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.Vector;
 
 public class DAOLibro {
-		private int isbn;
+		private long isbn;
 		private String titulo;
 		private double precio;
 		private int ud_stock;
@@ -22,7 +22,7 @@ public class DAOLibro {
 		
 
 	
-		public DAOLibro(int isbn, String titulo, double precio, int ud_stock, String cod_editorial,
+		public DAOLibro(long isbn, String titulo, double precio, int ud_stock, String cod_editorial,
 				String cod_categoria) {
 			super();
 			this.isbn = isbn;
@@ -35,7 +35,7 @@ public class DAOLibro {
 
 
 
-		public DAOLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,
+		public DAOLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,
 				String cod_editorial, String cod_categoria) {
 			super();
 			this.isbn = isbn;
@@ -51,7 +51,7 @@ public class DAOLibro {
 
 
 
-		public DAOLibro(int isbn, String titulo, String cod_editorial, String cod_categoria) {
+		public DAOLibro(long isbn, String titulo, String cod_editorial, String cod_categoria) {
 			super();
 			this.isbn = isbn;
 			this.titulo = titulo;
@@ -62,13 +62,13 @@ public class DAOLibro {
 
 
 
-		public int getIsbn() {
+		public long getIsbn() {
 			return isbn;
 		}
 
 
 
-		public void setIsbn(int isbn) {
+		public void setIsbn(long isbn) {
 			this.isbn = isbn;
 		}
 
@@ -176,14 +176,14 @@ public class DAOLibro {
 			//Este método devolverá un vector de tipo <DAOLibro>
 			return buscaResultadosConConsulta(sqlQuery);	
 		}
-		public static DAOLibro obtenerlibro(int isbn) throws SQLException{
+		public static DAOLibro obtenerlibro(long isbn) throws SQLException{
 			String sqlQuery = "select * from libro WHERE isbn='"+isbn+"';";
 			//Este método devolverá un vector de tipo <DAOLibro>
 			return buscaResultadosUnLibro(sqlQuery);	
 		}
 		
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public static void insertarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
+		public static void insertarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
 			try{
 				String sqlQuery = "INSERT INTO libreria.libro VALUES ('"+isbn+"','"+titulo+"','"+precio+"','"+ud_stock+"','"+imagen+"','"+descripcion+"','"+cod_editorial+"','"+cod_categoria+"');";
 				DAOLibro.sentencia.execute(sqlQuery);
@@ -196,7 +196,7 @@ public class DAOLibro {
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
 		
-		public static void modificarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria){
+		public static void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria){
 			try {
 				String sqlQuery = "UPDATE libreria.libro SET titulo= '"+titulo+"',precio= '"+precio+"',ud_stock= '"+ud_stock+"',imagen= '"+imagen+"'descripcion= '"+descripcion+"',cod_editorial= '"+cod_editorial+"',precio= '"+precio+"',cod_categoria= '"+cod_categoria+"'WHERE isbn='"+isbn+"';";
 				DAOLibro.sentencia.executeUpdate(sqlQuery);	
@@ -207,7 +207,7 @@ public class DAOLibro {
 		} 
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un libro
-		public static int borrarLibro(int isbn) throws SQLException {
+		public static int borrarLibro(long isbn) throws SQLException {
 			String sqlQuery="DELETE FROM libreria.libro WHERE isbn='"+isbn+"'";
 	
 			return DAOLibro.sentencia.executeUpdate(sqlQuery);
@@ -227,7 +227,7 @@ public class DAOLibro {
 			DAOLibro libro;
 			
 			while(resultado.next()) {
-				int isbn = resultado.getInt(1);
+				long isbn = resultado.getLong(1);
 				String titulo = resultado.getString(2);
 				double precio = resultado.getDouble(3);
 				int ud_stock = resultado.getInt(4);
@@ -252,7 +252,7 @@ public class DAOLibro {
 			DAOLibro libro = null;
 			
 			while(resultado.next()) {
-				int isbn = resultado.getInt(1);
+				long isbn = resultado.getLong(1);
 				String titulo = resultado.getString(2);
 				double precio = resultado.getDouble(3);
 				int ud_stock = resultado.getInt(4);

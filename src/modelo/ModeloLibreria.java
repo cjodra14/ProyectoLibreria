@@ -200,19 +200,19 @@ public class ModeloLibreria {
 			
 		}
 		//Método que extrae un registro de la tabla con una sentencia SELECT
-		public DAOLibro obtenerLibro(int isbn) throws SQLException {
+		public DAOLibro obtenerLibro(long isbn) throws SQLException {
 			return DAOLibro.obtenerlibro(isbn);
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public void insertarLibros(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException {
+		public void insertarLibros(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException {
 			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
-		public void modificarLibro(int isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
+		public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un libro 
-		public int borrarLibro(int isbn) throws SQLException {			
+		public int borrarLibro(long isbn) throws SQLException {			
 			return DAOLibro.borrarLibro(isbn);
 		}
 		
@@ -220,10 +220,7 @@ public class ModeloLibreria {
 		
 		// Extrae todos los registros de la tabla de Clientes
 				public Vector<DAOCliente> obtenerClientes(){
-					try {
-						
-					
-					
+					try {		
 					clientes=DAOCliente.obtenerClientes();
 					
 					} catch (SQLException e) {
@@ -258,13 +255,10 @@ public class ModeloLibreria {
 		//Muestra todos los libros con sus correspondientes autores
 		public Vector<DAOlibro_escritor> obtenerLibrosEscritores(){
 			try {
-				
-			
-			
 			libros_escritores=DAOlibro_escritor.obtenerLibrosEscritores();
 			
 			} catch (SQLException e) {
-				System.err.println("Modelo: FALLO A OBTENER  LOS LIBROS ESCRITOS POR CADA AUTOR");
+				System.err.println("Modelo: FALLO A OBTENER  LOS AUTORES DEL LIBRO");
 				e.printStackTrace();
 			}
 			return libros_escritores;

@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import modelo.ModeloLibreria;
 import dao.DAOAutor;
+import dao.DAOlibro_escritor;
 
 public class ControladorAutor {
 
@@ -43,6 +44,8 @@ public class ControladorAutor {
 		
 		 return modelo.borrarAutor(idAutor);
 	}
+	
+	
 	
 
 	//Ejecutamos el método terminar para liberar memoria

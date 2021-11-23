@@ -12,6 +12,11 @@ public class DAOlibro_escritor {
 		
 	}
 	
+	public DAOlibro_escritor(int isbn, String cod_autor){
+		this.isbn=isbn;
+		this.cod_autor=cod_autor;
+	}
+	
 	public DAOlibro_escritor(int isbn, String cod_autor, String nombreAutor, String pApelAutor, String sApelAutor, String tituloLibro){
 		this.isbn = isbn;
 		this.cod_autor = cod_autor;
@@ -93,6 +98,15 @@ public class DAOlibro_escritor {
 		return buscaResultadosConConsulta(sqlQuery);
 		
 	}
+	
+	public static Vector<DAOlibro_escritor> obtenerLibroEscritoresObj(String cod_autor) throws SQLException {
+		String sqlQuery = "SELECT * FROM libro_escritor WHERE cod_autor='"+cod_autor+"';";
+		//Este metodo devolvera un vector de tipo <DAOlibro_escritor>
+		return buscaResultadosConConsulta(sqlQuery);
+		
+	}
+	
+	
 	public static DAOlibro_escritor obtenerLibroEscritorIsbn(String isbn) throws SQLException {
 		String sqlQuery = "select * from libro_escritor WHERE isbn= '" + isbn + "';";
 		//Este metodo devolvera un vector tipo <CategoriaDAO>
