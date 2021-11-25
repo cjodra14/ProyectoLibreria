@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class DAOlibro_escritor {
-	int isbn;
+	long isbn;
 	String cod_autor; //Solo se puede modificar el código de autor, no el isbn
 	String nombreAutor, pApelAutor,sApelAutor,tituloLibro;
 	
@@ -12,12 +12,12 @@ public class DAOlibro_escritor {
 		
 	}
 	
-	public DAOlibro_escritor(int isbn, String cod_autor){
+	public DAOlibro_escritor(long isbn, String cod_autor){
 		this.isbn=isbn;
 		this.cod_autor=cod_autor;
 	}
 	
-	public DAOlibro_escritor(int isbn, String cod_autor, String nombreAutor, String pApelAutor, String sApelAutor, String tituloLibro){
+	public DAOlibro_escritor(long isbn, String cod_autor, String nombreAutor, String pApelAutor, String sApelAutor, String tituloLibro){
 		this.isbn = isbn;
 		this.cod_autor = cod_autor;
 		this.nombreAutor = nombreAutor;
@@ -26,11 +26,11 @@ public class DAOlibro_escritor {
 		this.tituloLibro = tituloLibro;
 	}
 
-	public int getIsbn() {
+	public long getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(long isbn) {
 		this.isbn = isbn;
 	}
 
@@ -93,7 +93,7 @@ public class DAOlibro_escritor {
 	//Metodo que extrae todos los registros de la tabla
 	
 	public static Vector<DAOlibro_escritor> obtenerLibrosEscritores() throws SQLException {
-		String sqlQuery = "SELECT L.titulo,A.nombre, A.p_apel, A.s_apel FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn;";
+		String sqlQuery = "SELECT L.ISBN, A.cod_autor, A.nombre, A.p_apel, A.s_apel, L.titulo FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn;";
 		//Este metodo devolvera un vector de tipo <DAOlibro_escritor>
 		return buscaResultadosConConsulta(sqlQuery);
 		
@@ -166,7 +166,7 @@ public class DAOlibro_escritor {
 				DAOlibro_escritor libro_escritor;
 				
 				while(resultado.next()) {
-					int isbn = resultado.getInt(1);
+					long isbn = resultado.getLong(1);
 					String cod_autor= resultado.getString(2);
 					String nombreAutor = resultado.getString(3);
 					String pApelAutor = resultado.getString(4);
@@ -204,7 +204,7 @@ public class DAOlibro_escritor {
 			}
 			
 			public static void mostrarLibroEscritor(DAOlibro_escritor libro_escritor) {
-				System.out.print("ISBN: "+libro_escritor.getIsbn()+" || Código del autor: "+libro_escritor.getCod_autor()+" || Primer apellido Autor: "+libro_escritor.getpApelAutor()+" || Segundo apellido autor: "+libro_escritor.getsApelAutor()+" || Titulo libro: "+libro_escritor.getTituloLibro());
+				System.out.print("ISBN: "+libro_escritor.getIsbn()+"|| Titulo libro: "+libro_escritor.getTituloLibro()+" || Código del autor: "+libro_escritor.getCod_autor()+" || Nombre Autor: "+libro_escritor.getNombreAutor());
 				if(libro_escritor.getpApelAutor()!=null)System.out.print(", "+libro_escritor.getpApelAutor());
 				if(libro_escritor.getsApelAutor()!=null)System.out.print(", "+libro_escritor.getsApelAutor());
 		System.out.println();

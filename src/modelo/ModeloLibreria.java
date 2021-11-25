@@ -58,6 +58,7 @@ public class ModeloLibreria {
 			DAOLibro.setConexionBBDD(sentencia, null);
 			DAOCliente.setConexionBBDD(sentencia, null);
 			DAOVenta.setConexionBBDD(sentencia, null);
+			DAOlibro_escritor.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
