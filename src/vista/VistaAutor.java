@@ -5,6 +5,7 @@ import java.util.*;
 
 import controlador.ControladorAutor;
 import dao.DAOAutor;
+import dao.DAOlibro_escritor;
 
 
 public class VistaAutor {
@@ -44,6 +45,12 @@ public class VistaAutor {
 			case 4:
 				consultaAutores();
 					break;
+			case 5:
+				obtenerLibrosEscritores();
+					break;
+			case 6:
+				obtenerLibrosEscritoresporCodAutor();
+					break;
 				default:
 				System.out.println("La opcion no es correcta. \n");
 					
@@ -72,6 +79,8 @@ public class VistaAutor {
 			System.out.println("2 - Modificar Autores");
 			System.out.println("3 - Borrar Autores");
 			System.out.println("4 - Consulta Autores");
+			System.out.println("5 - Obtener libros de cada autor");
+			System.out.println("6 - Obtener libros de un autor según Código de autor");
 			System.out.println("0 - Salir");
 			
 	}
@@ -182,5 +191,20 @@ public class VistaAutor {
 			e.printStackTrace();
 		}
 		}
+	public void  obtenerLibrosEscritores(){
+		Vector<DAOlibro_escritor> escritoresDeCadaLibro= controlador.obtenerLibrosEscritores();
+		for (DAOlibro_escritor daOlibro_escritor : escritoresDeCadaLibro) {
+			DAOlibro_escritor.mostrarLibroEscritor(daOlibro_escritor);
+		}
+	}
+	public void  obtenerLibrosEscritoresporCodAutor(){
+		String codAutor;
+		System.out.println("Introduce el Código de Autor del que quieres obtener los libros ");
+		codAutor=entrada.nextLine();
+		Vector<DAOlibro_escritor> escritoresDeCadaLibro= controlador.obtenerLibroEscritorporCodAutor(codAutor);
+		for (DAOlibro_escritor daOlibro_escritor : escritoresDeCadaLibro) {
+			DAOlibro_escritor.mostrarLibroEscritor(daOlibro_escritor);
+		}
+	}
 		
 	}

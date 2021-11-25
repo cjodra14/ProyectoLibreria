@@ -305,6 +305,29 @@ public class ModeloLibreria {
 			
 		}
 		
+		public Vector<DAOlibro_escritor> obtenerLibroEscritorIsbn(long isbn){
+			try {
+			libros_escritores=DAOlibro_escritor.obtenerLibroEscritorIsbn(isbn);
+			
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  LOS AUTORES DEL LIBRO");
+				e.printStackTrace();
+			}
+			return libros_escritores;
+			
+		}
+		public Vector<DAOlibro_escritor> obtenerLibroEscritorporCodAutor(String codAutor){
+			try {
+			libros_escritores=DAOlibro_escritor.obtenerLibroEscritorporCodAutor(codAutor);
+			
+			} catch (SQLException e) {
+				System.err.println("Modelo: FALLO A OBTENER  LOS AUTORES DEL LIBRO");
+				e.printStackTrace();
+			}
+			return libros_escritores;
+			
+		}
+		
 		
 	
 

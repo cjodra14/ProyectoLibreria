@@ -16,7 +16,6 @@ public class VistaLibro {
 		private int opcion;
 		private long isbn=-1;
 		private ControladorLibro controlador;
-		private ResultSet resultado;
 		private Scanner entrada;
 		private String titulo;
 		private double precio=-1;
@@ -56,6 +55,9 @@ public class VistaLibro {
 				case 5:
 					obtenerLibrosEscritores();
 						break;
+				case 6:
+					obtenerLibrosEscritoresIsbn();
+						break;
 					default:
 					System.out.println("La opcion no es correcta. \n");
 						
@@ -85,6 +87,7 @@ public class VistaLibro {
 				System.out.println("3 - Borrar Libros");
 				System.out.println("4 - Consulta Libros");
 				System.out.println("5 - Obtener autores de los libros");
+				System.out.println("6 - Obtener autores de un libro por ISBN");
 				System.out.println("0 - Salir");
 				
 		}
@@ -209,6 +212,15 @@ public class VistaLibro {
 			}
 		public void  obtenerLibrosEscritores(){
 			Vector<DAOlibro_escritor> escritoresDeCadaLibro= controlador.obtenerLibrosEscritores();
+			for (DAOlibro_escritor daOlibro_escritor : escritoresDeCadaLibro) {
+				DAOlibro_escritor.mostrarLibroEscritor(daOlibro_escritor);
+			}
+		}
+		public void  obtenerLibrosEscritoresIsbn(){
+			long isbn;
+			System.out.println("Introduce el ISBN del libro del que quieres obtener los autores ");
+			isbn=entrada.nextLong();
+			Vector<DAOlibro_escritor> escritoresDeCadaLibro= controlador.obtenerLibroEscritorIsbn(isbn);
 			for (DAOlibro_escritor daOlibro_escritor : escritoresDeCadaLibro) {
 				DAOlibro_escritor.mostrarLibroEscritor(daOlibro_escritor);
 			}

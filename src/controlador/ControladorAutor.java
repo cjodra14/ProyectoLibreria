@@ -46,6 +46,16 @@ public class ControladorAutor {
 	}
 	
 	
+	//Mostrar libros de cada autor
+		public Vector<DAOlibro_escritor>  obtenerLibrosEscritores(){
+			return modelo.obtenerLibrosEscritores();
+		}
+		
+		//Mostrar los libros de un autor
+			public Vector<DAOlibro_escritor>  obtenerLibroEscritorporCodAutor(String codAutor){
+				return modelo.obtenerLibroEscritorporCodAutor(codAutor);
+			}
+	
 	
 
 	//Ejecutamos el método terminar para liberar memoria

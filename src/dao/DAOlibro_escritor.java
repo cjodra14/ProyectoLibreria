@@ -107,10 +107,16 @@ public class DAOlibro_escritor {
 	}
 	
 	
-	public static DAOlibro_escritor obtenerLibroEscritorIsbn(String isbn) throws SQLException {
-		String sqlQuery = "select * from libro_escritor WHERE isbn= '" + isbn + "';";
+	public static Vector<DAOlibro_escritor> obtenerLibroEscritorIsbn(long isbn) throws SQLException {
+		String sqlQuery = "SELECT L.ISBN, A.cod_autor, A.nombre, A.p_apel, A.s_apel, L.titulo FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn AND L.isbn= '" + isbn + "';";
 		//Este metodo devolvera un vector tipo <CategoriaDAO>
-		return buscaResultadosUnLibroEscritor(sqlQuery);
+		return buscaResultadosConConsulta(sqlQuery);
+		
+	}
+	public static Vector<DAOlibro_escritor> obtenerLibroEscritorporCodAutor(String codAutor) throws SQLException {
+		String sqlQuery = "SELECT L.ISBN, A.cod_autor, A.nombre, A.p_apel, A.s_apel, L.titulo FROM libro_escritor LE, libro L, autor A WHERE A.cod_autor=LE.cod_autor AND L.isbn=LE.isbn AND A.cod_autor= '" + codAutor + "';";
+		//Este metodo devolvera un vector tipo <CategoriaDAO>
+		return buscaResultadosConConsulta(sqlQuery);
 		
 	}
 	
