@@ -23,16 +23,15 @@ public class TestPruebas {
 		ControladorCliente controladorCliente = new ControladorCliente(modelo);
 		
 		//Declara e inicia las vistas  y les agrega a cada vista su propio controlador
-		VistaAutor vistaAutor = new VistaAutor(controladorAutor);
-		VistaCategoria vistaCategoria = new VistaCategoria(controladorCategoria);
-		VistaLibro vistaLibro= new VistaLibro(controladorLibro);
-		VistaEditorial vistaEditorial= new VistaEditorial(controladorEditorial);
-		VistaCliente vistaCliente = new VistaCliente(controladorCliente);
+		//VistaAutor vistaAutor = new VistaAutor(controladorAutor);
 		
+		
+		
+		
+			
 		
 		//Declara en inicia la vista principal desde la que se accede al resto de las vistas
-		VistaPrincipal visor = new VistaPrincipal(vistaAutor, vistaEditorial, vistaCategoria, vistaLibro,vistaCliente);
-		
+		VistaPrincipal visor = new VistaPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
 		visor.getAccion();
 
 	}

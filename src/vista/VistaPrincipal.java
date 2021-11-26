@@ -3,12 +3,18 @@ package vista;
 
 import java.util.*;
 
+import controlador.ControladorAutor;
+import controlador.ControladorCategoria;
+import controlador.ControladorCliente;
+import controlador.ControladorEditorial;
+import controlador.ControladorLibro;
+
 public class VistaPrincipal {
-	VistaAutor vistaAutor;
-	VistaEditorial vistaEditorial;
-	VistaCategoria vistaCategoria; 
-	VistaLibro vistaLibro;
-	VistaCliente vistaCliente;
+	ControladorAutor controladorAutor;
+	ControladorEditorial controladorEditorial;
+	ControladorCategoria controladorCategoria;
+	ControladorLibro controladorLibro;
+	ControladorCliente controladorCliente;
 	
 	
 	
@@ -17,12 +23,12 @@ public class VistaPrincipal {
 	private int opcion;	
 	private Scanner entrada;
 		
-		public VistaPrincipal(VistaAutor vistaAutor, VistaEditorial vistaEditorial, VistaCategoria vistaCategoria, VistaLibro vistaLibro, VistaCliente vistaCliente) {
-		this.vistaAutor=vistaAutor;
-		this.vistaEditorial=vistaEditorial;
-		this.vistaCategoria=vistaCategoria;
-		this.vistaLibro=vistaLibro;
-		this.vistaCliente=vistaCliente;
+		public VistaPrincipal(ControladorAutor controladorAutor, ControladorEditorial controladorEditorial, ControladorCategoria controladorCategoria, ControladorLibro controladorLibro, ControladorCliente controladorCliente) {
+		this.controladorAutor=controladorAutor;
+		this.controladorEditorial=controladorEditorial;
+		this.controladorCategoria=controladorCategoria;
+		this.controladorLibro=controladorLibro;
+		this.controladorCliente=controladorCliente;
 	}		
 		
 		public void getAccion() {
@@ -32,18 +38,22 @@ public class VistaPrincipal {
 			do {
 				switch(opcion) {
 				case 1:
-					vistaAutor.getAccion();
+					VentanaSwingAutor ventanaAutor = new VentanaSwingAutor(controladorAutor);	
 						break;
 				case 2:
+					VistaEditorial vistaEditorial= new VistaEditorial(controladorEditorial);
 					vistaEditorial.getAccion();
 						break;
 				case 3:
+					VistaCategoria vistaCategoria = new VistaCategoria(controladorCategoria);
 					vistaCategoria.getAccion();
 						break;
 				case 4:
+					VistaLibro vistaLibro= new VistaLibro(controladorLibro);
 					vistaLibro.getAccion();
 						break;
 				case 5:
+					VistaCliente vistaCliente = new VistaCliente(controladorCliente);
 					vistaCliente.getAccion();
 						break;
 					default:
