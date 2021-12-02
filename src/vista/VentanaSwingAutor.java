@@ -46,6 +46,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	private JLabel lblSegundoApellido;
 	private JTextField textFieldSApelAutor;
 	private DefaultTableModel dataModel;
+	private JScrollPane scrollPane;
 
 	public VentanaSwingAutor(ControladorAutor controlador) {
 		this.controlador=controlador;
@@ -109,7 +110,6 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		 dataModel.setColumnIdentifiers(header);
 		listarAutores();
 		tableAutores = new JTable(dataModel);
-		tableAutores.setBounds(25, 52, 600, 275);
 		tableAutores.setEnabled(false);
 		tableAutores.addMouseListener(new MouseAdapter() 
 		   {
@@ -126,8 +126,10 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
 		      }
 		   });
+		scrollPane= new JScrollPane(tableAutores);
+		scrollPane.setBounds(25, 52, 600, 275);
 		
-		marco.add(tableAutores);
+		marco.add(scrollPane);
 		
 	
 		
