@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -30,7 +31,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	
 	private ControladorAutor controlador;
 	private Vector<DAOAutor> resultado;
-	JFrame marco = new JFrame("Vista para Autores");
+	JFrame marco;
 	
 	private JLabel lblListadoDeAutores;
 	private JTable tableAutores;
@@ -47,13 +48,15 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	private JTextField textFieldSApelAutor;
 	private DefaultTableModel dataModel;
 	private JScrollPane scrollPane;
+	private JPanel panel;
 
-	public VentanaSwingAutor(ControladorAutor controlador) {
+	public VentanaSwingAutor(ControladorAutor controlador, JFrame marco) {
+		this.marco=marco;
 		this.controlador=controlador;
 		
-		marco.setLayout(null);
-		marco.setSize(850, 525);
-		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setSize(850, 525);
 		
 		jtareaResultado= new JTextArea("", 4,16);
 		
@@ -67,16 +70,18 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		btnTerminar.addActionListener(this);
 		btnListar.addActionListener(this);
 		
-		marco.add(jtareaResultado);
-		marco.add(btnTerminar);
-		marco.add(btnLimpiar);
-		marco.add(btnListar);
+		panel.add(jtareaResultado);
+		panel.add(btnTerminar);
+		panel.add(btnLimpiar);
+		panel.add(btnListar);
 		
 		marco.addWindowListener(this);
 		
 		crearPantalla();
 		
-		marco.setVisible(true);
+		panel.setVisible(true);
+		marco.add(panel);
+		marco.repaint();
 	}
 	
 	@Override
@@ -99,7 +104,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	public void crearPantalla() {
 		lblListadoDeAutores = new JLabel("Listado de Autores");
 		lblListadoDeAutores.setBounds(15, 16, 164, 20);
-		marco.add(lblListadoDeAutores);
+		panel.add(lblListadoDeAutores);
 		
 		Vector<String> header= new Vector<String>();
 		header.add("Código");
@@ -129,7 +134,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		scrollPane= new JScrollPane(tableAutores);
 		scrollPane.setBounds(25, 52, 600, 275);
 		
-		marco.add(scrollPane);
+		panel.add(scrollPane);
 		
 	
 		
@@ -144,7 +149,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 				String pApelAutor=textFieldPApelAutor.getText();
 				String sApelAutor=textFieldSApelAutor.getText();
 				if (codAutor.equals("")||nombreAutor.equals("")) {
-					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE AUTOR ni el NOMBRE ");
+					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE AUTOR ni el NOMBRE ","Error",JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try {
 						controlador.modificarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
@@ -158,7 +163,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 				
 			}
 		});
-		marco.add(btnBotonEditar);
+		panel.add(btnBotonEditar);
 		
 		btnBotonEliminar = new JButton("Boton Eliminar");
 		btnBotonEliminar.addActionListener(new ActionListener() {
@@ -183,7 +188,7 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 			}
 		});
 		btnBotonEliminar.setBounds(665, 184, 145, 29);
-		marco.add(btnBotonEliminar);
+		panel.add(btnBotonEliminar);
 		
 		btnBotonAniadir = new JButton("Boton A\u00F1adir");
 		btnBotonAniadir.setBounds(665, 269, 145, 29);
@@ -210,43 +215,44 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 				
 			}
 		});
-		marco.add(btnBotonAniadir);
+		panel.add(btnBotonAniadir);
 		
 		lblCodigoDeAutor = new JLabel("Codigo de Autor:");
 		lblCodigoDeAutor.setBounds(15, 349, 145, 20);
-		marco.add(lblCodigoDeAutor);
+		panel.add(lblCodigoDeAutor);
 		
 		textFieldCodigoAutor = new JTextField();
 		textFieldCodigoAutor.setBounds(15, 385, 146, 26);
-		marco.add(textFieldCodigoAutor);
+		panel.add(textFieldCodigoAutor);
 		textFieldCodigoAutor.setColumns(10);
 		
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(210, 349, 69, 20);
-		marco.add(lblNombre);
+		panel.add(lblNombre);
 		
 		textFieldNombreAutor = new JTextField();
 		textFieldNombreAutor.setColumns(10);
 		textFieldNombreAutor.setBounds(210, 385, 146, 26);
-		marco.add(textFieldNombreAutor);
+		panel.add(textFieldNombreAutor);
 		
 		lblPrimerApellido = new JLabel("Primer Apellido:");
 		lblPrimerApellido.setBounds(393, 349, 126, 20);
-		marco.add(lblPrimerApellido);
+		panel.add(lblPrimerApellido);
 		
 		textFieldPApelAutor = new JTextField();
 		textFieldPApelAutor.setColumns(10);
 		textFieldPApelAutor.setBounds(393, 385, 146, 26);
-		marco.add(textFieldPApelAutor);
+		panel.add(textFieldPApelAutor);
 		
 		lblSegundoApellido = new JLabel("Segundo Apellido:");
 		lblSegundoApellido.setBounds(584, 349, 131, 20);
-		marco.add(lblSegundoApellido);
+		panel.add(lblSegundoApellido);
 		
 		textFieldSApelAutor = new JTextField();
 		textFieldSApelAutor.setColumns(10);
 		textFieldSApelAutor.setBounds(584, 385, 146, 26);
-		marco.add(textFieldSApelAutor);
+		panel.add(textFieldSApelAutor);
+		
 	}
 
 	
@@ -293,6 +299,12 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	private void limpiarSalida() {
 		String texto=" ";
 		jtareaResultado.setText(texto);
+	}
+	
+	public void repintar() {
+		panel.setVisible(true);
+		marco.add(panel);
+		marco.repaint();
 	}
 	
 	private void terminarAplicacion() {			

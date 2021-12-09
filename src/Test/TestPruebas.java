@@ -31,8 +31,9 @@ public class TestPruebas {
 			
 		
 		//Declara en inicia la vista principal desde la que se accede al resto de las vistas
-		VistaPrincipal visor = new VistaPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
-		visor.getAccion();
+		//VistaPrincipal visor = new VistaPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
+		VistaSwingPrincipal visor = new VistaSwingPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
+		//visor.getAccion();
 
 	}
 

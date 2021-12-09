@@ -38,7 +38,7 @@ public class VistaPrincipal {
 			do {
 				switch(opcion) {
 				case 1:
-					VentanaSwingAutor ventanaAutor = new VentanaSwingAutor(controladorAutor);	
+					VistaAutor ventanaAutor = new VistaAutor(controladorAutor);	
 						break;
 				case 2:
 					VistaEditorial vistaEditorial= new VistaEditorial(controladorEditorial);
