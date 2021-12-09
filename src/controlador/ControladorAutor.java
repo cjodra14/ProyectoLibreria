@@ -18,29 +18,29 @@ public class ControladorAutor {
 	}
 	
 	//Este metodo retorna un vector de autores y lo obtiene del metodo obtenerAutores()
-	public Vector<DAOAutor> obtenerAutores(){
+	public Vector<DAOAutor> obtenerAutores() throws Exception{
 		autores=modelo.obtenerAutores();
 		return autores;
 	}
 	
-	public DAOAutor obtenerAutor(String idAutor) throws SQLException {
+	public DAOAutor obtenerAutor(String idAutor) throws Exception {
 		DAOAutor autor;
 		autor=modelo.obtenerAutor(idAutor);
 		return autor;
 	}
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
+	public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
 		modelo.insertarAutor(idAutor,nombreAutor,apel1,apel2);
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un autor
-	public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws SQLException{
+	public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
 		modelo.modificarAutor(idAutor,nombreAutor,apel1,apel2);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un autor
-	public int borrarAutor(String idAutor) throws SQLException{
+	public int borrarAutor(String idAutor) throws Exception{
 		
 		 return modelo.borrarAutor(idAutor);
 	}

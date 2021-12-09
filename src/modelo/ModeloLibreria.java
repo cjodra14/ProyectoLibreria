@@ -92,7 +92,7 @@ public class ModeloLibreria {
 		
 		
 		// Extrae todos los registros de la tabla de Autores
-		public Vector<DAOAutor> obtenerAutores(){
+		public Vector<DAOAutor> obtenerAutores() throws Exception{
 			try {
 				
 			
@@ -107,19 +107,19 @@ public class ModeloLibreria {
 			
 		}
 		//Método que extrae un registro de la tabla con una sentencia SELECT de un solo autor
-		public DAOAutor obtenerAutor(String idAutor) throws SQLException {
+		public DAOAutor obtenerAutor(String idAutor) throws Exception {
 			return DAOAutor.obtenerAutor(idAutor);
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT en el autor
-		public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
+		public void insertarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception {
 			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) {
+		public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception {
 			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
-		public int borrarAutor(String idAutor) throws SQLException {
+		public int borrarAutor(String idAutor) throws Exception {
 			
 			return DAOAutor.borrarAutor(idAutor);
 		}
@@ -193,7 +193,7 @@ public class ModeloLibreria {
 		
 		/////////////////////// Libro /////////////////////////
 		//Método que extrae todos los registros de la tabla con una sentencia SELECT
-		public Vector<DAOLibro> obtenerLibros(){
+		public Vector<DAOLibro> obtenerLibros() throws Exception{
 			try {				
 			libros=DAOLibro.obtenerLibros();
 			} catch (SQLException e) {
@@ -204,11 +204,11 @@ public class ModeloLibreria {
 			
 		}
 		//Método que extrae un registro de la tabla con una sentencia SELECT
-		public DAOLibro obtenerLibro(long isbn) throws SQLException {
+		public DAOLibro obtenerLibro(long isbn) throws Exception {
 			return DAOLibro.obtenerlibro(isbn);
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public void insertarLibros(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException {
+		public void insertarLibros(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception {
 			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
@@ -216,7 +216,7 @@ public class ModeloLibreria {
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un libro 
-		public int borrarLibro(long isbn) throws SQLException {			
+		public int borrarLibro(long isbn) throws Exception {			
 			return DAOLibro.borrarLibro(isbn);
 		}
 		

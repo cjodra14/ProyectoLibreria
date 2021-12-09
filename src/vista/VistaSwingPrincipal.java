@@ -26,6 +26,7 @@ public class VistaSwingPrincipal implements ActionListener {
 	JMenuBar menuBar;
 	JButton btnHome, btnCategoria,btnEditorial, btnAutor, btnLibro;
 	VentanaSwingAutor ventanaAutor;
+	VentanaSwingLibro ventanaLibro;
 	
 	
 	
@@ -42,8 +43,9 @@ public class VistaSwingPrincipal implements ActionListener {
 		this.controladorCliente=controladorCliente;
 		marco = new JFrame("Menú principal");
 		marco.setLayout(null);
-		marco.setSize(850, 525);
+		marco.setSize(850, 250);
 		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		marco.setResizable(false);
 		menuBar = new JMenuBar();
 		marco.setJMenuBar(menuBar);
 		
@@ -77,10 +79,27 @@ public class VistaSwingPrincipal implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource().equals(btnAutor)) {
 				if (ventanaAutor==null) {
-					ventanaAutor = new VentanaSwingAutor(controladorAutor, marco);	
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaAutor = new VentanaSwingAutor(controladorAutor, marco);
+					
 				}else {
 					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
 					ventanaAutor.repintar();
+				}
+				
+			}
+			if (e.getSource().equals(btnLibro)) {
+				if (ventanaLibro==null) {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,850);
+					ventanaLibro = new VentanaSwingLibro(controladorLibro, marco);
+					
+				}else {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,850);
+					ventanaLibro.repintar();
 				}
 				
 			}

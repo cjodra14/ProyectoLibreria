@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import controlador.ControladorAutor;
 import dao.DAOAutor;
 
-public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
+public class VentanaSwingAutor {
 	private JTextArea jtareaResultado;
 	private JButton btnListar,btnTerminar,btnLimpiar;
 	
@@ -58,25 +58,6 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		panel.setLayout(null);
 		panel.setSize(850, 525);
 		
-		jtareaResultado= new JTextArea("", 4,16);
-		
-		btnListar= new JButton("Listar autores");
-		btnTerminar = new JButton("Terminar");
-		btnLimpiar = new JButton("Limpiar");
-		
-		
-		
-		btnLimpiar.addActionListener(this);
-		btnTerminar.addActionListener(this);
-		btnListar.addActionListener(this);
-		
-		panel.add(jtareaResultado);
-		panel.add(btnTerminar);
-		panel.add(btnLimpiar);
-		panel.add(btnListar);
-		
-		marco.addWindowListener(this);
-		
 		crearPantalla();
 		
 		panel.setVisible(true);
@@ -84,22 +65,6 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 		marco.repaint();
 	}
 	
-	@Override
-	public void windowClosing(WindowEvent e) {
-		//terminarAplicacion();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource().equals(btnListar)) {
-//			listarAutores();
-		}else if(arg0.getSource().equals(btnTerminar)) {
-			terminarAplicacion();
-		}else if (arg0.getSource().equals(btnLimpiar)) {
-			limpiarSalida();
-		}
-		
-	}
 	
 	public void crearPantalla() {
 		lblListadoDeAutores = new JLabel("Listado de Autores");
@@ -155,8 +120,8 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 						controlador.modificarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
 						JOptionPane.showMessageDialog(null, "Autor modificado con exito");
 						listarAutores();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Error al modificar el autor");
 					}
 				}
 				
@@ -179,8 +144,8 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 						controlador.borrarAutor(codAutor);
 						JOptionPane.showMessageDialog(null, "Autor eliminado con exito");
 						listarAutores();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Error al eliminar el autor");
 					}
 				}
 				
@@ -207,8 +172,8 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 						controlador.insertarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
 						JOptionPane.showMessageDialog(null, "Autor añadido con exito");
 						listarAutores();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Error al añadir el autor");
 					}
 				}
 				
@@ -258,11 +223,11 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 	
 	private void listarAutores() {
 		dataModel.setRowCount(0);
-		String datos="";
-		Vector<DAOAutor> autores= controlador.obtenerAutores();
 		
-		
+		Vector<DAOAutor> autores;
 		try {
+			autores = controlador.obtenerAutores();
+
 			Iterator<DAOAutor> itAutores = autores.iterator();
 			while(itAutores.hasNext()) {
 				DAOAutor autor= itAutores.next();
@@ -274,32 +239,16 @@ public class VentanaSwingAutor extends WindowAdapter implements ActionListener{
 				
 				dataModel.addRow(vectordeAutores);
 			
-//				datos=datos+" ID: "+autor.getCod_autor()+" || Nombre: "+autor.getNombre_autor();
-//				if(autor.getP_apellido()!=null)datos=datos+" , "+autor.getP_apellido();
-//				if(autor.getS_apellido()!=null)datos=datos+" , "+autor.getS_apellido();
-//				datos=datos+"\n";
 				
 			}
-			
-			
-			
-			
-			
-				
-				
 		} catch (Exception e) {
 			System.err.println("Vista: FALLO A OBTENER  AUTORES");
 			e.printStackTrace();
 		}
-//		jtareaResultado.setText(datos);
 		
 		
 	}
 	
-	private void limpiarSalida() {
-		String texto=" ";
-		jtareaResultado.setText(texto);
-	}
 	
 	public void repintar() {
 		panel.setVisible(true);

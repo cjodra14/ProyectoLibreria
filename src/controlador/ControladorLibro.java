@@ -20,29 +20,29 @@ public class ControladorLibro {
 	}
 	
 	//Este metodo retorna un vector de Libros y lo obtiene del metodo obtenerLibros()
-	public Vector<DAOLibro> obtenerLibros(){
+	public Vector<DAOLibro> obtenerLibros() throws Exception{
 		libros=modelo.obtenerLibros();
 		return libros;
 	}
 	
-	public DAOLibro obtenerLibro(long isbn) throws SQLException {
+	public DAOLibro obtenerLibro(long isbn) throws Exception {
 		DAOLibro libro;
 		libro=modelo.obtenerLibro(isbn);
 		return libro;
 	}
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public void insertarLibros(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException{
+	public void insertarLibros(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
 		modelo.insertarLibros(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un libro
-	public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws SQLException{
+	public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
 		modelo.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un libro
-	public int borrarLibro(long isbn)  throws SQLException{
+	public int borrarLibro(long isbn)  throws Exception{
 		
 		 return modelo.borrarLibro(isbn);
 	}

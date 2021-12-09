@@ -78,40 +78,36 @@ public class DAOAutor {
 		//MÉTODOS CRUD
 		//READ
 		//Método que extrae todos los registros de la tabla
-		public static Vector<DAOAutor> obtenerAutores() throws SQLException{
+		public static Vector<DAOAutor> obtenerAutores() throws Exception{
 			String sqlQuery = "select * from autor";
 			//Este método devolverá un vector de tipo <AutorDAO>
 			return buscaResultadosConConsulta(sqlQuery);	
 		}
-		public static DAOAutor obtenerAutor(String codAutor) throws SQLException{
+		public static DAOAutor obtenerAutor(String codAutor) throws Exception{
 			String sqlQuery = "select * from autor WHERE cod_autor='"+codAutor+"';";
 			return buscaResultadosUnAutor(sqlQuery);	
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public static void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) {
-			try{
+		public static void insertarDatos(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception {
+			
 				String sqlQuery = "INSERT INTO libreria.autor VALUES ('"+idAutor+"','"+nombreAutor+"','"+apel1+"','"+apel2+"');";
 				DAOAutor.sentencia.execute(sqlQuery);
 				System.out.println("Los datos del autor con el código "+idAutor+" han sido insertados con éxito.");
-			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar datos en el autor con el código "+idAutor);
-			}
+			
 		}
 
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2){
-			try {
+		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
+			
 				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE cod_autor='"+idAutor+"';";
 				DAOAutor.sentencia.executeUpdate(sqlQuery);	
 				System.out.println("El autor con el código "+idAutor+" ha sido modificado con éxito.");
-			}catch(SQLException e) {
-				System.err.println("Error al modificar el dato.\n"+e.getStackTrace());
-			}
+			
 		} 
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
-		public static int borrarAutor(String idAutor) throws SQLException {
+		public static int borrarAutor(String idAutor) throws Exception {
 			String sqlQuery="DELETE FROM libreria.autor WHERE cod_autor='"+idAutor+"'";
 			return DAOAutor.sentencia.executeUpdate(sqlQuery);
 		}
@@ -119,13 +115,13 @@ public class DAOAutor {
 		
 		//MÉTODOS UTILITY DE CLASE
 		//Método que extrae filas de la tabla a través de una consulta
-		private static Vector<DAOAutor> buscaResultadosConConsulta(String consulta) throws SQLException{
+		private static Vector<DAOAutor> buscaResultadosConConsulta(String consulta) throws Exception{
 			resultado = DAOAutor.sentencia.executeQuery(consulta);
 			return cargaResultSetToVector(resultado);
 			
 		}
 		
-		private static Vector<DAOAutor> cargaResultSetToVector(ResultSet resultado) throws SQLException {
+		private static Vector<DAOAutor> cargaResultSetToVector(ResultSet resultado) throws Exception {
 			Vector<DAOAutor> autores = new Vector<DAOAutor>();
 			DAOAutor autor;
 			
@@ -140,13 +136,13 @@ public class DAOAutor {
 			
 			return autores;
 		}
-		private static DAOAutor buscaResultadosUnAutor(String consulta) throws SQLException{
+		private static DAOAutor buscaResultadosUnAutor(String consulta) throws Exception{
 			resultado = DAOAutor.sentencia.executeQuery(consulta);
 			return cargaResultSetToAutor(resultado);
 			
 		}
 		
-		private static DAOAutor cargaResultSetToAutor(ResultSet resultado) throws SQLException {
+		private static DAOAutor cargaResultSetToAutor(ResultSet resultado) throws Exception {
 			
 			DAOAutor autor = null;
 			

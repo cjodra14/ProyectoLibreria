@@ -131,12 +131,18 @@ public class VistaAutor {
 	private void modificacionAutores() throws SQLException {
 		
 		
-		do {
+		try {do {
 		System.out.println("Escribe idAutor a modificar");
 		codAutor = entrada.nextLine();
 		}while(codAutor.equals(""));
-		DAOAutor autor=controlador.obtenerAutor(codAutor);
-		DAOAutor.mostrarAutor(autor);
+		DAOAutor autor;
+		
+			autor = controlador.obtenerAutor(codAutor);
+		
+		DAOAutor.mostrarAutor(autor);} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		do {
 		System.out.println("Nombre Autor");
 		nombreAutor = entrada.nextLine();}while(nombreAutor.equals(""));
@@ -145,7 +151,12 @@ public class VistaAutor {
 		System.out.println("Segundo Apellido");
 		segundoApellido = entrada.nextLine();
 		
-		DAOAutor.modificarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
+		try {
+			DAOAutor.modificarAutor(codAutor, nombreAutor, primerApellido, segundoApellido);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
@@ -164,7 +175,7 @@ public class VistaAutor {
 			else {
 				System.out.println("No se ha eliminado ningun autor");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.err.println("Fallo al eliminar el Autor");
 			e.printStackTrace();
 		}
@@ -174,10 +185,11 @@ public class VistaAutor {
 	
 	
 	private void consultaAutores() {
+		try {
 		Vector<DAOAutor> autores= controlador.obtenerAutores();
 		System.out.println("\nLISTADO DE AUTORES");
 		System.out.println("======================");
-		try {
+	
 			Iterator<DAOAutor> itAutores = autores.iterator();
 			while(itAutores.hasNext()) {
 				DAOAutor autor= itAutores.next();

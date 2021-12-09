@@ -171,26 +171,24 @@ public class DAOLibro {
 		//MÉTODOS CRUD
 		//READ
 		//Método que extrae todos los registros de la tabla
-		public static Vector<DAOLibro> obtenerLibros() throws SQLException{
+		public static Vector<DAOLibro> obtenerLibros() throws Exception{
 			String sqlQuery = "select * from libro";
 			//Este método devolverá un vector de tipo <DAOLibro>
 			return buscaResultadosConConsulta(sqlQuery);	
 		}
-		public static DAOLibro obtenerlibro(long isbn) throws SQLException{
+		public static DAOLibro obtenerlibro(long isbn) throws Exception{
 			String sqlQuery = "select * from libro WHERE isbn='"+isbn+"';";
 			//Este método devolverá un vector de tipo <DAOLibro>
 			return buscaResultadosUnLibro(sqlQuery);	
 		}
 		
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public static void insertarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
-			try{
+		public static void insertarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception {
+			
 				String sqlQuery = "INSERT INTO libreria.libro VALUES ('"+isbn+"','"+titulo+"','"+precio+"','"+ud_stock+"','"+imagen+"','"+descripcion+"','"+cod_editorial+"','"+cod_categoria+"');";
 				DAOLibro.sentencia.execute(sqlQuery);
 				System.out.println("Los datos del libro con el isbn "+isbn+" han sido insertados con éxito.");
-			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar datos en el libro con el isbn "+isbn);
-			}
+			
 		}
 
 		
@@ -207,7 +205,7 @@ public class DAOLibro {
 		} 
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un libro
-		public static int borrarLibro(long isbn) throws SQLException {
+		public static int borrarLibro(long isbn) throws Exception {
 			String sqlQuery="DELETE FROM libreria.libro WHERE isbn='"+isbn+"'";
 	
 			return DAOLibro.sentencia.executeUpdate(sqlQuery);
@@ -216,13 +214,13 @@ public class DAOLibro {
 		
 		//MÉTODOS UTILITY DE CLASE
 		//Método que extrae filas de la tabla a través de una consulta
-		private static Vector<DAOLibro> buscaResultadosConConsulta(String consulta) throws SQLException{
+		private static Vector<DAOLibro> buscaResultadosConConsulta(String consulta) throws Exception{
 			resultado = DAOLibro.sentencia.executeQuery(consulta);
 			return cargaResultSetToVector(resultado);
 			
 		}
 		
-		private static Vector<DAOLibro> cargaResultSetToVector(ResultSet resultado) throws SQLException {
+		private static Vector<DAOLibro> cargaResultSetToVector(ResultSet resultado) throws Exception {
 			Vector<DAOLibro> libros = new Vector<DAOLibro>();
 			DAOLibro libro;
 			
@@ -241,13 +239,13 @@ public class DAOLibro {
 			
 			return libros;
 		}
-		private static DAOLibro buscaResultadosUnLibro(String consulta) throws SQLException{
+		private static DAOLibro buscaResultadosUnLibro(String consulta) throws Exception{
 			resultado = DAOLibro.sentencia.executeQuery(consulta);
 			return cargaResultSetToLibro(resultado);
 			
 		}
 		
-		private static DAOLibro cargaResultSetToLibro(ResultSet resultado) throws SQLException {
+		private static DAOLibro cargaResultSetToLibro(ResultSet resultado) throws Exception {
 			
 			DAOLibro libro = null;
 			
