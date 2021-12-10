@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -103,6 +104,7 @@ public class VentanaSwingLibro {
 	panelLibro = new JPanel();
 	panelLibro.setLayout(null);
 	panelLibro.setSize(850, 845);
+	panelLibro.setBackground(Color.BLACK); 
 	
 	crearPantalla();
 	
@@ -254,6 +256,12 @@ public class VentanaSwingLibro {
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.setBounds(647, 72, 115, 29);
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listarTodosAutores();
+			
+			}
+		});
 		panelAddAutor.add(btnRefresh);
 		
 		scrollPaneAddAutor = new JScrollPane(tableAddAutores);
