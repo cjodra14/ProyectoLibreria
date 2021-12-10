@@ -150,7 +150,10 @@ public class VistaLibro {
 			do {
 			System.out.println("Escribe el ISBN del libro a modificar");
 			isbn = entrada.nextInt();}while(String.valueOf(isbn).equals(""));
-			DAOLibro libro=controlador.obtenerLibro(isbn);
+			DAOLibro libro;
+			try {
+				libro = controlador.obtenerLibro(isbn);
+			
 			DAOLibro.mostrarLibro(libro);
 			entrada.nextLine();
 			do {
@@ -169,8 +172,11 @@ public class VistaLibro {
 			System.out.println("Código de la categoria");
 			cod_categoria = entrada.nextLine();}while(titulo.equals("")||String.valueOf(precio).equals("")||String.valueOf(ud_stock).equals("")||cod_editorial.equals("")||cod_categoria.equals(""));
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion,cod_editorial, cod_categoria);
-			
-		}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			}
 		
 		private void borrarLibros() {
 			System.out.println("Escribe el ISBN del libro que quieres borrar");
@@ -183,7 +189,7 @@ public class VistaLibro {
 				else {
 					System.out.println("No se ha eliminado ningun libro");
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				System.err.println("Fallo al eliminar el libro");
 				e.printStackTrace();
 			}
@@ -193,19 +199,19 @@ public class VistaLibro {
 		
 		
 		private void consultaLibros() {
-			Vector<DAOLibro> libros= controlador.obtenerLibros();
+			Vector<DAOLibro> libros;
+			try {
+				libros = controlador.obtenerLibros();
+			
 			System.out.println("\nLISTADO DE LIBROS");
 			System.out.println("======================");
-			try {
+			
 				Iterator<DAOLibro> itLibros = libros.iterator();
 				while(itLibros.hasNext()) {
 					DAOLibro libro= itLibros.next();
-					DAOLibro.mostrarLibro(libro);
-					
+					DAOLibro.mostrarLibro(libro);	
 				}
-					
-					
-			} catch (Exception e) {
+				} catch (Exception e) {
 				System.err.println("Vista: FALLO A OBTENER LIBROS");
 				e.printStackTrace();
 			}

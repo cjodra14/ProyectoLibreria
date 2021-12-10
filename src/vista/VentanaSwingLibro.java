@@ -45,7 +45,7 @@ public class VentanaSwingLibro {
 	ControladorAutor controladorAutor;
 	
 	private JTable tableLibros;
-	private JTable tabelAutores;
+	private JTable tableAutores;
 	private JLabel lblAutoresDelLibro;
 	private JTextField tfUds;
 	private JTextField tfPrecio;
@@ -77,7 +77,7 @@ public class VentanaSwingLibro {
 	private JLabel lblListadoDeLibros;
 	private DefaultTableModel dataModel;
 	private DefaultTableModel autorDataModel;
-	private JScrollPane scrollPAneAutor;
+	private JScrollPane scrollPaneAutor;
 	private JScrollPane scrollPane;
 	
 	
@@ -112,7 +112,7 @@ public class VentanaSwingLibro {
 		panelLibro.add(lblImagen);
 		
 		label = new JLabel("");
-		label.setBounds(25, 557, 115, 115);
+		label.setBounds(25, 550, 115, 115);
 		panelLibro.add(label);
 		
 		
@@ -144,6 +144,7 @@ public class VentanaSwingLibro {
 		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
 		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
 		        		 try {
+		        			 label.setIcon(null);
 		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
 		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
 		        	         ImageIcon icon = new ImageIcon(dimg);
@@ -172,50 +173,44 @@ public class VentanaSwingLibro {
 //////
 		
 		
-		dataModel= new DefaultTableModel(0, 0);
-		dataModel.setColumnIdentifiers(header);
-		listarLibros();
-		tableLibros = new JTable(dataModel);
-		tableLibros.setEnabled(false);
-		tableLibros.addMouseListener(new MouseAdapter() 
-		   {
-		      public void mouseClicked(MouseEvent e) 
-		      {
-		         int fila = tableLibros.rowAtPoint(e.getPoint());
-		         int columna = 0;
-		         if ((fila > -1) && (columna > -1)) {
-		        	 tfISBN.setText((String)dataModel.getValueAt(fila, columna));
-		        	 tfTitulo.setText((String)dataModel.getValueAt(fila, columna+1));
-		        	 tfPrecio.setText((String)dataModel.getValueAt(fila, columna+2));
-		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
-		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
-		        		 try {
-		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
-		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
-		        	         ImageIcon icon = new ImageIcon(dimg);
-		        	         label.setIcon(icon);
-		        	         
-		        	      } catch (IOException e2) {
-		        	         e2.printStackTrace();
-		        	      }
-					}
-		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
-		        	 
-//		        	
-//		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
-		      }
-		   }});
-		scrollPane= new JScrollPane(tableLibros);
-		scrollPane.setBounds(25, 52, 767, 275);
+		autorDataModel= new DefaultTableModel(0, 0);
+		autorDataModel.setColumnIdentifiers(header);
+		listarAutores();
+		tableAutores = new JTable(autorDataModel);
+		tableAutores.setEnabled(false);
+//		tableAutores.addMouseListener(new MouseAdapter() 
+//		   {
+//		      public void mouseClicked(MouseEvent e) 
+//		      {
+//		         int fila = tableLibros.rowAtPoint(e.getPoint());
+//		         int columna = 0;
+//		         if ((fila > -1) && (columna > -1)) {
+//		        	 tfISBN.setText((String)dataModel.getValueAt(fila, columna));
+//		        	 tfTitulo.setText((String)dataModel.getValueAt(fila, columna+1));
+//		        	 tfPrecio.setText((String)dataModel.getValueAt(fila, columna+2));
+//		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
+//		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
+//		        		 try {
+//		        			 
+//		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
+//		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
+//		        	         ImageIcon icon = new ImageIcon(dimg);
+//		        	         label.setIcon(icon);
+//		        	         
+//		        	      } catch (IOException e2) {
+//		        	         e2.printStackTrace();
+//		        	      }
+//					}
+//		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
+//}
+//		   }});
+		scrollPaneAutor= new JScrollPane(tableAutores);
+		scrollPaneAutor.setBounds(25, 390, 650, 115);
 		
-		panelLibro.add(scrollPane);
+		panelLibro.add(scrollPaneAutor);
 		
 		
 //////		
-		tabelAutores = new JTable();
-		tabelAutores.setEnabled(false);
-		tabelAutores.setBounds(25, 390, 650, 115);
-		panelLibro.add(tabelAutores);
 		
 		lblAutoresDelLibro = new JLabel("Autores del libro");
 		lblAutoresDelLibro.setBounds(15, 351, 133, 20);
@@ -353,6 +348,35 @@ public class VentanaSwingLibro {
 		
 	}
 	
+	private void listarAutores() {
+dataModel.setRowCount(0);
+		
+		Vector<DAOLibro> libros;
+		try {
+			libros =  controladorLibro.obtenerLibros();
+
+			Iterator<DAOLibro> itAutores = libros.iterator();
+			while(itAutores.hasNext()) {
+				DAOLibro libro= itAutores.next();
+				Vector<String> vectordeLibros = new Vector<String>();
+				vectordeLibros.add(String.valueOf(libro.getIsbn()));
+				vectordeLibros.add(libro.getTitulo());
+				vectordeLibros.add(String.valueOf(libro.getPrecio()));
+				vectordeLibros.add(String.valueOf(libro.getUd_stock()));
+				vectordeLibros.add(libro.getImagen());
+				vectordeLibros.add(libro.getDescripcion());
+				vectordeLibros.add(controladorEditorial.obtenerEditorial(libro.getCod_editorial()).getNombre_editorial());
+				vectordeLibros.add(controladorCategoria.obtenerCategoria(libro.getCod_categoria()).getNombre_categoria());
+				
+				dataModel.addRow(vectordeLibros);
+			}
+		} catch (Exception e) {
+			System.err.println("Vista: FALLO A OBTENER  LOS LIBROS");
+			e.printStackTrace();
+		}
+		
+	}
+
 	private void listarLibros() {
 		dataModel.setRowCount(0);
 		
