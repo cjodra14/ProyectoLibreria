@@ -153,10 +153,13 @@ public class VistaCategoria {
 	
 	
 	private void consultaCategoria() {
-		Vector<DAOCategoria> categorias= controlador.obtenerCategorias();
+		Vector<DAOCategoria> categorias;
+		try {
+			categorias = controlador.obtenerCategorias();
+		
 		System.out.println("\nLISTADO DE CATEGORIAS");
 		System.out.println("======================");
-		try {
+		
 			Iterator<DAOCategoria> itCategorias = categorias.iterator();
 			while(itCategorias.hasNext()) {
 				DAOCategoria categoria= itCategorias.next();

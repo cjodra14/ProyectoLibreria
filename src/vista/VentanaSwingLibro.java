@@ -34,6 +34,7 @@ import dao.DAOAutor;
 import dao.DAOCategoria;
 import dao.DAOEditorial;
 import dao.DAOLibro;
+import dao.DAOlibro_escritor;
 
 public class VentanaSwingLibro {
 	 private static final String IMG_PATH = "assets/books/";
@@ -83,7 +84,7 @@ public class VentanaSwingLibro {
 	
 	
 
-	public VentanaSwingLibro(ControladorLibro controladorLibro, ControladorAutor controladorAutor,ControladorCategoria controladorCategoria ,ControladorEditorial controladorEditorial , JFrame marco) throws Exception {
+	public VentanaSwingLibro(ControladorLibro controladorLibro, ControladorAutor controladorAutor,ControladorCategoria controladorCategoria ,ControladorEditorial controladorEditorial , JFrame marco) {
 	this.controladorLibro=controladorLibro;
 	this.controladorAutor= controladorAutor;
 	this.controladorCategoria = controladorCategoria;
@@ -102,7 +103,7 @@ public class VentanaSwingLibro {
 	marco.repaint();
 	}
 	
-	private void crearPantalla() throws Exception {
+	private void crearPantalla() {
 		lblListadoDeLibros = new JLabel("Listado de Libros");
 		lblListadoDeLibros.setBounds(15, 16, 164, 20);
 		panelLibro.add(lblListadoDeLibros);
@@ -156,7 +157,7 @@ public class VentanaSwingLibro {
 					}
 		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
 		        	 
-//		        	
+		        	listarAutores();
 //		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
 		      }
 		   }});
@@ -174,8 +175,8 @@ public class VentanaSwingLibro {
 		
 		
 		autorDataModel= new DefaultTableModel(0, 0);
-		autorDataModel.setColumnIdentifiers(header);
-		listarAutores();
+		autorDataModel.setColumnIdentifiers(headerAutores);
+//		listarAutores();
 		tableAutores = new JTable(autorDataModel);
 		tableAutores.setEnabled(false);
 //		tableAutores.addMouseListener(new MouseAdapter() 
@@ -322,7 +323,10 @@ public class VentanaSwingLibro {
 		panelLibro.add(lblCategoria);
 		
 		
-		Vector<DAOEditorial> editoriales=controladorEditorial.obtenerEditoriales();
+		Vector<DAOEditorial> editoriales;
+		try {
+			editoriales = controladorEditorial.obtenerEditoriales();
+		
 		Iterator<DAOEditorial> itVector = editoriales.iterator();
 		Vector<String> editorialesVector= new Vector<String>();
 		while (itVector.hasNext()) {
@@ -330,9 +334,16 @@ public class VentanaSwingLibro {
 			
 		}
 		
+		
 		comboEditorial = new JComboBox(editorialesVector);
 		comboEditorial.setBounds(188, 738, 176, 26);
 		panelLibro.add(comboEditorial);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			
 		
 		Vector<DAOCategoria> categorias=controladorCategoria.obtenerCategorias();
 		Iterator<DAOCategoria> itCat = categorias.iterator();
@@ -344,34 +355,33 @@ public class VentanaSwingLibro {
 		
 		comboCategoria = new JComboBox(categoriasVector);
 		comboCategoria.setBounds(414, 738, 211, 26);
-		panelLibro.add(comboCategoria);		
+		panelLibro.add(comboCategoria);	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}
 	
 	private void listarAutores() {
-dataModel.setRowCount(0);
+		autorDataModel.setRowCount(0);
 		
-		Vector<DAOLibro> libros;
+		Vector<DAOlibro_escritor> autores;
 		try {
-			libros =  controladorLibro.obtenerLibros();
+			autores =  controladorLibro.obtenerLibroEscritorIsbn(Long.valueOf(tfISBN.getText()));
 
-			Iterator<DAOLibro> itAutores = libros.iterator();
-			while(itAutores.hasNext()) {
-				DAOLibro libro= itAutores.next();
-				Vector<String> vectordeLibros = new Vector<String>();
-				vectordeLibros.add(String.valueOf(libro.getIsbn()));
-				vectordeLibros.add(libro.getTitulo());
-				vectordeLibros.add(String.valueOf(libro.getPrecio()));
-				vectordeLibros.add(String.valueOf(libro.getUd_stock()));
-				vectordeLibros.add(libro.getImagen());
-				vectordeLibros.add(libro.getDescripcion());
-				vectordeLibros.add(controladorEditorial.obtenerEditorial(libro.getCod_editorial()).getNombre_editorial());
-				vectordeLibros.add(controladorCategoria.obtenerCategoria(libro.getCod_categoria()).getNombre_categoria());
+			Iterator<DAOlibro_escritor> itAutoresLibro = autores.iterator();
+			while(itAutoresLibro.hasNext()) {
+				DAOlibro_escritor autorLibro= itAutoresLibro.next();
+				Vector<String> vectordeAutoresLibro = new Vector<String>();
+				vectordeAutoresLibro.add(autorLibro.getCod_autor());
+				vectordeAutoresLibro.add(autorLibro.getNombreAutor());
+				vectordeAutoresLibro.add(autorLibro.getpApelAutor());
+				vectordeAutoresLibro.add(autorLibro.getsApelAutor());
 				
-				dataModel.addRow(vectordeLibros);
+				autorDataModel.addRow(vectordeAutoresLibro);
 			}
 		} catch (Exception e) {
-			System.err.println("Vista: FALLO A OBTENER  LOS LIBROS");
+			System.err.println("Vista: FALLO A OBTENER  LOS AUTORES");
 			e.printStackTrace();
 		}
 		
@@ -397,7 +407,7 @@ dataModel.setRowCount(0);
 				vectordeLibros.add(controladorEditorial.obtenerEditorial(libro.getCod_editorial()).getNombre_editorial());
 				vectordeLibros.add(controladorCategoria.obtenerCategoria(libro.getCod_categoria()).getNombre_categoria());
 				
-				dataModel.addRow(vectordeLibros);
+			dataModel.addRow(vectordeLibros);
 			}
 		} catch (Exception e) {
 			System.err.println("Vista: FALLO A OBTENER  LOS LIBROS");
