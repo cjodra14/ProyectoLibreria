@@ -1,17 +1,24 @@
 package vista;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,14 +26,23 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import controlador.ControladorAutor;
+import controlador.ControladorCategoria;
+import controlador.ControladorEditorial;
 import controlador.ControladorLibro;
 import dao.DAOAutor;
+import dao.DAOCategoria;
+import dao.DAOEditorial;
 import dao.DAOLibro;
 
 public class VentanaSwingLibro {
+	 private static final String IMG_PATH = "assets/books/";
 	JFrame marco;
 	JPanel panelLibro;
 	ControladorLibro controladorLibro;
+	ControladorCategoria controladorCategoria;
+	ControladorEditorial controladorEditorial;
+	ControladorAutor controladorAutor;
 	
 	private JTable tableLibros;
 	private JTable tabelAutores;
@@ -60,13 +76,19 @@ public class VentanaSwingLibro {
 	private JComboBox comboCategoria;
 	private JLabel lblListadoDeLibros;
 	private DefaultTableModel dataModel;
+	private DefaultTableModel autorDataModel;
+	private JScrollPane scrollPAneAutor;
 	private JScrollPane scrollPane;
 	
 	
 	
 
-	public VentanaSwingLibro(ControladorLibro controladorLibro, JFrame marco) {
+	public VentanaSwingLibro(ControladorLibro controladorLibro, ControladorAutor controladorAutor,ControladorCategoria controladorCategoria ,ControladorEditorial controladorEditorial , JFrame marco) {
 	this.controladorLibro=controladorLibro;
+	this.controladorAutor= controladorAutor;
+	this.controladorCategoria = controladorCategoria;
+	this.controladorEditorial= controladorEditorial;
+	
 	this.marco = marco;
 	
 	panelLibro = new JPanel();
@@ -85,6 +107,13 @@ public class VentanaSwingLibro {
 		lblListadoDeLibros.setBounds(15, 16, 164, 20);
 		panelLibro.add(lblListadoDeLibros);
 		
+		lblImagen = new JLabel("Imagen:");
+		lblImagen.setBounds(15, 521, 69, 20);
+		panelLibro.add(lblImagen);
+		
+		label = new JLabel("");
+		label.setBounds(25, 557, 115, 115);
+		panelLibro.add(label);
 		
 		
 		Vector<String> header= new Vector<String>();
@@ -109,11 +138,24 @@ public class VentanaSwingLibro {
 		         int fila = tableLibros.rowAtPoint(e.getPoint());
 		         int columna = 0;
 		         if ((fila > -1) && (columna > -1)) {
+		        	 tfISBN.setText((String)dataModel.getValueAt(fila, columna));
+		        	 tfTitulo.setText((String)dataModel.getValueAt(fila, columna+1));
+		        	 tfPrecio.setText((String)dataModel.getValueAt(fila, columna+2));
+		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
+		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
+		        		 try {
+		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
+		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
+		        	         ImageIcon icon = new ImageIcon(dimg);
+		        	         label.setIcon(icon);
+		        	         
+		        	      } catch (IOException e2) {
+		        	         e2.printStackTrace();
+		        	      }
+					}
+		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
 		        	 
-//		        	 textFieldCodigoAutor.setText((String) dataModel.getValueAt(fila, columna));
-//		         	textFieldNombreAutor.setText((String) dataModel.getValueAt(fila, columna+1));
-//		         	textFieldPApelAutor.setText((String) dataModel.getValueAt(fila, columna+2));
-//		         	textFieldSApelAutor.setText((String) dataModel.getValueAt(fila, columna+3));
+//		        	
 //		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
 		      }
 		   }});
@@ -122,6 +164,54 @@ public class VentanaSwingLibro {
 		
 		panelLibro.add(scrollPane);
 		
+		Vector<String> headerAutores = new Vector<String>();
+		headerAutores.add("Código Autor");
+		headerAutores.add("Nombre");
+		headerAutores.add("Primer Apellido");
+		headerAutores.add("Segundo Apellido");
+//////
+		
+		
+		dataModel= new DefaultTableModel(0, 0);
+		dataModel.setColumnIdentifiers(header);
+		listarLibros();
+		tableLibros = new JTable(dataModel);
+		tableLibros.setEnabled(false);
+		tableLibros.addMouseListener(new MouseAdapter() 
+		   {
+		      public void mouseClicked(MouseEvent e) 
+		      {
+		         int fila = tableLibros.rowAtPoint(e.getPoint());
+		         int columna = 0;
+		         if ((fila > -1) && (columna > -1)) {
+		        	 tfISBN.setText((String)dataModel.getValueAt(fila, columna));
+		        	 tfTitulo.setText((String)dataModel.getValueAt(fila, columna+1));
+		        	 tfPrecio.setText((String)dataModel.getValueAt(fila, columna+2));
+		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
+		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
+		        		 try {
+		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
+		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
+		        	         ImageIcon icon = new ImageIcon(dimg);
+		        	         label.setIcon(icon);
+		        	         
+		        	      } catch (IOException e2) {
+		        	         e2.printStackTrace();
+		        	      }
+					}
+		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
+		        	 
+//		        	
+//		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
+		      }
+		   }});
+		scrollPane= new JScrollPane(tableLibros);
+		scrollPane.setBounds(25, 52, 767, 275);
+		
+		panelLibro.add(scrollPane);
+		
+		
+//////		
 		tabelAutores = new JTable();
 		tabelAutores.setEnabled(false);
 		tabelAutores.setBounds(25, 390, 650, 115);
@@ -143,13 +233,7 @@ public class VentanaSwingLibro {
 		btnRefresh.setBounds(677, 431, 115, 29);
 		panelLibro.add(btnRefresh);
 		
-		lblImagen = new JLabel("Imagen:");
-		lblImagen.setBounds(15, 521, 69, 20);
-		panelLibro.add(lblImagen);
 		
-		label = new JLabel("");
-		label.setBounds(25, 557, 115, 115);
-		panelLibro.add(label);
 		
 		btnCambiarImg = new JButton("cambiar IMG");
 		btnCambiarImg.addActionListener(new ActionListener() {
@@ -242,11 +326,28 @@ public class VentanaSwingLibro {
 		lblCategoria.setBounds(404, 717, 69, 20);
 		panelLibro.add(lblCategoria);
 		
-		comboEditorial = new JComboBox();
+		
+		Vector<DAOEditorial> editoriales=controladorEditorial.obtenerEditoriales();
+		Iterator<DAOEditorial> itVector = editoriales.iterator();
+		Vector<String> editorialesVector= new Vector<String>();
+		while (itVector.hasNext()) {
+			editorialesVector.add(itVector.next().getNombre_editorial());
+			
+		}
+		
+		comboEditorial = new JComboBox(editorialesVector);
 		comboEditorial.setBounds(188, 738, 176, 26);
 		panelLibro.add(comboEditorial);
 		
-		comboCategoria = new JComboBox();
+		Vector<DAOCategoria> categorias=controladorCategoria.obtenerCategorias();
+		Iterator<DAOCategoria> itCat = categorias.iterator();
+		Vector<String> categoriasVector= new Vector<String>();
+		while (itCat.hasNext()) {
+			categoriasVector.add(itCat.next().getNombre_categoria());
+			
+		}
+		
+		comboCategoria = new JComboBox(categoriasVector);
 		comboCategoria.setBounds(414, 738, 211, 26);
 		panelLibro.add(comboCategoria);		
 		
@@ -266,18 +367,21 @@ public class VentanaSwingLibro {
 				vectordeLibros.add(String.valueOf(libro.getIsbn()));
 				vectordeLibros.add(libro.getTitulo());
 				vectordeLibros.add(String.valueOf(libro.getPrecio()));
+				vectordeLibros.add(String.valueOf(libro.getUd_stock()));
+				vectordeLibros.add(libro.getImagen());
+				vectordeLibros.add(libro.getDescripcion());
+				vectordeLibros.add(controladorEditorial.obtenerEditorial(libro.getCod_editorial()).getNombre_editorial());
+				vectordeLibros.add(controladorCategoria.obtenerCategoria(libro.getCod_categoria()).getNombre_categoria());
 				
 				dataModel.addRow(vectordeLibros);
-			
-				
 			}
 		} catch (Exception e) {
-			System.err.println("Vista: FALLO A OBTENER  AUTORES");
+			System.err.println("Vista: FALLO A OBTENER  LOS LIBROS");
 			e.printStackTrace();
 		}
-		
-		
 	}
+	
+	
 	public void repintar() {
 		panelLibro.setVisible(true);
 		marco.add(panelLibro);

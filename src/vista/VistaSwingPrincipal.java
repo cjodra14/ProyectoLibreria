@@ -94,7 +94,7 @@ public class VistaSwingPrincipal implements ActionListener {
 				if (ventanaLibro==null) {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,850);
-					ventanaLibro = new VentanaSwingLibro(controladorLibro, marco);
+					ventanaLibro = new VentanaSwingLibro(controladorLibro,controladorAutor,controladorCategoria,controladorEditorial, marco);
 					
 				}else {
 					marco.getContentPane().removeAll();
