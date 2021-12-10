@@ -31,7 +31,7 @@ public class VistaPrincipal {
 		this.controladorCliente=controladorCliente;
 	}		
 		
-		public void getAccion() {
+		public void getAccion() throws Exception {
 			getMenu();
 			getOpcion();
 			

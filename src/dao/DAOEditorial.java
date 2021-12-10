@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
@@ -46,38 +45,32 @@ public class DAOEditorial {
 	//MÉTODOS CRUD
 	//READ
 	//Método que extrae todos los registros de la tabla
-	public static Vector<DAOEditorial> obtenerEditoriales() throws SQLException{
+	public static Vector<DAOEditorial> obtenerEditoriales() throws Exception{
 		String sqlQuery = "SELECT * FROM libreria.editorial; ;";
 		return buscaResultadosConConsulta(sqlQuery);
 	}
 	
-	public static DAOEditorial obtenerEditorial(String codEditorial) throws SQLException{
+	public static DAOEditorial obtenerEditorial(String codEditorial) throws Exception{
 		String sqlQuery = "select * from editorial WHERE cod_editorial='"+codEditorial+"';";
 		return buscaResultadosUnaEditorial(sqlQuery);
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public static void insertarEditorial(String codEditorial, String nombreEditorial) throws SQLException{
-		try {
+	public static void insertarEditorial(String codEditorial, String nombreEditorial) throws Exception{
+	
 			String sqlQuery = "INSERT INTO libreria.editorial VALUES ('"+codEditorial+"','"+nombreEditorial+"');";
 			DAOEditorial.sentencia.execute(sqlQuery);
 			System.out.println("Los datos de la editorial con el código "+codEditorial+" han sido insertados con exito");
-		}catch(SQLException e) {
-			System.err.println("\nNo se han podido insertar datos en la editorial con el código "+codEditorial);
-		}
+		
 	}
 	//Este método ejecutará una sentencia UPDATE para modificar una editorial
-	public static void modificarEditorial(String codEditorial, String nombreEditorial) {
-		try {
+	public static void modificarEditorial(String codEditorial, String nombreEditorial) throws Exception {
 			String sqlQuery = "UPDATE libreria.editorial SET nombre_editorial= '"+nombreEditorial+"' WHERE cod_editorial='"+codEditorial+"';";
 			DAOEditorial.sentencia.executeUpdate(sqlQuery);
 			System.out.println("La editorial con el código "+codEditorial+" ha sido modificada con éxito.");
-		}catch(SQLException e) {
-			System.out.println("Error al modificar el dato. \n"+e.getStackTrace());
-		}
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar una editorial
-	public static int borrarEditorial(String codEditorial) throws SQLException {
+	public static int borrarEditorial(String codEditorial) throws Exception {
 		String sqlQuery="DELETE FROM libreria.editorial WHERE cod_editorial='"+codEditorial+"';";
 		return DAOEditorial.sentencia.executeUpdate(sqlQuery);
 	}
@@ -85,7 +78,7 @@ public class DAOEditorial {
 	
 	//MÉTODOS UTILITY DE CLASE
 	//Método que extrae filas de la tabla a través de una consulta
-	private static Vector<DAOEditorial> buscaResultadosConConsulta(String consulta) throws SQLException{
+	private static Vector<DAOEditorial> buscaResultadosConConsulta(String consulta) throws Exception{
 		
 		resultado = DAOEditorial.sentencia.executeQuery(consulta);
 		
@@ -93,7 +86,7 @@ public class DAOEditorial {
 		
 	}
 	
-	private static Vector<DAOEditorial> cargaResultSetToVector(ResultSet resultado) throws SQLException{
+	private static Vector<DAOEditorial> cargaResultSetToVector(ResultSet resultado) throws Exception{
 		Vector<DAOEditorial> editoriales = new Vector<DAOEditorial>();
 		DAOEditorial editorial;
 		
@@ -105,13 +98,13 @@ public class DAOEditorial {
 		}
 		return editoriales;
 	}
-	private static DAOEditorial buscaResultadosUnaEditorial(String consulta) throws SQLException{
+	private static DAOEditorial buscaResultadosUnaEditorial(String consulta) throws Exception{
 		
 		resultado = DAOEditorial.sentencia.executeQuery(consulta);
 		return cargaResultSetToEditorial(resultado);
 	}
 	
-	private static DAOEditorial cargaResultSetToEditorial(ResultSet resultado) throws SQLException{
+	private static DAOEditorial cargaResultSetToEditorial(ResultSet resultado) throws Exception{
 		
 		DAOEditorial editorial = null;
 		

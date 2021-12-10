@@ -83,7 +83,7 @@ public class VentanaSwingLibro {
 	
 	
 
-	public VentanaSwingLibro(ControladorLibro controladorLibro, ControladorAutor controladorAutor,ControladorCategoria controladorCategoria ,ControladorEditorial controladorEditorial , JFrame marco) {
+	public VentanaSwingLibro(ControladorLibro controladorLibro, ControladorAutor controladorAutor,ControladorCategoria controladorCategoria ,ControladorEditorial controladorEditorial , JFrame marco) throws Exception {
 	this.controladorLibro=controladorLibro;
 	this.controladorAutor= controladorAutor;
 	this.controladorCategoria = controladorCategoria;
@@ -102,7 +102,7 @@ public class VentanaSwingLibro {
 	marco.repaint();
 	}
 	
-	private void crearPantalla() {
+	private void crearPantalla() throws Exception {
 		lblListadoDeLibros = new JLabel("Listado de Libros");
 		lblListadoDeLibros.setBounds(15, 16, 164, 20);
 		panelLibro.add(lblListadoDeLibros);

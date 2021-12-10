@@ -27,6 +27,7 @@ public class VistaSwingPrincipal implements ActionListener {
 	JButton btnHome, btnCategoria,btnEditorial, btnAutor, btnLibro;
 	VentanaSwingAutor ventanaAutor;
 	VentanaSwingLibro ventanaLibro;
+	VentanaSwingEditorial ventanaEditorial;
 	
 	
 	
@@ -94,12 +95,43 @@ public class VistaSwingPrincipal implements ActionListener {
 				if (ventanaLibro==null) {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,850);
-					ventanaLibro = new VentanaSwingLibro(controladorLibro,controladorAutor,controladorCategoria,controladorEditorial, marco);
+					try {
+						ventanaLibro = new VentanaSwingLibro(controladorLibro,controladorAutor,controladorCategoria,controladorEditorial, marco);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 				}else {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,850);
 					ventanaLibro.repintar();
+				}
+				
+			}
+			if (e.getSource().equals(btnEditorial)) {
+				if (ventanaEditorial==null) {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaEditorial = new VentanaSwingEditorial(controladorEditorial, marco);
+					
+				}else {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaEditorial.repintar();
+				}
+				
+			}
+			if (e.getSource().equals(btnEditorial)) {
+				if (ventanaEditorial==null) {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaEditorial = new VentanaSwingEditorial(controladorEditorial, marco);
+					
+				}else {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaEditorial.repintar();
 				}
 				
 			}

@@ -162,30 +162,25 @@ public class ModeloLibreria {
 		
 		//////////////////////   Editorial ////////////////////////////////////
 		//Método que extrae todos los registros de la tabla con una sentencia SELECT
-		public Vector<DAOEditorial> obtenerEditoriales(){
-			try {				
+		public Vector<DAOEditorial> obtenerEditoriales() throws Exception{				
 			editoriales=DAOEditorial.obtenerEditoriales();
-			} catch (SQLException e) {
-				System.err.println("Modelo: FALLO A OBTENER  EDITORIAL");
-				e.printStackTrace();
-			}
 			return editoriales;
 			
 		}
 		//Método que extrae un registro de la tabla con una sentencia SELECT
-		public DAOEditorial obtenerEditorial(String cod_editorial) throws SQLException {
+		public DAOEditorial obtenerEditorial(String cod_editorial) throws Exception {
 			return DAOEditorial.obtenerEditorial(cod_editorial);
 		}
 		//Este método se utiliza para meter datos con la sentencia INSERT
-		public void insertarEditorial(String codEditorial, String nombreEditorial) throws SQLException {
+		public void insertarEditorial(String codEditorial, String nombreEditorial) throws Exception {
 			DAOEditorial.insertarEditorial(codEditorial, nombreEditorial);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar una editorial
-		public void modificarEditorial(String codEditorial,String nombreEditorial ) {
+		public void modificarEditorial(String codEditorial,String nombreEditorial ) throws Exception {
 			DAOEditorial.modificarEditorial(codEditorial, nombreEditorial);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar una editorial
-		public int borrarEditorial(String codEditorial) throws SQLException {
+		public int borrarEditorial(String codEditorial) throws Exception {
 			
 			return DAOEditorial.borrarEditorial(codEditorial);
 		}

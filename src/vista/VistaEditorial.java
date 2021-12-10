@@ -20,7 +20,7 @@ public class VistaEditorial {
 		this.controlador = controlador;
 	}
 	
-	public void getAccion() {
+	public void getAccion() throws Exception {
 		getMenu();
 		getOpcion();
 		
@@ -115,7 +115,7 @@ public class VistaEditorial {
 		
 	}
 	
-	private void modificacionEditorial() throws SQLException {
+	private void modificacionEditorial() throws Exception {
 		
 		
 		do {
@@ -132,28 +132,24 @@ public class VistaEditorial {
 		
 	}
 	
-	private void borrarEditorial() {
+	private void borrarEditorial() throws Exception {
 		 String codEditorial;
 		System.out.println("Escribe el codigo de la editorial");
 		codEditorial = entrada.nextLine();
 		
 		
-		try {	
+		
 			if(controlador.borrarEditorial(codEditorial)>0) {
 			System.out.println("Editorial eliminada con exito");}
 			else {
 				System.out.println("No se ha eliminado ninguna editorial");
 			}
-		} catch (SQLException e) {
-			System.err.println("Fallo al eliminar la Editorial");
-			e.printStackTrace();
-		}
-		
+			
 		
 	}
 	
 	
-	private void consultaEditorial() {
+	private void consultaEditorial() throws Exception {
 		Vector<DAOEditorial> editoriales= controlador.obtenerEditoriales();
 		System.out.println("\nLISTADO DE EDITORIALES");
 		System.out.println("======================");
