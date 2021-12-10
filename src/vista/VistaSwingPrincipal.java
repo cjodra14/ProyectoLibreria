@@ -28,6 +28,7 @@ public class VistaSwingPrincipal implements ActionListener {
 	VentanaSwingAutor ventanaAutor;
 	VentanaSwingLibro ventanaLibro;
 	VentanaSwingEditorial ventanaEditorial;
+	VentanaSwingCategoria ventanaCategoria;
 	
 	
 	
@@ -122,16 +123,16 @@ public class VistaSwingPrincipal implements ActionListener {
 				}
 				
 			}
-			if (e.getSource().equals(btnEditorial)) {
-				if (ventanaEditorial==null) {
+			if (e.getSource().equals(btnCategoria)) {
+				if (ventanaCategoria==null) {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,525);
-					ventanaEditorial = new VentanaSwingEditorial(controladorEditorial, marco);
+					ventanaCategoria = new VentanaSwingCategoria(controladorCategoria, marco);
 					
 				}else {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,525);
-					ventanaEditorial.repintar();
+					ventanaCategoria.repintar();
 				}
 				
 			}

@@ -129,35 +129,30 @@ public class ModeloLibreria {
 		//////////////////////////   Categoria  //////////////////////////////////
 		
 		// Extrae todos los registros de la tabal Categoria
-		public Vector<DAOCategoria> obtenerCategorias(){
-			try {		
+		public Vector<DAOCategoria> obtenerCategorias() throws Exception{
 			
 			categorias=DAOCategoria.obtenerCategorias();
-			
-			} catch (SQLException e) {
-				System.err.println("Modelo: FALLO A OBTENER  CATEGORIA");
-				e.printStackTrace();
-			}
+
 			return categorias;
 			
 		}
 		//Método que extrae un registro de la tabla con una sentencia SELECT 
-		public DAOCategoria obtenerCategoria(String cod_categoria) throws SQLException {
-			return DAOCategoria.obtenerCategoria(cod_categoria);
-		}
-		//Este método se utiliza para meter datos con la sentencia INSERT
-		public void insertarCategoria(String idCategoria, String nombreCategoria) {
-			DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
-		}
-		//Este método ejecutará una sentencia UPDATE para modificar una categoria
-		public void modificarCategoria(String idCategoria,String  nombreCategoria) {
-			DAOCategoria.modificarCategoria(idCategoria,  nombreCategoria);
-		}
-		//Este método ejecutará una sentencia DELETE para eliminar una categoria
-		public int borrarCategoria(String idCategoria) throws SQLException {
-			
-			return DAOCategoria.borrarCategoria(idCategoria);
-		}
+				public DAOCategoria obtenerCategoria(String cod_categoria) throws Exception {
+					return DAOCategoria.obtenerCategoria(cod_categoria);
+				}
+				//Este método se utiliza para meter datos con la sentencia INSERT
+				public void insertarCategoria(String idCategoria, String nombreCategoria) throws Exception {
+					DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
+				}
+				//Este método ejecutará una sentencia UPDATE para modificar una categoria
+				public void modificarCategoria(String idCategoria,String  nombreCategoria) throws Exception {
+					DAOCategoria.modificarCategoria(idCategoria,  nombreCategoria);
+				}
+				//Este método ejecutará una sentencia DELETE para eliminar una categoria
+				public int borrarCategoria(String idCategoria) throws Exception {
+					
+					return DAOCategoria.borrarCategoria(idCategoria);
+				}
 		
 		
 		//////////////////////   Editorial ////////////////////////////////////

@@ -115,7 +115,7 @@ public class VistaCategoria {
 		
 	}
 	
-	private void modificacionCategoria() throws SQLException {
+	private void modificacionCategoria() throws Exception {
 		
 		
 		do {
@@ -132,18 +132,18 @@ public class VistaCategoria {
 	}
 	
 	private void borrarCategoria() {
-		 String codCategoria;
+		try { String codCategoria;
 		System.out.println("Escribe idCategoria");
 		codCategoria = entrada.nextLine();
 		
 		
-		try {	
+			
 			if(controlador.borrarCategoria(codCategoria)>0) {
 			System.out.println("Autor eliminado con exito");}
 			else {
 				System.out.println("No se ha eliminado ningun categoria");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.err.println("Fallo al eliminar el Categoria");
 			e.printStackTrace();
 		}

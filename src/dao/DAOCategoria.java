@@ -52,13 +52,13 @@ public class DAOCategoria {
 	//READ
 	//Metodo que extrae todos los registros de la tabla
 	
-	public static Vector<DAOCategoria> obtenerCategorias() throws SQLException {
+	public static Vector<DAOCategoria> obtenerCategorias() throws Exception {
 		String sqlQuery = "SELECT * FROM libreria.categoria;";
 		//Este metodo devolvera un vector de tipo <CategoriaDAO>
 		return buscaResultadosConConsulta(sqlQuery);
 		
 	}
-	public static DAOCategoria obtenerCategoria(String codCategoria) throws SQLException {
+	public static DAOCategoria obtenerCategoria(String codCategoria) throws Exception {
 		String sqlQuery = "select * from categoria WHERE cod_categoria= '" + codCategoria + "';";
 		//Este metodo devolvera un vector tipo <CategoriaDAO>
 		return buscaResultadosUnaCategoria(sqlQuery);
@@ -66,31 +66,27 @@ public class DAOCategoria {
 	}
 	
 	//Este metodo se utiliza para meter datos con la sentencia INSERT
-	public static void insertarCategoria(String idCategoria, String nombreCategoria) {
+	public static void insertarCategoria(String idCategoria, String nombreCategoria) throws Exception {
 		
-			try{
+			
 				String sqlQuery = "INSERT INTO categoria VALUES ('"+idCategoria+"','"+nombreCategoria+"');";
 				DAOCategoria.sentencia.execute(sqlQuery);
 				System.out.println("Los datos de la categoria con el código "+idCategoria+" han sido insertados con éxito.");
-			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar datos en la categoría con el código "+idCategoria);
-			}
+			
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una categoria
 			//nombre_categoria
-			public static void modificarCategoria(String idCategoria,  String nombreCategoria){
-				try {
+			public static void modificarCategoria(String idCategoria,  String nombreCategoria) throws Exception{
+				
 					String sqlQuery = "UPDATE libreria.categoria SET nombre_categoria= '"+nombreCategoria+"' WHERE cod_categoria='"+idCategoria+"';";
 					DAOCategoria.sentencia.executeUpdate(sqlQuery);	
 					System.out.println("La categoria con el código "+idCategoria+" ha sido modificado con éxito.");
-				}catch(SQLException e) {
-					System.err.println("Error al modificar el dato.\n"+e.getStackTrace());
-				}
+				
 			} 
 			
 			//Este método ejecutará una sentencia DELETE para eliminar un autor
-			public static int borrarCategoria(String idCategoria) throws SQLException {
+			public static int borrarCategoria(String idCategoria) throws Exception {
 				String sqlQuery="DELETE FROM libreria.categoria WHERE cod_categoria='"+idCategoria+"'";
 		
 				return DAOCategoria.sentencia.executeUpdate(sqlQuery);
@@ -99,13 +95,13 @@ public class DAOCategoria {
 			
 			//MÉTODOS UTILITY DE CLASE
 			//Método que extrae filas de la tabla a través de una consulta
-			private static Vector<DAOCategoria> buscaResultadosConConsulta(String consulta) throws SQLException{
+			private static Vector<DAOCategoria> buscaResultadosConConsulta(String consulta) throws Exception{
 				resultado = DAOCategoria.sentencia.executeQuery(consulta);
 				return cargaResultSetToVector(resultado);
 				
 			}
 			
-			private static Vector<DAOCategoria> cargaResultSetToVector(ResultSet resultado) throws SQLException {
+			private static Vector<DAOCategoria> cargaResultSetToVector(ResultSet resultado) throws Exception {
 				Vector<DAOCategoria> categorias = new Vector<DAOCategoria>();
 				DAOCategoria categoria;
 				
@@ -118,13 +114,13 @@ public class DAOCategoria {
 				
 				return categorias;
 			}
-			private static DAOCategoria buscaResultadosUnaCategoria(String consulta) throws SQLException{
+			private static DAOCategoria buscaResultadosUnaCategoria(String consulta) throws Exception{
 				resultado = DAOCategoria.sentencia.executeQuery(consulta);
 				return cargaResultSetToCategoria(resultado);
 				
 			}
 			
-			private static DAOCategoria cargaResultSetToCategoria(ResultSet resultado) throws SQLException {
+			private static DAOCategoria cargaResultSetToCategoria(ResultSet resultado) throws Exception {
 				
 				DAOCategoria categoria = null;
 				
