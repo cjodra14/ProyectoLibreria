@@ -88,7 +88,7 @@ public class VentanaSwingLibro {
 	private JScrollPane scrollPaneAddAutor;
 	private DefaultTableModel modeloAutores;
 	private JTable tableAddAutores;
-	
+	private int contador = 0;
 	
 	
 
@@ -292,19 +292,35 @@ public class VentanaSwingLibro {
 		panelLibro.add(lblStock);
 		
 		tfUds = new JTextField();
-		tfUds.setText("Ud's");
+		tfUds.setText("0");
 		tfUds.setBounds(59, 738, 48, 26);
+//		tfUds.setEnabled(false);
 		panelLibro.add(tfUds);
-		tfUds.setColumns(10);
+//		tfUds.setColumns(10);
 		
 		buttonMenos = new JButton("-");
 		buttonMenos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonMenos.setBounds(106, 737, 45, 26);
+		buttonMenos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador = Integer.parseInt(tfUds.getText());
+				if(contador>0){
+				contador--;
+				tfUds.setText(String.valueOf(contador));}
+			}
+		});
 		panelLibro.add(buttonMenos);
 		
 		buttonMas = new JButton("+");
 		buttonMas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonMas.setBounds(15, 737, 45, 26);
+		buttonMas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contador = Integer.parseInt(tfUds.getText());
+				contador++;
+				tfUds.setText(String.valueOf(contador));
+			}
+		});
 		panelLibro.add(buttonMas);
 		
 		lblIsbn = new JLabel("ISBN:");
