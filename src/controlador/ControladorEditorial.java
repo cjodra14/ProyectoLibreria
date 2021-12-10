@@ -18,29 +18,29 @@ public class ControladorEditorial {
 	}
 	
 	//Este metodo retorna un vector de editoriales y lo obtiene del metodo obtenerEditoriales()
-	public Vector<DAOEditorial> obtenerEditoriales(){
+	public Vector<DAOEditorial> obtenerEditoriales() throws Exception{
 		editoriales=modelo.obtenerEditoriales();
 		return editoriales;
 	}
 	
-	public DAOEditorial obtenerEditorial(String cod_editorial) throws SQLException {
+	public DAOEditorial obtenerEditorial(String cod_editorial) throws Exception {
 		DAOEditorial editorial;
 		editorial=modelo.obtenerEditorial(cod_editorial);
 		return editorial;
 	}
 	
 	//Este método se utiliza para meter datos con la sentencia INSERT
-	public void insertarEditorial(String idEditorial, String nombreEditorial) throws SQLException{
+	public void insertarEditorial(String idEditorial, String nombreEditorial) throws Exception{
 		modelo.insertarEditorial(idEditorial, nombreEditorial);
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una editorial
-	public void modificarEditorial(String nombreEditorial, String idEditorial) throws SQLException{
+	public void modificarEditorial(String nombreEditorial, String idEditorial) throws Exception{
 		modelo.modificarEditorial(nombreEditorial, idEditorial);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar una editorial
-	public int borrarEditorial(String idEditorial) throws SQLException{
+	public int borrarEditorial(String idEditorial) throws Exception{
 		
 		 return modelo.borrarEditorial(idEditorial);
 	}
