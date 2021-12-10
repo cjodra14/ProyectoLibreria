@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -90,6 +91,8 @@ public class VentanaSwingLibro {
 	private DefaultTableModel modeloAutores;
 	private JTable tableAddAutores;
 	private int contador = 0;
+	private DefaultComboBoxModel<String> modelEditoriales;
+	private DefaultComboBoxModel<String> modelCategoria;
 	
 	
 
@@ -104,7 +107,7 @@ public class VentanaSwingLibro {
 	panelLibro = new JPanel();
 	panelLibro.setLayout(null);
 	panelLibro.setSize(850, 845);
-	panelLibro.setBackground(Color.BLACK); 
+//	panelLibro.setBackground(Color.BLACK); 
 	
 	crearPantalla();
 	
@@ -376,6 +379,11 @@ public class VentanaSwingLibro {
 		
 		btnRefreshEdCat = new JButton("Refresh Ed. Cat.");
 		btnRefreshEdCat.setBounds(659, 737, 147, 29);
+		btnRefreshEdCat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshEditorialCategoria();
+			}
+		});
 		panelLibro.add(btnRefreshEdCat);
 		
 		lblDescripcion = new JLabel("Descripci\u00F3n:");
@@ -392,45 +400,18 @@ public class VentanaSwingLibro {
 		
 		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setBounds(404, 717, 69, 20);
-		panelLibro.add(lblCategoria);
+		panelLibro.add(lblCategoria);		
+	
 		
-		
-		Vector<DAOEditorial> editoriales;
-		try {
-			editoriales = controladorEditorial.obtenerEditoriales();
-		
-		Iterator<DAOEditorial> itVector = editoriales.iterator();
-		Vector<String> editorialesVector= new Vector<String>();
-		while (itVector.hasNext()) {
-			editorialesVector.add(itVector.next().getNombre_editorial());
-			
-		}
-		
-		
-		comboEditorial = new JComboBox(editorialesVector);
-		comboEditorial.setBounds(188, 738, 176, 26);
-		panelLibro.add(comboEditorial);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			
-		
-		Vector<DAOCategoria> categorias=controladorCategoria.obtenerCategorias();
-		Iterator<DAOCategoria> itCat = categorias.iterator();
-		Vector<String> categoriasVector= new Vector<String>();
-		while (itCat.hasNext()) {
-			categoriasVector.add(itCat.next().getNombre_categoria());
-			
-		}
-		
-		comboCategoria = new JComboBox(categoriasVector);
-		comboCategoria.setBounds(414, 738, 211, 26);
-		panelLibro.add(comboCategoria);	
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		 modelEditoriales = new DefaultComboBoxModel<String>(listarNombresEditorial());
+			comboEditorial = new JComboBox(modelEditoriales);
+			comboEditorial.setBounds(188, 738, 176, 26);
+			panelLibro.add(comboEditorial);
+					
+			 modelCategoria = new DefaultComboBoxModel<String>(listarNombresCategoria());
+			comboCategoria = new JComboBox(modelCategoria);
+			comboCategoria.setBounds(414, 738, 211, 26);
+			panelLibro.add(comboCategoria);	
 		
 	}
 	
@@ -513,6 +494,46 @@ public class VentanaSwingLibro {
 		}
 		
 		
+	}
+	private void refreshEditorialCategoria() {
+		modelEditoriales.removeAllElements();
+		modelEditoriales.addAll(listarNombresEditorial());
+	
+		modelCategoria.removeAllElements();
+		modelCategoria.addAll(listarNombresCategoria());
+	}
+	
+	private Vector<String> listarNombresEditorial(){
+		Vector<DAOEditorial> editoriales;
+		Vector<String> editorialesVector= new Vector<String>();
+		try {
+			editoriales = controladorEditorial.obtenerEditoriales();
+		
+		Iterator<DAOEditorial> itVector = editoriales.iterator();
+		
+		while (itVector.hasNext()) {
+			editorialesVector.add(itVector.next().getNombre_editorial());
+			
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return editorialesVector;
+	}
+	
+	private Vector<String> listarNombresCategoria(){
+		Vector<String> categoriasVector= new Vector<String>();
+		try {
+			Vector<DAOCategoria> categorias=controladorCategoria.obtenerCategorias();
+			Iterator<DAOCategoria> itCat = categorias.iterator();
+			
+			while (itCat.hasNext()) {
+				categoriasVector.add(itCat.next().getNombre_categoria());
+			}
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+		return categoriasVector;
 	}
 	
 	
