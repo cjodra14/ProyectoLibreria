@@ -107,14 +107,14 @@ public class VentanaSwingCategoria {
 				String idCategoria=textFieldCodigoCategoria.getText();
 				String nombreCategoria=textFieldNombreCategoria.getText();
 				if (idCategoria.equals("")||nombreCategoria.equals("")) {
-					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE AUTOR ni el NOMBRE ","Error",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE CATEGORIA ni el NOMBRE ","Error",JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try {
 						controlador.modificarCategoria(idCategoria, nombreCategoria);
-						JOptionPane.showMessageDialog(null, "Autor modificado con exito");
+						JOptionPane.showMessageDialog(null, "Categoria modificada con exito");
 						listarCategorias();
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Error al modificar el autor");
+						JOptionPane.showMessageDialog(null, "Error al modificar la categoria");
 					}
 				}
 				
@@ -131,14 +131,14 @@ public class VentanaSwingCategoria {
 				String idCategoria=textFieldCodigoCategoria.getText();
 				
 				if (idCategoria.equals("")) {
-					JOptionPane.showMessageDialog(null, "No puede estar vacio el CODIGO DE AUTOR a eliminar ");
+					JOptionPane.showMessageDialog(null, "No puede estar vacio el CODIGO DE CATEGORIA a eliminar ");
 				}else {
 					try {
 						controlador.borrarCategoria(idCategoria);
-						JOptionPane.showMessageDialog(null, "Autor eliminado con exito");
+						JOptionPane.showMessageDialog(null, "Categoria eliminada con exito");
 						listarCategorias();
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Error al eliminar el autor");
+						JOptionPane.showMessageDialog(null, "Error al eliminar la categoria");
 					}
 				}
 				
@@ -157,14 +157,14 @@ public class VentanaSwingCategoria {
 				String idCategoria=textFieldCodigoCategoria.getText();
 				String nombreCategoria=textFieldNombreCategoria.getText();
 				if (idCategoria.equals("")||nombreCategoria.equals("")) {
-					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE AUTOR ni el NOMBRE ");
+					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE CATEGORIA ni el NOMBRE ");
 				}else {
 					try {
 						controlador.insertarCategoria(idCategoria, nombreCategoria);
-						JOptionPane.showMessageDialog(null, "Autor añadido con exito");
+						JOptionPane.showMessageDialog(null, "Categoria añadida con exito");
 						listarCategorias();
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Error al añadir el autor");
+						JOptionPane.showMessageDialog(null, "Error al añadir la categoria");
 					}
 				}
 				
@@ -173,7 +173,7 @@ public class VentanaSwingCategoria {
 		});
 		panel.add(btnBotonAniadir);
 		
-		lblCodigoDeCategoria = new JLabel("Codigo de Autor:");
+		lblCodigoDeCategoria = new JLabel("Codigo de Categoria:");
 		lblCodigoDeCategoria.setBounds(15, 349, 145, 20);
 		panel.add(lblCodigoDeCategoria);
 		
@@ -213,7 +213,7 @@ public class VentanaSwingCategoria {
 				
 			}
 		} catch (Exception e) {
-			System.err.println("Vista: FALLO A OBTENER  AUTORES");
+			System.err.println("Vista: FALLO A OBTENER  CATEGORIAS");
 			e.printStackTrace();
 		}
 		
