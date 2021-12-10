@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -80,6 +81,13 @@ public class VentanaSwingLibro {
 	private DefaultTableModel autorDataModel;
 	private JScrollPane scrollPaneAutor;
 	private JScrollPane scrollPane;
+	private JTabbedPane tabPaneAutores;
+	private JPanel panelAutoresActuales;
+	private JPanel panelAddAutor;
+	private JScrollPane scrollPaneAutoresActuales;
+	private JScrollPane scrollPaneAddAutor;
+	private DefaultTableModel modeloAutores;
+	private JTable tableAddAutores;
 	
 	
 	
@@ -179,6 +187,13 @@ public class VentanaSwingLibro {
 //		listarAutores();
 		tableAutores = new JTable(autorDataModel);
 		tableAutores.setEnabled(false);
+		
+		
+		modeloAutores = new DefaultTableModel(0,0);
+		modeloAutores.setColumnIdentifiers(headerAutores);
+		listarTodosAutores();
+		tableAddAutores = new JTable(modeloAutores);
+		
 //		tableAutores.addMouseListener(new MouseAdapter() 
 //		   {
 //		      public void mouseClicked(MouseEvent e) 
@@ -205,29 +220,62 @@ public class VentanaSwingLibro {
 //		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
 //}
 //		   }});
-		scrollPaneAutor= new JScrollPane(tableAutores);
-		scrollPaneAutor.setBounds(25, 390, 650, 115);
-		
-		panelLibro.add(scrollPaneAutor);
+//		scrollPaneAutor= new JScrollPane(tableAutores);
+//		scrollPaneAutor.setBounds(25, 390, 650, 115);
+//		
+//		panelLibro.add(scrollPaneAutor);
 		
 		
 //////		
 		
-		lblAutoresDelLibro = new JLabel("Autores del libro");
-		lblAutoresDelLibro.setBounds(15, 351, 133, 20);
-		panelLibro.add(lblAutoresDelLibro);
+		tabPaneAutores = new JTabbedPane(JTabbedPane.TOP);
+		tabPaneAutores.setBounds(15, 351, 779, 168);
+		panelLibro.add(tabPaneAutores);
 		
-		btnAddAutor = new JButton("ADD Autor");
-		btnAddAutor.setBounds(677, 383, 115, 29);
-		panelLibro.add(btnAddAutor);
+		panelAutoresActuales = new JPanel();
+		tabPaneAutores.addTab("Autores Actuales", null, panelAutoresActuales, null);
+		panelAutoresActuales.setLayout(null);
 		
 		btnDropAutor = new JButton("DROP Autor");
-		btnDropAutor.setBounds(677, 476, 115, 29);
-		panelLibro.add(btnDropAutor);
+		btnDropAutor.setBounds(647, 57, 115, 29);
+		panelAutoresActuales.add(btnDropAutor);
+		
+		scrollPaneAutoresActuales = new JScrollPane(tableAutores);
+		scrollPaneAutoresActuales.setBounds(12, 13, 623, 112);
+		panelAutoresActuales.add(scrollPaneAutoresActuales);
+		
+		panelAddAutor = new JPanel();
+		tabPaneAutores.addTab("A\u00F1adir Autor", null, panelAddAutor, null);
+		panelAddAutor.setLayout(null);
+
+		btnAddAutor = new JButton("ADD Autor");
+		btnAddAutor.setBounds(646, 26, 115, 29);
+		panelAddAutor.add(btnAddAutor);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(677, 431, 115, 29);
-		panelLibro.add(btnRefresh);
+		btnRefresh.setBounds(647, 72, 115, 29);
+		panelAddAutor.add(btnRefresh);
+		
+		scrollPaneAddAutor = new JScrollPane(tableAddAutores);
+		scrollPaneAddAutor.setBounds(12, 13, 622, 112);
+		panelAddAutor.add(scrollPaneAddAutor);
+		
+		
+//		lblAutoresDelLibro = new JLabel("Autores del libro");
+//		lblAutoresDelLibro.setBounds(15, 351, 133, 20);
+//		panelLibro.add(lblAutoresDelLibro);
+//		
+//		btnAddAutor = new JButton("ADD Autor");
+//		btnAddAutor.setBounds(677, 383, 115, 29);
+//		panelLibro.add(btnAddAutor);
+//		
+//		btnDropAutor = new JButton("DROP Autor");
+//		btnDropAutor.setBounds(677, 476, 115, 29);
+//		panelLibro.add(btnDropAutor);
+//		
+//		btnRefresh = new JButton("Refresh");
+//		btnRefresh.setBounds(677, 431, 115, 29);
+//		panelLibro.add(btnRefresh);
 		
 		
 		
@@ -413,6 +461,34 @@ public class VentanaSwingLibro {
 			System.err.println("Vista: FALLO A OBTENER  LOS LIBROS");
 			e.printStackTrace();
 		}
+	}
+	
+	private void listarTodosAutores() {
+		modeloAutores.setRowCount(0);
+		
+		Vector<DAOAutor> autores;
+		try {
+			autores = controladorAutor.obtenerAutores();
+
+			Iterator<DAOAutor> itAutores = autores.iterator();
+			while(itAutores.hasNext()) {
+				DAOAutor autor= itAutores.next();
+				Vector<String> vectordeAutores = new Vector<String>();
+				vectordeAutores.add(autor.getCod_autor());
+				vectordeAutores.add(autor.getNombre_autor());
+				vectordeAutores.add(autor.getP_apellido());
+				vectordeAutores.add(autor.getS_apellido());
+				
+				modeloAutores.addRow(vectordeAutores);
+			
+				
+			}
+		} catch (Exception e) {
+			System.err.println("Vista: FALLO A OBTENER  AUTORES");
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
