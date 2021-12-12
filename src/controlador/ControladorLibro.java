@@ -56,9 +56,20 @@ public class ControladorLibro {
 		public Vector<DAOlibro_escritor>  obtenerLibroEscritorIsbn(long isbn){
 			return modelo.obtenerLibroEscritorIsbn(isbn);
 		}
+		
+	//Mostrar autores de un libro
+//		public Vector<DAOlibro_escritor> obtenerAutoresLibro() throws Exception{
+//			Vector<DAOlibro_escritor> libroEscritores = modelo.obtenerLibrosEscritores();
+//			return libroEscritores;
+//		}
+//		public Vector<DAOLibro> obtenerLibros() throws Exception{
+//			libros=modelo.obtenerLibros();
+//			return libros;
+//		}
 
 	//Ejecutamos el método terminar para liberar memoria
 	public void terminar() {
 		modelo.terminar();
 	}
+	
 }

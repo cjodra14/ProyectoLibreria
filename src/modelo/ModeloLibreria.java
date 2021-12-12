@@ -318,6 +318,14 @@ public class ModeloLibreria {
 			
 		}
 		
+		public void insertarLibroEscritor(String isbn, String cod_autor) throws Exception{
+			DAOlibro_escritor.insertarLibroEscritor(isbn,cod_autor);			
+		}
+		
+		public void eliminarLibroEscritor(String cod_autor, String isbn) throws Exception {
+			DAOlibro_escritor.borrarLibroEscritor(cod_autor, isbn);
+		}
+		
 		
 	
 
