@@ -9,14 +9,25 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +37,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorAutor;
@@ -90,6 +103,9 @@ public class VentanaSwingLibro {
 	private DefaultTableModel modeloAutores;
 	private JTable tableAddAutores;
 	private int contador = 0;
+	private Path origenPath;
+	private Path destinoPath;
+	private String imagen;
 	
 	
 
@@ -104,7 +120,7 @@ public class VentanaSwingLibro {
 	panelLibro = new JPanel();
 	panelLibro.setLayout(null);
 	panelLibro.setSize(850, 845);
-	panelLibro.setBackground(Color.BLACK); 
+//	panelLibro.setBackground(Color.BLACK); 
 	
 	crearPantalla();
 	
@@ -154,6 +170,7 @@ public class VentanaSwingLibro {
 		        	 tfPrecio.setText((String)dataModel.getValueAt(fila, columna+2));
 		        	 tfUds.setText((String)dataModel.getValueAt(fila, columna+3));
 		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
+		        		 imagen=(String) dataModel.getValueAt(fila, columna+4);
 		        		 try {
 		        			 label.setIcon(null);
 		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
@@ -289,8 +306,48 @@ public class VentanaSwingLibro {
 		
 		btnCambiarImg = new JButton("cambiar IMG");
 		btnCambiarImg.addActionListener(new ActionListener() {
+		
+
 			public void actionPerformed(ActionEvent e) {
-			}
+				if (tfISBN.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Introduce el ISBN DEL LIBRO");
+				}else {
+				//Se crea el JFileChooser. Se le indica que la ventana se abra en el directorio actual                    
+		        JFileChooser fileChooser = new JFileChooser();      
+		        //Se crea el filtro. El primer parámetro es el mensaje que se muestra,
+		        //el segundo es la extensión de los ficheros que se van a mostrar      
+		        FileFilter filtro = new FileNameExtensionFilter("Imagenes png (.png)", "png"); 
+		        //Se le asigna al JFileChooser el filtro
+		        fileChooser.setFileFilter(filtro);
+		        //se muestra la ventana
+		        int valor = fileChooser.showOpenDialog(fileChooser);
+		        if (valor == JFileChooser.APPROVE_OPTION) {
+		            String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+		            try {
+		            	 label.setIcon(null);
+	        	         BufferedImage img = ImageIO.read(new File(ruta));
+	        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
+	        	         ImageIcon icon = new ImageIcon(dimg);
+	        	         label.setIcon(icon);
+	        	         
+
+		            	  origenPath = Paths.get(ruta);
+		            	 destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
+		            	
+		            	
+		            	 imagen=tfISBN.getText()+".png";
+		                
+		            } catch (FileNotFoundException fe) {
+		                System.out.println(fe.getMessage());
+		            } catch (IOException ex) {
+		                ex.getMessage();
+		            }
+		        } else {
+		            System.out.println("No se ha seleccionado ningún fichero");
+		        }
+		    
+				
+			}}
 		});
 		btnCambiarImg.setBounds(15, 672, 133, 29);
 		panelLibro.add(btnCambiarImg);
@@ -364,6 +421,85 @@ public class VentanaSwingLibro {
 		
 		btnAadirLibro = new JButton("A\u00F1adir Libro");
 		btnAadirLibro.setBounds(659, 559, 133, 29);
+		btnAadirLibro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tfISBN.getText().equals("")||tfTitulo.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "No pueden quedar vacios ni el ISBN ni el título");
+				}else {
+					long isbn = 0;
+					String titulo; 
+					double precio = 0; 
+					int ud_stock = 0;					
+					String descripcion;
+					String imagen_add;
+					String cod_editorial=null;
+					String cod_categoria=null;
+					
+					if (tfISBN.getText().length()<11&&tfISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+						isbn= Long.valueOf(tfISBN.getText());
+					}else {
+						JOptionPane.showMessageDialog(null,"El ISBN es de 10 digitos maximo y son solo números" );
+					}
+					titulo=tfTitulo.getText();
+					if (tfPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+						precio=Double.parseDouble(tfPrecio.getText());
+					}else {
+						JOptionPane.showMessageDialog(null,"El precio tiene que expresarse numericamente" );
+					}
+					if (tfUds.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+						ud_stock=Integer.parseInt(tfUds.getText());
+					}else {
+						JOptionPane.showMessageDialog(null,"El stock tiene que expresarse numericamente" );
+					}
+					if (imagen==null) {
+						imagen_add="default.png";
+					}else {
+						imagen_add=imagen;
+					}
+					descripcion=tAreaDescripcion.getText();
+					
+						try {
+							Vector<DAOEditorial> editoriales= controladorEditorial.obtenerEditoriales();
+						
+						for (DAOEditorial editorial : editoriales) {
+							if (editorial.getNombre_editorial().equals(comboEditorial.getSelectedItem())) {
+								cod_editorial=editorial.getCod_editorial();
+							}
+						}
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+						try {
+							Vector<DAOCategoria> categorias= controladorCategoria.obtenerCategorias();
+						
+						for (DAOCategoria categoria : categorias) {
+							if (categoria.getNombre_categoria().equals(comboCategoria.getSelectedItem())) {
+								cod_categoria=categoria.getCod_categoria();
+							}
+						}
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+						
+					
+					try {
+						controladorLibro.insertarLibros(isbn, titulo , precio, ud_stock, imagen_add, descripcion, cod_editorial , cod_categoria);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "NO se ha podido añadir el Libro");
+					}
+					 try {
+						Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					 listarLibros();
+				}
+				
+			}
+		});
 		panelLibro.add(btnAadirLibro);
 		
 		btnEditarLibro = new JButton("Editar Libro");
