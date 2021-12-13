@@ -128,15 +128,13 @@ public class DAOlibro_escritor {
 	}
 	
 	//Este metodo se utiliza para meter datos con la sentencia INSERT
-	public static void insertarLibroEscritor(String isbn, String cod_autor) {
+	public static void insertarLibroEscritor(String isbn, String cod_autor) throws Exception {
 		
-			try{
+			
 				String sqlQuery = "INSERT INTO libro_escritor VALUES ('"+isbn+"','"+cod_autor+"');";
 				DAOlibro_escritor.sentencia.execute(sqlQuery);
 				System.out.println("Se ha añadido el escritor "+cod_autor+" al libro con el isbn: "+isbn+" con exito.");
-			}catch(SQLException e) {
-				System.err.println("\nNo se han podido insertar el escritor "+cod_autor+" al libro con el isbn: "+isbn);
-			}
+			
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar el autor de un libro

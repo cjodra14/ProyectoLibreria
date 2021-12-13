@@ -202,7 +202,7 @@ public class ModeloLibreria {
 			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
-		public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) {
+		public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception {
 			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un libro 
@@ -318,10 +318,13 @@ public class ModeloLibreria {
 			
 		}
 		
+		//Insertar Relacion entre libro y autor
 		public void insertarLibroEscritor(String isbn, String cod_autor) throws Exception{
 			DAOlibro_escritor.insertarLibroEscritor(isbn,cod_autor);			
 		}
 		
+		
+		// Eliminar relación entre libro y autor
 		public void eliminarLibroEscritor(String cod_autor, String isbn) throws Exception {
 			DAOlibro_escritor.borrarLibroEscritor(cod_autor, isbn);
 		}

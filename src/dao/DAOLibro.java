@@ -194,14 +194,12 @@ public class DAOLibro {
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
 		
-		public static void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria){
-			try {
-				String sqlQuery = "UPDATE libreria.libro SET titulo= '"+titulo+"',precio= '"+precio+"',ud_stock= '"+ud_stock+"',imagen= '"+imagen+"'descripcion= '"+descripcion+"',cod_editorial= '"+cod_editorial+"',precio= '"+precio+"',cod_categoria= '"+cod_categoria+"'WHERE isbn='"+isbn+"';";
+		public static void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
+		
+				String sqlQuery = "UPDATE libreria.libro SET titulo='"+titulo+"',precio='"+precio+"' ,ud_stock= '"+ud_stock+"',imagen= '"+imagen+"',descripcion= '"+descripcion+"',cod_editorial= '"+cod_editorial+"',cod_categoria= '"+cod_categoria+"'WHERE isbn='"+isbn+"';";
 				DAOLibro.sentencia.executeUpdate(sqlQuery);	
-				System.out.println("El libro con el isbn"+isbn+" ha sido modificado con éxito.");
-			}catch(SQLException e) {
-				System.err.println("Error al modificar el libro.\n"+e.getStackTrace());
-			}
+				
+			
 		} 
 		
 		//Este método ejecutará una sentencia DELETE para eliminar un libro

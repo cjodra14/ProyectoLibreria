@@ -108,8 +108,10 @@ public class VentanaSwingLibro {
 	private Path origenPath;
 	private Path destinoPath;
 	private String imagen;
-	private DefaultComboBoxModel<String> modelEditoriales;
-	private DefaultComboBoxModel<String> modelCategoria;
+	private DefaultComboBoxModel modelEditoriales;
+	private DefaultComboBoxModel modelCategoria;
+	private int filaAuxEliminarAutor=-1;
+	private int filaAuxAddAutor=-1;
 	
 	
 
@@ -208,14 +210,51 @@ public class VentanaSwingLibro {
 		autorDataModel= new DefaultTableModel(0, 0);
 		autorDataModel.setColumnIdentifiers(headerAutores);
 //		listarAutores();
-		tableAutores = new JTable(autorDataModel);
-		tableAutores.setEnabled(false);
+		tableAutores = new JTable(autorDataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
+		tableAutores.addMouseListener(new MouseAdapter() 
+				   {
+			      public void mouseClicked(MouseEvent e) 
+			      {
+			         int fila = tableAutores.rowAtPoint(e.getPoint());
+			         int columna = 0;
+			         if ((fila > -1) && (columna > -1)) {
+			        	 btnDropAutor.setEnabled(true);	 
+			        	 filaAuxEliminarAutor=fila;
+			        	 
+	}else {
+	btnDropAutor.setEnabled(false);
+	}
+			   }});
 		
 		
 		modeloAutores = new DefaultTableModel(0,0);
 		modeloAutores.setColumnIdentifiers(headerAutores);
 		listarTodosAutores();
-		tableAddAutores = new JTable(modeloAutores);
+		tableAddAutores = new JTable(modeloAutores){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
+		tableAddAutores.addMouseListener(new MouseAdapter() 
+		   {
+		      public void mouseClicked(MouseEvent e) 
+		      {
+		         int fila = tableAddAutores.rowAtPoint(e.getPoint());
+		         int columna = 0;
+		         if ((fila > -1) && (columna > -1)) {
+		        	 btnAddAutor.setEnabled(true);	 
+		        	 filaAuxAddAutor=fila;
+		        	 
+}else {
+btnAddAutor.setEnabled(false);
+}
+		   }});
 		
 //		tableAutores.addMouseListener(new MouseAdapter() 
 //		   {
@@ -261,6 +300,25 @@ public class VentanaSwingLibro {
 		
 		btnDropAutor = new JButton("DROP Autor");
 		btnDropAutor.setBounds(647, 57, 115, 29);
+		btnDropAutor.setEnabled(false);
+		btnDropAutor.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!tfISBN.getText().equals("")&&filaAuxAddAutor!=-1) {
+				try {
+					controladorLibro.eliminarLibroEscritor((String)autorDataModel.getValueAt(filaAuxEliminarAutor, 0), tfISBN.getText());
+					listarAutores();
+					JOptionPane.showMessageDialog(null, "Autor eliminado con exito");
+					btnDropAutor.setEnabled(false);
+	        	 } catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Error al eliminar el autor");
+				}}else {
+					JOptionPane.showMessageDialog(null, "El ISBN no puede estar vacio y debe seleccionar un autor");
+				}	        	
+				
+			}
+		});
 		panelAutoresActuales.add(btnDropAutor);
 		
 		scrollPaneAutoresActuales = new JScrollPane(tableAutores);
@@ -273,6 +331,28 @@ public class VentanaSwingLibro {
 
 		btnAddAutor = new JButton("ADD Autor");
 		btnAddAutor.setBounds(646, 26, 115, 29);
+		btnAddAutor.setEnabled(false);
+		btnAddAutor.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					if (!tfISBN.getText().equals("")&&filaAuxAddAutor!=-1) {
+						try {
+							controladorLibro.insertarLibroEscritor(tfISBN.getText(),(String)modeloAutores.getValueAt(filaAuxAddAutor, 0));
+						listarAutores();
+						JOptionPane.showMessageDialog(null, "Autor añadido con exito");
+						btnAddAutor.setEnabled(false);
+		        	 } catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Error al añadir el autor");
+					}		       
+					}else {
+						JOptionPane.showMessageDialog(null, "El ISBN no puede estar vacio y debe seleccionar un autor");
+					}
+					 	
+				
+			}
+		});
 		panelAddAutor.add(btnAddAutor);
 		
 		btnRefresh = new JButton("Refresh");
@@ -336,7 +416,7 @@ public class VentanaSwingLibro {
 	        	         
 
 		            	  origenPath = Paths.get(ruta);
-		            	 destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
+		            	 
 		            	
 		            	
 		            	 imagen=tfISBN.getText()+".png";
@@ -425,10 +505,189 @@ public class VentanaSwingLibro {
 		
 		btnAadirLibro = new JButton("A\u00F1adir Libro");
 		btnAadirLibro.setBounds(659, 559, 133, 29);
-		btnAadirLibro.addActionListener(new ActionListener() {
+	btnAadirLibro.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+	
+			if (tfISBN.getText().equals("")||tfTitulo.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "No pueden quedar vacios ni el ISBN ni el título");
+			}else {
+				long isbn = 0;
+				String titulo; 
+				double precio = 0; 
+				int ud_stock = 0;					
+				String descripcion;
+				String imagen_add;
+				String cod_editorial=null;
+				String cod_categoria=null;
+				
+				if (tfISBN.getText().length()<11&&tfISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+					isbn= Long.valueOf(tfISBN.getText());
+					titulo=tfTitulo.getText();
+					
+					try {
+						precio=Double.valueOf(tfPrecio.getText());
+						if (tfUds.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+							ud_stock=Integer.parseInt(tfUds.getText());
+							if (imagen==null) {
+								imagen_add="default.png";
+								
+							}else {
+								imagen_add=imagen;
+							}
+							descripcion=tAreaDescripcion.getText();
+							
+							try {
+								Vector<DAOEditorial> editoriales= controladorEditorial.obtenerEditoriales();
+							
+							for (DAOEditorial editorial : editoriales) {
+								if (editorial.getNombre_editorial().equals(comboEditorial.getSelectedItem())) {
+									cod_editorial=editorial.getCod_editorial();
+								}
+							}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
+							try {
+								Vector<DAOCategoria> categorias= controladorCategoria.obtenerCategorias();
+							
+							for (DAOCategoria categoria : categorias) {
+								if (categoria.getNombre_categoria().equals(comboCategoria.getSelectedItem())) {
+									cod_categoria=categoria.getCod_categoria();
+								}
+							}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
+							try {
+								controladorLibro.insertarLibros(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
+								JOptionPane.showMessageDialog(null, "Libro modificado con exitos");
+								try {
+									if (!imagen_add.equals("default.png")) {
+										destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
+										Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);											
+									}
+									 
+									} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								listarLibros();
+							} catch (Exception e2) {
+								JOptionPane.showMessageDialog(null, "No se ha podido modificar el libro");
+							}
+							
+							
+						
+						}else {
+							JOptionPane.showMessageDialog(null,"El stock tiene que expresarse numericamente" );
+						}
+						
+					}catch (NumberFormatException exc)  {
+						JOptionPane.showMessageDialog(null,"El precio tiene que expresarse numericamente" );
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"El ISBN es de 10 digitos maximo y son solo números" );
+				}
+				
+				
+			}
+			
+		}
+	});
+//			.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (tfISBN.getText().equals("")||tfTitulo.getText().equals("")) {
+//					JOptionPane.showMessageDialog(null, "No pueden quedar vacios ni el ISBN ni el título");
+//				}else {
+//					long isbn = 0;
+//					String titulo; 
+//					double precio = 0; 
+//					int ud_stock = 0;					
+//					String descripcion;
+//					String imagen_add;
+//					String cod_editorial=null;
+//					String cod_categoria=null;
+//					
+//					if (tfISBN.getText().length()<11&&tfISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+//						isbn= Long.valueOf(tfISBN.getText());
+//						titulo=tfTitulo.getText();
+//						try {
+//							precio=Double.valueOf(tfPrecio.getText());
+//							if (tfUds.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+//								ud_stock=Integer.parseInt(tfUds.getText());
+//								if (imagen==null) {
+//									imagen_add="default.png";
+//									
+//								}else {
+//									imagen_add=imagen;
+//								}
+//								descripcion=tAreaDescripcion.getText();
+//								
+//								try {
+//									Vector<DAOEditorial> editoriales= controladorEditorial.obtenerEditoriales();
+//								
+//								for (DAOEditorial editorial : editoriales) {
+//									if (editorial.getNombre_editorial().equals(comboEditorial.getSelectedItem())) {
+//										cod_editorial=editorial.getCod_editorial();
+//									}
+//								}
+//								} catch (Exception e2) {
+//									e2.printStackTrace();
+//								}
+//								try {
+//									Vector<DAOCategoria> categorias= controladorCategoria.obtenerCategorias();
+//								
+//								for (DAOCategoria categoria : categorias) {
+//									if (categoria.getNombre_categoria().equals(comboCategoria.getSelectedItem())) {
+//										cod_categoria=categoria.getCod_categoria();
+//									}
+//								}
+//								} catch (Exception e2) {
+//									e2.printStackTrace();
+//								}
+//									
+//								try {
+//									controladorLibro.insertarLibros(isbn, titulo , precio, ud_stock, imagen_add, descripcion, cod_editorial , cod_categoria);
+//									JOptionPane.showMessageDialog(null, "Libro añadido con exito");
+//								} catch (Exception e2) {
+//									JOptionPane.showMessageDialog(null, "NO se ha podido añadir el Libro");
+//								}
+//								 try {
+//									 destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
+//									Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
+//								} catch (IOException e1) {
+//									// TODO Auto-generated catch block
+//									e1.printStackTrace();
+//								}
+//								 listarLibros();
+//							}else {
+//								JOptionPane.showMessageDialog(null,"El stock tiene que expresarse numericamente" );
+//							}}catch (Exception e2) {
+//								e2.printStackTrace();
+//							}
+//					}else {
+//						JOptionPane.showMessageDialog(null,"El ISBN es de 10 digitos maximo y son solo números" );
+//					}
+//					
+//					
+//				}
+//				
+//			}
+//		});
+		panelLibro.add(btnAadirLibro);
+		
+		btnEditarLibro = new JButton("Editar Libro");
+		btnEditarLibro.setBounds(659, 620, 133, 29);
+		btnEditarLibro.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+		
 				if (tfISBN.getText().equals("")||tfTitulo.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "No pueden quedar vacios ni el ISBN ni el título");
 				}else {
@@ -443,75 +702,98 @@ public class VentanaSwingLibro {
 					
 					if (tfISBN.getText().length()<11&&tfISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
 						isbn= Long.valueOf(tfISBN.getText());
+						titulo=tfTitulo.getText();
+						
+						try {
+							precio=Double.valueOf(tfPrecio.getText());
+							if (tfUds.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+								ud_stock=Integer.parseInt(tfUds.getText());
+								if (imagen==null) {
+									imagen_add="default.png";
+									
+								}else {
+									imagen_add=imagen;
+								}
+								descripcion=tAreaDescripcion.getText();
+								
+								try {
+									Vector<DAOEditorial> editoriales= controladorEditorial.obtenerEditoriales();
+								
+								for (DAOEditorial editorial : editoriales) {
+									if (editorial.getNombre_editorial().equals(comboEditorial.getSelectedItem())) {
+										cod_editorial=editorial.getCod_editorial();
+									}
+								}
+								} catch (Exception e2) {
+									e2.printStackTrace();
+								}
+								try {
+									Vector<DAOCategoria> categorias= controladorCategoria.obtenerCategorias();
+								
+								for (DAOCategoria categoria : categorias) {
+									if (categoria.getNombre_categoria().equals(comboCategoria.getSelectedItem())) {
+										cod_categoria=categoria.getCod_categoria();
+									}
+								}
+								} catch (Exception e2) {
+									e2.printStackTrace();
+								}
+								try {
+									controladorLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
+									JOptionPane.showMessageDialog(null, "Libro modificado con exitos");
+									try {
+										if (!imagen_add.equals("default.png")) {
+											destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
+											Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);											
+										}
+										 
+										} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									listarLibros();
+								} catch (Exception e2) {
+									JOptionPane.showMessageDialog(null, "No se ha podido modificar el libro");
+								}
+								
+								
+							
+							}else {
+								JOptionPane.showMessageDialog(null,"El stock tiene que expresarse numericamente" );
+							}
+							
+						}catch (NumberFormatException exc)  {
+							JOptionPane.showMessageDialog(null,"El precio tiene que expresarse numericamente" );
+						}
+						
 					}else {
 						JOptionPane.showMessageDialog(null,"El ISBN es de 10 digitos maximo y son solo números" );
 					}
-					titulo=tfTitulo.getText();
-					if (tfPrecio.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
-						precio=Double.parseDouble(tfPrecio.getText());
-					}else {
-						JOptionPane.showMessageDialog(null,"El precio tiene que expresarse numericamente" );
-					}
-					if (tfUds.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
-						ud_stock=Integer.parseInt(tfUds.getText());
-					}else {
-						JOptionPane.showMessageDialog(null,"El stock tiene que expresarse numericamente" );
-					}
-					if (imagen==null) {
-						imagen_add="default.png";
-					}else {
-						imagen_add=imagen;
-					}
-					descripcion=tAreaDescripcion.getText();
 					
-						try {
-							Vector<DAOEditorial> editoriales= controladorEditorial.obtenerEditoriales();
-						
-						for (DAOEditorial editorial : editoriales) {
-							if (editorial.getNombre_editorial().equals(comboEditorial.getSelectedItem())) {
-								cod_editorial=editorial.getCod_editorial();
-							}
-						}
-						} catch (Exception e2) {
-							e2.printStackTrace();
-						}
-						try {
-							Vector<DAOCategoria> categorias= controladorCategoria.obtenerCategorias();
-						
-						for (DAOCategoria categoria : categorias) {
-							if (categoria.getNombre_categoria().equals(comboCategoria.getSelectedItem())) {
-								cod_categoria=categoria.getCod_categoria();
-							}
-						}
-						} catch (Exception e2) {
-							e2.printStackTrace();
-						}
-						
 					
-					try {
-						controladorLibro.insertarLibros(isbn, titulo , precio, ud_stock, imagen_add, descripcion, cod_editorial , cod_categoria);
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "NO se ha podido añadir el Libro");
-					}
-					 try {
-						Files.copy(origenPath, destinoPath, StandardCopyOption.REPLACE_EXISTING);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					 listarLibros();
 				}
 				
 			}
 		});
-		panelLibro.add(btnAadirLibro);
-		
-		btnEditarLibro = new JButton("Editar Libro");
-		btnEditarLibro.setBounds(659, 620, 133, 29);
 		panelLibro.add(btnEditarLibro);
 		
 		btnEliminarLibro = new JButton("Eliminar Libro");
 		btnEliminarLibro.setBounds(659, 672, 133, 29);
+		btnEliminarLibro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					controladorLibro.borrarLibro(Long.parseLong(tfISBN.getText()));
+					JOptionPane.showMessageDialog(null, "Libro eliminado con exito");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Error al eliminar el libro");
+					e1.printStackTrace();
+				}
+				listarLibros();
+				
+			}
+		});
 		panelLibro.add(btnEliminarLibro);
 		
 		btnRefreshEdCat = new JButton("Refresh Ed. Cat.");
@@ -540,12 +822,12 @@ public class VentanaSwingLibro {
 		panelLibro.add(lblCategoria);		
 	
 		
-		 modelEditoriales = new DefaultComboBoxModel<String>(listarNombresEditorial());
+		 modelEditoriales = new DefaultComboBoxModel(listarNombresEditorial());
 			comboEditorial = new JComboBox(modelEditoriales);
 			comboEditorial.setBounds(188, 738, 176, 26);
 			panelLibro.add(comboEditorial);
 					
-			 modelCategoria = new DefaultComboBoxModel<String>(listarNombresCategoria());
+			 modelCategoria = new DefaultComboBoxModel(listarNombresCategoria());
 			comboCategoria = new JComboBox(modelCategoria);
 			comboCategoria.setBounds(414, 738, 211, 26);
 			panelLibro.add(comboCategoria);	
@@ -613,6 +895,7 @@ public class VentanaSwingLibro {
 			autores = controladorAutor.obtenerAutores();
 
 			Iterator<DAOAutor> itAutores = autores.iterator();
+			
 			while(itAutores.hasNext()) {
 				DAOAutor autor= itAutores.next();
 				Vector<String> vectordeAutores = new Vector<String>();
@@ -622,6 +905,7 @@ public class VentanaSwingLibro {
 				vectordeAutores.add(autor.getS_apellido());
 				
 				modeloAutores.addRow(vectordeAutores);
+				
 			
 				
 			}
@@ -634,10 +918,16 @@ public class VentanaSwingLibro {
 	}
 	private void refreshEditorialCategoria() {
 		modelEditoriales.removeAllElements();
-//		modelEditoriales.addAll(listarNombresEditorial());
+		Vector<String> editoriales = listarNombresEditorial();
+		for (String nombre : editoriales) {
+			modelEditoriales.addElement(nombre);
+		}
 	
 		modelCategoria.removeAllElements();
-//		modelCategoria.addAll(listarNombresCategoria());
+		Vector<String> categorias = listarNombresCategoria();
+		for (String nombre : categorias) {
+			modelCategoria.addElement(nombre);
+		}
 	}
 	
 	private Vector<String> listarNombresEditorial(){
