@@ -103,7 +103,7 @@ public class VentanaSwingAutor {
 		
 	
 		
-		btnBotonEditar = new JButton("Boton Editar");
+		btnBotonEditar = new JButton("Editar Autor");
 		btnBotonEditar.setBounds(665, 98, 145, 29);
 		btnBotonEditar.addActionListener(new ActionListener() {
 			
@@ -130,7 +130,7 @@ public class VentanaSwingAutor {
 		});
 		panel.add(btnBotonEditar);
 		
-		btnBotonEliminar = new JButton("Boton Eliminar");
+		btnBotonEliminar = new JButton("Eliminar Autor");
 		btnBotonEliminar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -155,7 +155,7 @@ public class VentanaSwingAutor {
 		btnBotonEliminar.setBounds(665, 184, 145, 29);
 		panel.add(btnBotonEliminar);
 		
-		btnBotonAniadir = new JButton("Boton A\u00F1adir");
+		btnBotonAniadir = new JButton("A\u00F1adir Autor");
 		btnBotonAniadir.setBounds(665, 269, 145, 29);
 		btnBotonAniadir.addActionListener(new ActionListener() {
 			
