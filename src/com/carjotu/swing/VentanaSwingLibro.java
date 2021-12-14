@@ -574,8 +574,9 @@ btnAddAutor.setEnabled(false);
 									e1.printStackTrace();
 								}
 								listarLibros();
+								listarAutores();
 							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(null, "No se ha podido modificar el libro");
+								JOptionPane.showMessageDialog(null, "No se ha podido añadir el libro");
 							}
 							
 							
