@@ -98,11 +98,10 @@ public class DAOAutor {
 
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		public static void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
+		public static int modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
 			
 				String sqlQuery = "UPDATE libreria.autor SET nombre= '"+nombreAutor+"',p_apel= '"+apel1+"',s_apel= '"+apel2+"' WHERE cod_autor='"+idAutor+"';";
-				DAOAutor.sentencia.executeUpdate(sqlQuery);	
-				System.out.println("El autor con el código "+idAutor+" ha sido modificado con éxito.");
+				return DAOAutor.sentencia.executeUpdate(sqlQuery);	
 			
 		} 
 		

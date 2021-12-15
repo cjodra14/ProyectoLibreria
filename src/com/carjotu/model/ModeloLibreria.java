@@ -115,8 +115,8 @@ public class ModeloLibreria {
 			DAOAutor.insertarDatos(idAutor, nombreAutor,  apel1,  apel2);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un autor
-		public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception {
-			DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
+		public int modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception {
+			 return DAOAutor.modificarAutor(idAutor, nombreAutor, apel1, apel2);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un autor
 		public int borrarAutor(String idAutor) throws Exception {
@@ -145,8 +145,8 @@ public class ModeloLibreria {
 					DAOCategoria.insertarCategoria(idCategoria, nombreCategoria);
 				}
 				//Este método ejecutará una sentencia UPDATE para modificar una categoria
-				public void modificarCategoria(String idCategoria,String  nombreCategoria) throws Exception {
-					DAOCategoria.modificarCategoria(idCategoria,  nombreCategoria);
+				public int modificarCategoria(String idCategoria,String  nombreCategoria) throws Exception {
+					return DAOCategoria.modificarCategoria(idCategoria,  nombreCategoria);
 				}
 				//Este método ejecutará una sentencia DELETE para eliminar una categoria
 				public int borrarCategoria(String idCategoria) throws Exception {
@@ -171,8 +171,8 @@ public class ModeloLibreria {
 			DAOEditorial.insertarEditorial(codEditorial, nombreEditorial);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar una editorial
-		public void modificarEditorial(String codEditorial,String nombreEditorial ) throws Exception {
-			DAOEditorial.modificarEditorial(codEditorial, nombreEditorial);
+		public int modificarEditorial(String codEditorial,String nombreEditorial ) throws Exception {
+			return DAOEditorial.modificarEditorial(codEditorial, nombreEditorial);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar una editorial
 		public int borrarEditorial(String codEditorial) throws Exception {
@@ -202,8 +202,8 @@ public class ModeloLibreria {
 			DAOLibro.insertarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
-		public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception {
-			DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
+		public int modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception {
+			return DAOLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 		}
 		//Este método ejecutará una sentencia DELETE para eliminar un libro 
 		public int borrarLibro(long isbn) throws Exception {			
@@ -248,7 +248,7 @@ public class ModeloLibreria {
 				// Extrae todos los registros de la tabla de Clientes
 				
 				
-				public Vector<DAOVenta> obtenerventas(){
+				public Vector<DAOVenta> obtenerVentas(){
 					try {
 						
 					ventas=DAOVenta.obtenerVentas();
@@ -261,7 +261,7 @@ public class ModeloLibreria {
 					
 				}
 				//Método que extrae un registro de la tabla con una sentencia SELECT de una sola venta
-				public DAOVenta  obtenerVentas(String npedido) throws SQLException {
+				public DAOVenta  obtenerVentas(String npedido) throws Exception {
 					return DAOVenta.obtenerVenta(npedido);
 				}
 				//Este método se utiliza para meter datos con la sentencia INSERT en venta
@@ -269,11 +269,11 @@ public class ModeloLibreria {
 					DAOVenta.insertarVenta(npedido, usuario, fecha);
 				}
 				//Este método ejecutará una sentencia UPDATE para modificar una venta
-				public void modificarVenta(int npedido, String usuario, String fecha) {
-					DAOVenta.modificarVenta(npedido, usuario, fecha);
+				public int modificarVenta(int npedido, String usuario, String fecha) throws Exception {
+					return DAOVenta.modificarVenta(npedido, usuario, fecha);
 				}
 				//Este método ejecutará una sentencia DELETE para eliminar una venta
-				public int borrarVenta(String npedido) throws SQLException {
+				public int borrarVenta(String npedido) throws Exception {
 					
 					return DAOVenta.borrarVenta(npedido);
 				}
@@ -327,6 +327,11 @@ public class ModeloLibreria {
 		// Eliminar relación entre libro y autor
 		public void eliminarLibroEscritor(String cod_autor, String isbn) throws Exception {
 			DAOlibro_escritor.borrarLibroEscritor(cod_autor, isbn);
+		}
+		
+		
+		public  DAOVenta_libro obtenerVentaLibro(String npedido) throws Exception{
+			return DAOVenta_libro.obtenerVentaLibro(npedido);
 		}
 		
 		

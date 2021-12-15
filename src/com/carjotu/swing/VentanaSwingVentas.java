@@ -23,18 +23,20 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.carjotu.controler.ControladorAutor;
+import com.carjotu.controler.ControladorVenta;
 import com.carjotu.dao.DAOAutor;
+import com.carjotu.dao.DAOVenta;
 
-public class VentanaSwingAutor {
+public class VentanaSwingVentas {
 	private JTextArea jtareaResultado;
 	private JButton btnListar,btnTerminar,btnLimpiar;
 	
-	private ControladorAutor controlador;
-	private Vector<DAOAutor> resultado;
+	private ControladorVenta controlador;
+	private Vector<DAOVenta> resultado;
 	JFrame marco;
 	
-	private JLabel lblListadoDeAutores;
-	private JTable tableAutores;
+	private JLabel lblListadoDeVenta;
+	private JTable tableVentas;
 	private JButton btnBotonEditar;
 	private JButton btnBotonEliminar;
 	private JButton btnBotonAniadir;
@@ -50,7 +52,7 @@ public class VentanaSwingAutor {
 	private JScrollPane scrollPane;
 	private JPanel panel;
 
-	public VentanaSwingAutor(ControladorAutor controlador, JFrame marco) {
+	public VentanaSwingVentas(ControladorVenta controlador, JFrame marco) {
 		this.marco=marco;
 		this.controlador=controlador;
 		
@@ -67,25 +69,25 @@ public class VentanaSwingAutor {
 	
 	
 	public void crearPantalla() {
-		lblListadoDeAutores = new JLabel("Listado de Autores");
-		lblListadoDeAutores.setBounds(15, 16, 164, 20);
-		panel.add(lblListadoDeAutores);
+		lblListadoDeVenta = new JLabel("Listado de Ventas:");
+		lblListadoDeVenta.setBounds(15, 16, 164, 20);
+		panel.add(lblListadoDeVenta);
 		
 		Vector<String> header= new Vector<String>();
-		header.add("Código");
-		header.add("Nombre");
-		header.add("Primer Apellido");
-		header.add("Segundo Apellido");
+		header.add("Nº de pedido");
+		header.add("Fecha");
+		header.add("Usuario que ha hecho el pedido:");
+		
 		dataModel= new DefaultTableModel(0, 0);
 		 dataModel.setColumnIdentifiers(header);
-		listarAutores();
-		tableAutores = new JTable(dataModel);
-		tableAutores.setEnabled(false);
-		tableAutores.addMouseListener(new MouseAdapter() 
+		listarVentas();
+		tableVentas = new JTable(dataModel);
+		tableVentas.setEnabled(false);
+		tableVentas.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 
 		      {
-		         int fila = tableAutores.rowAtPoint(e.getPoint());
+		         int fila = tableVentas.rowAtPoint(e.getPoint());
 		         int columna = 0;
 		         if ((fila > -1) && (columna > -1))
 		        	 
@@ -96,7 +98,7 @@ public class VentanaSwingAutor {
 		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
 		      }
 		   });
-		scrollPane= new JScrollPane(tableAutores);
+		scrollPane= new JScrollPane(tableVentas);
 		scrollPane.setBounds(25, 52, 600, 275);
 		
 		panel.add(scrollPane);
@@ -118,13 +120,13 @@ public class VentanaSwingAutor {
 				}else {
 					try {
 						int filasModificadas=-1;
-						filasModificadas=controlador.modificarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
+						//filasModificadas=controlador.modificarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
 						if (filasModificadas>0) {
 							JOptionPane.showMessageDialog(null, "Autor modificado con exito");
 						}else {
 							JOptionPane.showMessageDialog(null, "No se ha modificado ningún autor");
 						}
-						listarAutores();
+						listarVentas();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "Error al modificar el autor");
 					}
@@ -146,9 +148,9 @@ public class VentanaSwingAutor {
 					JOptionPane.showMessageDialog(null, "No puede estar vacio el CODIGO DE AUTOR a eliminar ");
 				}else {
 					try {
-						controlador.borrarAutor(codAutor);
+						//controlador.borrarAutor(codAutor);
 						JOptionPane.showMessageDialog(null, "Autor eliminado con exito");
-						listarAutores();
+						listarVentas();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "Error al eliminar el autor");
 					}
@@ -174,9 +176,9 @@ public class VentanaSwingAutor {
 					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE AUTOR ni el NOMBRE ");
 				}else {
 					try {
-						controlador.insertarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
+						//controlador.insertarAutor(codAutor, nombreAutor, pApelAutor, sApelAutor);
 						JOptionPane.showMessageDialog(null, "Autor añadido con exito");
-						listarAutores();
+						listarVentas();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "Error al añadir el autor");
 					}
@@ -226,23 +228,22 @@ public class VentanaSwingAutor {
 	}
 
 	
-	private void listarAutores() {
+	private void listarVentas() {
 		dataModel.setRowCount(0);
 		
-		Vector<DAOAutor> autores;
+		Vector<DAOVenta> ventas;
 		try {
-			autores = controlador.obtenerAutores();
+			ventas = controlador.obtenerVentas();
 
-			Iterator<DAOAutor> itAutores = autores.iterator();
-			while(itAutores.hasNext()) {
-				DAOAutor autor= itAutores.next();
-				Vector<String> vectordeAutores = new Vector<String>();
-				vectordeAutores.add(autor.getCod_autor());
-				vectordeAutores.add(autor.getNombre_autor());
-				vectordeAutores.add(autor.getP_apellido());
-				vectordeAutores.add(autor.getS_apellido());
+			Iterator<DAOVenta> itVentas = ventas.iterator();
+			while(itVentas.hasNext()) {
+				DAOVenta venta= itVentas.next();
+				Vector<String> vectordeVentas = new Vector<String>();
+				vectordeVentas.add(String.valueOf(venta.getNpedido()));
+				vectordeVentas.add(venta.getFecha());
+				vectordeVentas.add(venta.getUsuario());
 				
-				dataModel.addRow(vectordeAutores);
+				dataModel.addRow(vectordeVentas);
 			
 				
 			}

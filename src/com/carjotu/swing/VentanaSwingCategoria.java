@@ -109,8 +109,13 @@ public class VentanaSwingCategoria {
 					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE CATEGORIA ni el NOMBRE ","Error",JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try {
-						controlador.modificarCategoria(idCategoria, nombreCategoria);
-						JOptionPane.showMessageDialog(null, "Categoria modificada con exito");
+						int filasMod=-1;
+						filasMod=controlador.modificarCategoria(idCategoria, nombreCategoria);
+						if (filasMod>0) {
+							JOptionPane.showMessageDialog(null, "Categoria modificado con exito");
+						}else {
+							JOptionPane.showMessageDialog(null, "No se ha modificado ninguna categoria");
+						}
 						listarCategorias();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "Error al modificar la categoria");

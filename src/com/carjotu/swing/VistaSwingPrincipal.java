@@ -16,6 +16,7 @@ import com.carjotu.controler.ControladorCategoria;
 import com.carjotu.controler.ControladorCliente;
 import com.carjotu.controler.ControladorEditorial;
 import com.carjotu.controler.ControladorLibro;
+import com.carjotu.controler.ControladorVenta;
 
 public class VistaSwingPrincipal implements ActionListener {
 	JFrame marco;
@@ -24,12 +25,15 @@ public class VistaSwingPrincipal implements ActionListener {
 	ControladorCategoria controladorCategoria;
 	ControladorLibro controladorLibro;
 	ControladorCliente controladorCliente;
+	ControladorVenta controladorVenta;
+	
 	JMenuBar menuBar;
-	JButton btnHome, btnCategoria,btnEditorial, btnAutor, btnLibro;
+	JButton btnHome, btnCategoria,btnEditorial, btnAutor, btnLibro, btnVenta;
 	VentanaSwingAutor ventanaAutor;
 	VentanaSwingLibro ventanaLibro;
 	VentanaSwingEditorial ventanaEditorial;
 	VentanaSwingCategoria ventanaCategoria;
+	VentanaSwingVentas ventanaVenta;
 	JPanel panelHome;
 	
 	
@@ -43,12 +47,13 @@ public class VistaSwingPrincipal implements ActionListener {
 	private JButton btnCategoriaHome;
 	private JButton btnEditorialHome;
 		
-		public VistaSwingPrincipal(ControladorAutor controladorAutor, ControladorEditorial controladorEditorial, ControladorCategoria controladorCategoria, ControladorLibro controladorLibro, ControladorCliente controladorCliente) {
+		public VistaSwingPrincipal(ControladorAutor controladorAutor, ControladorEditorial controladorEditorial, ControladorCategoria controladorCategoria, ControladorLibro controladorLibro, ControladorCliente controladorCliente, ControladorVenta controladorVenta) {
 		this.controladorAutor=controladorAutor;
 		this.controladorEditorial=controladorEditorial;
 		this.controladorCategoria=controladorCategoria;
 		this.controladorLibro=controladorLibro;
 		this.controladorCliente=controladorCliente;
+		this.controladorVenta=controladorVenta;
 		marco = new JFrame("Menú principal");
 		marco.setLayout(null);
 		marco.setSize(850, 525);
@@ -76,9 +81,15 @@ public class VistaSwingPrincipal implements ActionListener {
 		btnEditorial = new JButton("Editorial");
 		menuBar.add(btnEditorial);
 		btnEditorial.addActionListener(this);
+		
 		btnLibro = new JButton("Libro");
 		menuBar.add(btnLibro);
 		btnLibro.addActionListener(this);
+		
+		btnVenta = new JButton("Ventas");
+		menuBar.add(btnVenta);
+		btnVenta.setVisible(false);
+		btnVenta.addActionListener(this);
 		
 		panelHome = new JPanel();
 		panelHome.setLayout(null);
@@ -171,6 +182,19 @@ public class VistaSwingPrincipal implements ActionListener {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,525);
 					ventanaCategoria = new VentanaSwingCategoria(controladorCategoria, marco);
+					
+				}else {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaCategoria.repintar();
+				}
+				
+		}
+			if (e.getSource().equals(btnVenta)) {
+				if (ventanaVenta==null) {
+					marco.getContentPane().removeAll();
+					marco.setSize(850,525);
+					ventanaVenta = new VentanaSwingVentas(controladorVenta, marco);
 					
 				}else {
 					marco.getContentPane().removeAll();

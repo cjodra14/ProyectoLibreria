@@ -35,8 +35,8 @@ public class ControladorAutor {
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un autor
-	public void modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
-		modelo.modificarAutor(idAutor,nombreAutor,apel1,apel2);
+	public int modificarAutor(String idAutor, String nombreAutor, String apel1, String apel2) throws Exception{
+		return modelo.modificarAutor(idAutor,nombreAutor,apel1,apel2);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un autor

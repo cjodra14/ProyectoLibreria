@@ -107,8 +107,14 @@ public class VentanaSwingEditorial {
 					JOptionPane.showMessageDialog(null, "No puede quedar vacio ni el CODIGO DE EDITORIAL ni el NOMBRE ","Error",JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try {
-						controlador.modificarEditorial(codEditorial, nombreEditorial);
-						JOptionPane.showMessageDialog(null, "Editorial modificada con exito");
+						int filasMod=-1;
+						filasMod=controlador.modificarEditorial(codEditorial, nombreEditorial);
+						
+						if (filasMod>0) {
+							JOptionPane.showMessageDialog(null, "Editorial modificado con exito");
+						}else {
+							JOptionPane.showMessageDialog(null, "No se ha modificado ninguna editorial");
+						}
 						listarEditoriales();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "Error al modificar la editorial");

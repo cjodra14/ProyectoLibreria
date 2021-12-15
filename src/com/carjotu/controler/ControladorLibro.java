@@ -37,8 +37,8 @@ public class ControladorLibro {
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un libro
-	public void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
-		modelo.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);;
+	public int modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
+		return modelo.modificarLibro(isbn, titulo, precio, ud_stock, imagen, descripcion, cod_editorial, cod_categoria);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un libro

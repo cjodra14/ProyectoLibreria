@@ -35,8 +35,8 @@ public class ControladorEditorial {
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una editorial
-	public void modificarEditorial(String nombreEditorial, String idEditorial) throws Exception{
-		modelo.modificarEditorial(nombreEditorial, idEditorial);
+	public int modificarEditorial(String nombreEditorial, String idEditorial) throws Exception{
+		return modelo.modificarEditorial(nombreEditorial, idEditorial);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar una editorial

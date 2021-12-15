@@ -168,6 +168,7 @@ public class VentanaSwingLibro {
 		   {
 		      public void mouseClicked(MouseEvent e) 
 		      {
+		    	  btnDropAutor.setEnabled(false);
 		         int fila = tableLibros.rowAtPoint(e.getPoint());
 		         int columna = 0;
 		         if ((fila > -1) && (columna > -1)) {
@@ -560,9 +561,8 @@ btnAddAutor.setEnabled(false);
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
-							try {
-								controladorLibro.insertarLibros(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
-								JOptionPane.showMessageDialog(null, "Libro modificado con exitos");
+							try {controladorLibro.insertarLibros(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
+								JOptionPane.showMessageDialog(null, "Libro insertados con exitos");
 								try {
 									if (!imagen_add.equals("default.png")) {
 										destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");
@@ -740,8 +740,13 @@ btnAddAutor.setEnabled(false);
 									e2.printStackTrace();
 								}
 								try {
-									controladorLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
-									JOptionPane.showMessageDialog(null, "Libro modificado con exitos");
+									int filasMod=-1;
+									filasMod=controladorLibro.modificarLibro(isbn, titulo, precio, ud_stock, imagen_add, descripcion, cod_editorial, cod_categoria);
+									if (filasMod>0) {
+										JOptionPane.showMessageDialog(null, "Libro modificado con exito");
+									}else {
+										JOptionPane.showMessageDialog(null, "No se ha modificado ningún libro");
+									}
 									try {
 										if (!imagen_add.equals("default.png")) {
 											destinoPath = Paths.get("assets/books/"+tfISBN.getText()+".png");

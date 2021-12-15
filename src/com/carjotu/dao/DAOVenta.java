@@ -76,14 +76,11 @@ public class DAOVenta {
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una venta
-			public static void modificarVenta(int npedido, String usuario, String fecha){
-				try {
+			public static int modificarVenta(int npedido, String usuario, String fecha) throws Exception{
+				
 					String sqlQuery = "UPDATE libreria.venta SET usuario= '"+usuario+"',fecha= '"+fecha+"' WHERE npedido='"+npedido+"';";
-					DAOVenta.sentencia.executeUpdate(sqlQuery);	
-					System.out.println("La venta con el número de pedido "+npedido+" ha sido modificada con éxito.");
-				}catch(SQLException e) {
-					System.err.println("Error al modificar la venta.\n"+e.getStackTrace());
-				}
+					return DAOVenta.sentencia.executeUpdate(sqlQuery);	
+				
 			} 
 			
 	//Este método ejecutará una sentencia DELETE para eliminar una venta

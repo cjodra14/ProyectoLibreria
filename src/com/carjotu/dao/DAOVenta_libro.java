@@ -4,7 +4,8 @@ import java.sql.*;
 import java.util.Vector;
 
 public class DAOVenta_libro {
-int npedido, isbn, cantidad;
+int npedido,  cantidad;
+long isbn;
 double precio;
 String usuario,fecha, titulo;
 
@@ -12,11 +13,10 @@ public DAOVenta_libro() {
 	
 }
 
-public DAOVenta_libro(int npedido, int isbn, int cantidad,int precio) {
+public DAOVenta_libro(int npedido, long isbn, int cantidad) {
 	this.npedido=npedido;
 	this.isbn=isbn;
 	this.cantidad=cantidad;	
-	this.precio=precio;
 }
 
 public DAOVenta_libro(int npedido, int isbn, int cantidad, String usuario, String fecha, String titulo, double precio) {
@@ -39,11 +39,11 @@ public void setNpedido(int npedido) {
 	this.npedido = npedido;
 }
 
-public int getIsbn() {
+public long getIsbn() {
 	return isbn;
 }
 
-public void setIsbn(int isbn) {
+public void setIsbn(long isbn) {
 	this.isbn = isbn;
 }
 
@@ -100,13 +100,13 @@ public static void setConexionBBDD(Statement sentencia, ResultSet resultado) {
 //MÉTODOS CRUD
 	//READ
 	//Método que extra todos los registros de la tabla
-	public static Vector<DAOVenta_libro> obtenerVentasLibro() throws SQLException{
-		String sqlQuery = "select VE.npedido, V.usuario, V.fecha, L.titulo , L.precio from venta_libro VE, venta V, libro L;";
-		//Este método devolverá un vector de tipo <DAOVenta_libro>
-		return buscaResultadosConConsulta(sqlQuery);	
-	}
-	public static DAOVenta_libro obtenerVentaLibro(String npedido) throws SQLException{
-		String sqlQuery = "select VE.npedido, V.usuario, V.fecha, L.titulo, L.precio from venta_libro VE, venta V, libro L WHERE V.npedido='"+npedido+"';";
+//	public static Vector<DAOVenta_libro> obtenerVentasLibro() throws SQLException{
+//		String sqlQuery = "select VE.cantidad ,VE.ISBN,  L.titulo , L.precio from venta_libro VE, venta V, libro L WHERE L.ISBN=VE.ISBN;";
+//		//Este método devolverá un vector de tipo <DAOVenta_libro>
+////		return buscaResultadosConConsulta(sqlQuery);	
+//	}
+	public static DAOVenta_libro obtenerVentaLibro(String npedido) throws Exception{
+		String sqlQuery = "select VE.npedido, VE.ISBN, VE.cantidad from venta_libro VE, venta V, libro L WHERE VE.npedido='"+npedido+"';";
 		return buscaResultadosUnaVenta(sqlQuery);
 	}
 	//Este método se utiliza para meter datos con la sentencia INSERT
@@ -141,36 +141,33 @@ return DAOVenta_libro.sentencia.executeUpdate(sqlQuery);
 //FIN MÉTODOS CRUD
 //MÉTODOS UTILITY DE CLASE
 	//Método que extrae filas de la tabla a través de una consulta
-	private static Vector<DAOVenta_libro> buscaResultadosConConsulta(String consulta) throws SQLException{
-		resultado = DAOVenta_libro.sentencia.executeQuery(consulta);
-		return cargaResultSetToVector(resultado);
-
-	}
+//	private static Vector<DAOVenta_libro> buscaResultadosConConsulta(String consulta) throws SQLException{
+//		resultado = DAOVenta_libro.sentencia.executeQuery(consulta);
+//		return cargaResultSetToVector(resultado);
+//
+//	}
 	
-	private static Vector<DAOVenta_libro> cargaResultSetToVector(ResultSet resultado) throws SQLException {
-		Vector<DAOVenta_libro> ventasLibros = new Vector<DAOVenta_libro>();
-		DAOVenta_libro ventaLibro;
-		while(resultado.next()) {
-			int npedido = resultado.getInt(1);
-			int isbn = resultado.getInt(2);
-			int cantidad = resultado.getInt(3);
-			String usuario = resultado.getString(4);
-			String fecha= resultado.getString(5);
-			String titulo = resultado.getString(6);
-			Double precio = resultado.getDouble(7);
-			ventaLibro = new DAOVenta_libro(npedido,isbn,cantidad,usuario,fecha,titulo,precio);
-			ventasLibros.addElement(ventaLibro);
-		}
-		
-		return ventasLibros;
-}
-	private static DAOVenta_libro buscaResultadosUnaVenta(String consulta) throws SQLException{
+//	private static Vector<DAOVenta_libro> cargaResultSetToVector(ResultSet resultado) throws SQLException {
+//		Vector<DAOVenta_libro> ventasLibros = new Vector<DAOVenta_libro>();
+//		DAOVenta_libro ventaLibro;
+//		while(resultado.next()) {
+//			int cantidad = resultado.getInt(4);
+//			String fecha= resultado.getString(5);
+//			String titulo = resultado.getString(6);
+//			Double precio = resultado.getDouble(7);
+//			ventaLibro = new DAOVenta_libro(npedido,isbn,cantidad,usuario,fecha,titulo,precio);
+//			ventasLibros.addElement(ventaLibro);
+//		}
+//		
+//		return ventasLibros;
+//}
+	private static DAOVenta_libro buscaResultadosUnaVenta(String consulta) throws Exception{
 		resultado = DAOVenta_libro.sentencia.executeQuery(consulta);
 		return cargaResultSetToVentaLibro(resultado);
 		
 	}
 	
-	private static DAOVenta_libro cargaResultSetToVentaLibro(ResultSet resultado) throws SQLException {
+	private static DAOVenta_libro cargaResultSetToVentaLibro(ResultSet resultado) throws Exception {
 		
 		DAOVenta_libro ventaLibro = null;
 		
@@ -178,11 +175,8 @@ return DAOVenta_libro.sentencia.executeUpdate(sqlQuery);
 			int npedido = resultado.getInt(1);
 			int isbn = resultado.getInt(2);
 			int cantidad = resultado.getInt(3);
-			String usuario = resultado.getString(4);
-			String fecha= resultado.getString(5);
-			String titulo = resultado.getString(6);
-			Double precio = resultado.getDouble(7);
-			ventaLibro = new DAOVenta_libro(npedido,isbn,cantidad,usuario,fecha,titulo,precio);
+			
+			ventaLibro = new DAOVenta_libro(npedido,isbn,cantidad);
 		}
 		
 		return ventaLibro;

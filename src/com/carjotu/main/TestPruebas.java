@@ -22,6 +22,7 @@ public class TestPruebas {
 		ControladorCategoria controladorCategoria = new ControladorCategoria(modelo);
 		ControladorLibro controladorLibro = new ControladorLibro(modelo);
 		ControladorCliente controladorCliente = new ControladorCliente(modelo);
+		ControladorVenta controladorVenta = new ControladorVenta(modelo);
 		
 		//Declara e inicia las vistas  y les agrega a cada vista su propio controlador
 		//VistaAutor vistaAutor = new VistaAutor(controladorAutor);
@@ -33,7 +34,7 @@ public class TestPruebas {
 		
 		//Declara en inicia la vista principal desde la que se accede al resto de las vistas
 		//VistaPrincipal visor = new VistaPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
-		VistaSwingPrincipal visor = new VistaSwingPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente);
+		VistaSwingPrincipal visor = new VistaSwingPrincipal(controladorAutor,controladorEditorial,controladorCategoria,controladorLibro, controladorCliente, controladorVenta);
 		//visor.getAccion();
 
 	}

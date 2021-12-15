@@ -35,8 +35,8 @@ public class ControladorCategoria {
 	}
 	
 	//Este método ejecutará una sentencia UPDATE para modificar un autor
-	public void modificarCategoria(String idCategoria,  String nombreCategoria) throws Exception{
-		modelo.modificarCategoria(idCategoria,  nombreCategoria);
+	public int modificarCategoria(String idCategoria,  String nombreCategoria) throws Exception{
+		return modelo.modificarCategoria(idCategoria,  nombreCategoria);
 	}
 	
 	//Este método ejecutará una sentencia DELETE para eliminar un autor

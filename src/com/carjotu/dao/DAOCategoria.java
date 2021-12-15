@@ -77,11 +77,11 @@ public class DAOCategoria {
 	
 	//Este método ejecutará una sentencia UPDATE para modificar una categoria
 			//nombre_categoria
-			public static void modificarCategoria(String idCategoria,  String nombreCategoria) throws Exception{
+			public static int modificarCategoria(String idCategoria,  String nombreCategoria) throws Exception{
 				
 					String sqlQuery = "UPDATE libreria.categoria SET nombre_categoria= '"+nombreCategoria+"' WHERE cod_categoria='"+idCategoria+"';";
-					DAOCategoria.sentencia.executeUpdate(sqlQuery);	
-					System.out.println("La categoria con el código "+idCategoria+" ha sido modificado con éxito.");
+					return DAOCategoria.sentencia.executeUpdate(sqlQuery);	
+					
 				
 			} 
 			

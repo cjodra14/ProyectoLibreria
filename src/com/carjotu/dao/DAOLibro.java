@@ -194,10 +194,10 @@ public class DAOLibro {
 		
 		//Este método ejecutará una sentencia UPDATE para modificar un libro
 		
-		public static void modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
+		public static int modificarLibro(long isbn, String titulo, double precio, int ud_stock, String imagen, String descripcion,String cod_editorial, String cod_categoria) throws Exception{
 		
 				String sqlQuery = "UPDATE libreria.libro SET titulo='"+titulo+"',precio='"+precio+"' ,ud_stock= '"+ud_stock+"',imagen= '"+imagen+"',descripcion= '"+descripcion+"',cod_editorial= '"+cod_editorial+"',cod_categoria= '"+cod_categoria+"'WHERE isbn='"+isbn+"';";
-				DAOLibro.sentencia.executeUpdate(sqlQuery);	
+				return DAOLibro.sentencia.executeUpdate(sqlQuery);	
 				
 			
 		} 
