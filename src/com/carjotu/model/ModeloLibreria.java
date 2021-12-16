@@ -59,6 +59,7 @@ public class ModeloLibreria {
 			DAOCliente.setConexionBBDD(sentencia, null);
 			DAOVenta.setConexionBBDD(sentencia, null);
 			DAOlibro_escritor.setConexionBBDD(sentencia, null);
+			DAOVenta_libro.setConexionBBDD(sentencia, null);
 			
 			} catch (SQLException e) {
 				System.err.println();
@@ -330,7 +331,7 @@ public class ModeloLibreria {
 		}
 		
 		
-		public  DAOVenta_libro obtenerVentaLibro(String npedido) throws Exception{
+		public  Vector<DAOVenta_libro> obtenerVentaLibro(String npedido) throws Exception{
 			return DAOVenta_libro.obtenerVentaLibro(npedido);
 		}
 		

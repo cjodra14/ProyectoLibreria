@@ -23,16 +23,19 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.carjotu.controler.ControladorAutor;
+import com.carjotu.controler.ControladorLibro;
 import com.carjotu.controler.ControladorVenta;
 import com.carjotu.dao.DAOAutor;
+import com.carjotu.dao.DAOLibro;
 import com.carjotu.dao.DAOVenta;
+import com.carjotu.dao.DAOVenta_libro;
 
 public class VentanaSwingVentas {
-	private JTextArea jtareaResultado;
-	private JButton btnListar,btnTerminar,btnLimpiar;
 	
 	private ControladorVenta controlador;
+	private ControladorLibro controladorLibro;
 	private Vector<DAOVenta> resultado;
+	private Vector<DAOVenta_libro> detalles;
 	JFrame marco;
 	
 	private JLabel lblListadoDeVenta;
@@ -51,10 +54,14 @@ public class VentanaSwingVentas {
 	private DefaultTableModel dataModel;
 	private JScrollPane scrollPane;
 	private JPanel panel;
+	private int npedido=0;
+	private String fecha="";
+	private String usuario="";
 
-	public VentanaSwingVentas(ControladorVenta controlador, JFrame marco) {
+	public VentanaSwingVentas(ControladorVenta controlador, JFrame marco, ControladorLibro controladorLibro) {
 		this.marco=marco;
 		this.controlador=controlador;
+		this.controladorLibro=controladorLibro;
 		
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -81,8 +88,12 @@ public class VentanaSwingVentas {
 		dataModel= new DefaultTableModel(0, 0);
 		 dataModel.setColumnIdentifiers(header);
 		listarVentas();
-		tableVentas = new JTable(dataModel);
-		tableVentas.setEnabled(false);
+		tableVentas = new JTable(dataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		tableVentas.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 
@@ -91,11 +102,32 @@ public class VentanaSwingVentas {
 		         int columna = 0;
 		         if ((fila > -1) && (columna > -1))
 		        	 
-		        	 textFieldCodigoAutor.setText((String) dataModel.getValueAt(fila, columna));
-		         	textFieldNombreAutor.setText((String) dataModel.getValueAt(fila, columna+1));
-		         	textFieldPApelAutor.setText((String) dataModel.getValueAt(fila, columna+2));
-		         	textFieldSApelAutor.setText((String) dataModel.getValueAt(fila, columna+3));
-		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
+		         	npedido= Integer.valueOf((String) dataModel.getValueAt(fila, columna));
+		         	fecha=(String) dataModel.getValueAt(fila, columna+1);
+		         	usuario=(String) dataModel.getValueAt(fila, columna+2);
+		         
+		            System.out.println("Pedido nº: "+npedido+", realizado el "+fecha+" por "+usuario);
+		           
+						
+						try {
+							detalles=controlador.obtenerVentaLibro(String.valueOf(npedido));
+							double total=0;
+							Iterator<DAOVenta_libro> itVentasLibros = detalles.iterator();
+							while(itVentasLibros.hasNext()) {
+								DAOVenta_libro ventaLibro= itVentasLibros.next();
+								DAOLibro libro= controladorLibro.obtenerLibro(ventaLibro.getIsbn());
+								System.out.println("Ha pedido "+ventaLibro.getCantidad()+" unidades del libro con el ISBN "+ventaLibro.getIsbn()+" -->"+libro.getTitulo()+"  al precio de: "+libro.getPrecio());
+								total=total+(ventaLibro.getCantidad()*libro.getPrecio());	
+							}
+							System.out.println("El total del pedido es: "+total);
+						} catch (Exception exc) {
+							System.err.println("Vista: FALLO A OBTENER  VENTAS");
+							exc.printStackTrace();
+						}
+						
+		            
+		            
+		      
 		      }
 		   });
 		scrollPane= new JScrollPane(tableVentas);
@@ -248,7 +280,7 @@ public class VentanaSwingVentas {
 				
 			}
 		} catch (Exception e) {
-			System.err.println("Vista: FALLO A OBTENER  AUTORES");
+			System.err.println("Vista: FALLO A OBTENER  VENTAS");
 			e.printStackTrace();
 		}
 		

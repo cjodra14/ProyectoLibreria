@@ -79,8 +79,12 @@ public class VentanaSwingAutor {
 		dataModel= new DefaultTableModel(0, 0);
 		 dataModel.setColumnIdentifiers(header);
 		listarAutores();
-		tableAutores = new JTable(dataModel);
-		tableAutores.setEnabled(false);
+		tableAutores = new JTable(dataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		tableAutores.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 

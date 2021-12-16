@@ -66,6 +66,8 @@ public class ControladorLibro {
 		public void insertarLibroEscritor(String isbn, String cod_autor) throws Exception{
 			modelo.insertarLibroEscritor(isbn, cod_autor);			
 		}
+		
+		
 
 	//Ejecutamos el método terminar para liberar memoria
 	public void terminar() {

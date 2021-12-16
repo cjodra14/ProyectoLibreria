@@ -75,8 +75,12 @@ public class VentanaSwingCategoria {
 		dataModel= new DefaultTableModel(0, 0);
 		 dataModel.setColumnIdentifiers(header);
 		listarCategorias();
-		tableCategorias = new JTable(dataModel);
-		tableCategorias.setEnabled(false);
+		tableCategorias = new JTable(dataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		tableCategorias.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 

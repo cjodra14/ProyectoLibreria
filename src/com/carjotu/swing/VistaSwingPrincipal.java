@@ -88,7 +88,7 @@ public class VistaSwingPrincipal implements ActionListener {
 		
 		btnVenta = new JButton("Ventas");
 		menuBar.add(btnVenta);
-		btnVenta.setVisible(false);
+		btnVenta.setVisible(true);
 		btnVenta.addActionListener(this);
 		
 		panelHome = new JPanel();
@@ -194,7 +194,7 @@ public class VistaSwingPrincipal implements ActionListener {
 				if (ventanaVenta==null) {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,525);
-					ventanaVenta = new VentanaSwingVentas(controladorVenta, marco);
+					ventanaVenta = new VentanaSwingVentas(controladorVenta, marco, controladorLibro);
 					
 				}else {
 					marco.getContentPane().removeAll();

@@ -73,8 +73,12 @@ public class VentanaSwingEditorial {
 		dataModel= new DefaultTableModel(0, 0);
 		 dataModel.setColumnIdentifiers(header);
 		listarEditoriales();
-		tableEditoriales = new JTable(dataModel);
-		tableEditoriales.setEnabled(false);
+		tableEditoriales = new JTable(dataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		tableEditoriales.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 

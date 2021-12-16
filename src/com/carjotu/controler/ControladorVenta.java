@@ -46,7 +46,7 @@ public class ControladorVenta {
 		 return modelo.borrarVenta(npedido);
 	}
 	
-	public DAOVenta_libro obtenerVentaLibro(String npedido) throws Exception{
+	public Vector<DAOVenta_libro> obtenerVentaLibro(String npedido) throws Exception{
 		return modelo.obtenerVentaLibro(npedido);
 	}
 	

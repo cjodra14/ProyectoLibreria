@@ -162,8 +162,12 @@ public class VentanaSwingLibro {
 		dataModel= new DefaultTableModel(0, 0);
 		dataModel.setColumnIdentifiers(header);
 		listarLibros();
-		tableLibros = new JTable(dataModel);
-		tableLibros.setEnabled(false);
+		tableLibros = new JTable(dataModel){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		tableLibros.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 
