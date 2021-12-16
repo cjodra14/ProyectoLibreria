@@ -199,7 +199,7 @@ public class VistaSwingPrincipal implements ActionListener {
 				}else {
 					marco.getContentPane().removeAll();
 					marco.setSize(850,525);
-					ventanaCategoria.repintar();
+					ventanaVenta.repintar();
 				}
 				
 		}
