@@ -185,17 +185,12 @@ public class VentanaSwingLibro {
 		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
 		        		 imagen=(String) dataModel.getValueAt(fila, columna+4);
 		        		 try {
-		        			 if(imagen.equals("")) {
-		        			 label.setIcon(new ImageIcon());
-		        	         
-		        	         }else {
 		        				 label.setIcon(null);
 		        				 BufferedImage img = ImageIO.read(new File(IMG_PATH+imagen));
 			        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
 			        	         ImageIcon icon = new ImageIcon(dimg);
 			        	         label.setIcon(icon);
-		        			 }
-		        	         
+		        			 
 		        	      } catch (IOException e2) {
 		        	         e2.printStackTrace();
 		        	      }
