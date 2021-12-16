@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.carjotu.controler.ControladorEditorial;
@@ -79,6 +80,7 @@ public class VentanaSwingEditorial {
 		        return false;
 		    }
 		};
+		tableEditoriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableEditoriales.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 

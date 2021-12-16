@@ -38,6 +38,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -168,6 +169,7 @@ public class VentanaSwingLibro {
 		        return false;
 		    }
 		};
+		tableLibros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableLibros.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 
@@ -221,6 +223,7 @@ public class VentanaSwingLibro {
 		        return false;
 		    }
 		};
+		tableAutores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableAutores.addMouseListener(new MouseAdapter() 
 				   {
 			      public void mouseClicked(MouseEvent e) 
@@ -246,6 +249,7 @@ public class VentanaSwingLibro {
 		        return false;
 		    }
 		};
+		tableAddAutores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableAddAutores.addMouseListener(new MouseAdapter() 
 		   {
 		      public void mouseClicked(MouseEvent e) 
