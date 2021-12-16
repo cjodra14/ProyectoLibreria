@@ -201,6 +201,8 @@ public class VentanaSwingLibro {
 		        	      }
 					}
 		        	 tAreaDescripcion.setText((String)dataModel.getValueAt(fila, columna+5));
+		        	 comboEditorial.setSelectedItem((String)dataModel.getValueAt(fila, columna+6));
+		        	 comboCategoria.setSelectedItem((String)dataModel.getValueAt(fila, columna+7));
 		        	 
 		        	listarAutores();
 //		            System.out.println(dataModel.getValueAt(fila, columna)+": "+dataModel.getValueAt(fila,columna+1)+",  "+dataModel.getValueAt(fila,columna+2)+", "+dataModel.getValueAt(fila,columna+3));
