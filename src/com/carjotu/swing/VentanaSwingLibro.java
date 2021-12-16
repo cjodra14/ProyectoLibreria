@@ -185,7 +185,7 @@ public class VentanaSwingLibro {
 		        	 if (null!=dataModel.getValueAt(fila, columna+4)) {
 		        		 imagen=(String) dataModel.getValueAt(fila, columna+4);
 		        		 try {
-		        			 if(!(((String)dataModel.getValueAt(fila, columna+4)).equals(""))) {
+		        			 if(!(((String)dataModel.getValueAt(fila, columna+4)).equals(null))) {
 		        			 label.setIcon(null);
 		        	         BufferedImage img = ImageIO.read(new File(IMG_PATH+(String)dataModel.getValueAt(fila, columna+4)));
 		        	         Image dimg= img.getScaledInstance(label.getHeight(),label.getWidth(),Image.SCALE_SMOOTH);
