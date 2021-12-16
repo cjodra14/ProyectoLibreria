@@ -186,7 +186,7 @@ public class VentanaSwingLibro {
 		        		 imagen=(String) dataModel.getValueAt(fila, columna+4);
 		        		 try {
 		        			 if(imagen.equals("")) {
-		        			 label.setIcon(null);
+		        			 label.setIcon(new ImageIcon());
 		        	         
 		        	         }else {
 		        				 label.setIcon(null);
