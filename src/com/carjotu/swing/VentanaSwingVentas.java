@@ -186,6 +186,7 @@ public class VentanaSwingVentas {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (npedido>0) {
 				String userHomeFolder = System.getProperty("user.home");
 				String nombreFichero=""+npedido+".xml";
 				File xmlFile = new File(userHomeFolder, nombreFichero);
@@ -223,24 +224,22 @@ public class VentanaSwingVentas {
 					raiz.addContent(detalle);
 					raiz.addContent(precioTotal);
 					
-					}catch (Exception e2) {
-						// TODO: handle exception
-					}
+					
 				XMLOutputter salida=new XMLOutputter();
 				FileWriter fw;
-				try {
+				
 					fw = new FileWriter(xmlFile);
 				
 				salida.output(doc, fw);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "XML creado con exito");
+				}catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Erroral crear el archivo XML");
 				}
 				
 				
 				
 			}
-		});
+		}});
 		btnBotonGenXML.setBounds(665, 184, 145, 29);
 		panel.add(btnBotonGenXML);
 		
