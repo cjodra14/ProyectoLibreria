@@ -18,6 +18,11 @@ import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Vector;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +34,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.XMLOutputter;
 
 import com.carjotu.controler.ControladorAutor;
 import com.carjotu.controler.ControladorLibro;
@@ -49,7 +58,6 @@ public class VentanaSwingVentas {
 	private JTable tableVentas;
 	private JButton btnBotonGenTXT;
 	private JButton btnBotonGenXML;
-	private JButton btnBotonAniadir;
 	private JTextField textFieldCodigoAutor;
 	private JTextField textFieldNombreAutor;
 	private JTextField textFieldPApelAutor;
@@ -178,7 +186,57 @@ public class VentanaSwingVentas {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String userHomeFolder = System.getProperty("user.home");
+				String nombreFichero=""+npedido+".xml";
+				File xmlFile = new File(userHomeFolder, nombreFichero);
+				Element raiz = new Element("FACTURA");
+				Document doc=new Document(raiz);
 			
+				Element numeroPedido=new Element("NPEDIDO");
+				numeroPedido.addContent(String.valueOf(npedido));
+				
+				Element detalle = new Element("DETALLES");
+				
+				try {
+					detalles=controlador.obtenerVentaLibro(String.valueOf(npedido));
+					double total=0;
+					Iterator<DAOVenta_libro> itVentasLibros = detalles.iterator();
+					while(itVentasLibros.hasNext()) {
+						Element fila = new Element("FILA");
+						DAOVenta_libro ventaLibro= itVentasLibros.next();
+						DAOLibro libro= controladorLibro.obtenerLibro(ventaLibro.getIsbn());
+						fila.addContent(new Element("UDS").addContent(String.valueOf(ventaLibro.getCantidad())));
+						fila.addContent(new Element("TITULO").addContent(libro.getTitulo()));
+						
+						//out.write("Ha pedido "+ventaLibro.getCantidad()+" unidades del libro con el ISBN "+ventaLibro.getIsbn()+" -->"+libro.getTitulo()+"  al precio de: "+df.format(libro.getPrecio())+"€ - Subtotal:"+df.format(libro.getPrecio()*ventaLibro.getCantidad())+"€");
+						
+						total=total+(ventaLibro.getCantidad()*libro.getPrecio());	
+						
+						detalle.addContent(fila);
+					}
+					Element precioTotal = new Element("TOTAL");
+					precioTotal.addContent(String.valueOf(total));
+					
+					raiz.addContent(numeroPedido);
+//					raiz.addContent(elementofecha);
+//					raiz.addContent(elementoUsuario);
+					raiz.addContent(detalle);
+					raiz.addContent(precioTotal);
+					
+					}catch (Exception e2) {
+						// TODO: handle exception
+					}
+				XMLOutputter salida=new XMLOutputter();
+				FileWriter fw;
+				try {
+					fw = new FileWriter(xmlFile);
+				
+				salida.output(doc, fw);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				
 				
 			}
@@ -186,18 +244,6 @@ public class VentanaSwingVentas {
 		btnBotonGenXML.setBounds(665, 184, 145, 29);
 		panel.add(btnBotonGenXML);
 		
-		btnBotonAniadir = new JButton("A\u00F1adir Autor");
-		btnBotonAniadir.setBounds(665, 269, 145, 29);
-		btnBotonAniadir.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-		
-				
-				
-			}
-		});
-		panel.add(btnBotonAniadir);
 				
 	}
 
