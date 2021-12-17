@@ -158,7 +158,7 @@ public class VentanaSwingVentas {
 							out.newLine();
 							total=total+(ventaLibro.getCantidad()*libro.getPrecio());	
 						}
-						out.write("El total del pedido es: "+df.format(total));
+						out.write("El total del pedido es: "+df.format(total)+"€");
 						
 						out.close();
 						JOptionPane.showMessageDialog(null, "Fichero TXT creado con exito");
@@ -211,10 +211,10 @@ public class VentanaSwingVentas {
 						Element fila = new Element("FILA");
 						DAOVenta_libro ventaLibro= itVentasLibros.next();
 						DAOLibro libro= controladorLibro.obtenerLibro(ventaLibro.getIsbn());
-						fila.addContent(new Element("FECHA").addContent(String.valueOf(ventaLibro.getFecha())));
-						fila.addContent(new Element("USUARIO").addContent(String.valueOf(ventaLibro.getUsuario())));
 						fila.addContent(new Element("UDS").addContent(String.valueOf(ventaLibro.getCantidad())));
+						fila.addContent(new Element("ISBN").addContent(String.valueOf(ventaLibro.getIsbn())));
 						fila.addContent(new Element("TITULO").addContent(libro.getTitulo()));
+						fila.addContent(new Element("SUBTOTAL").addContent(String.valueOf(ventaLibro.getCantidad()*libro.getPrecio())));
 						
 						//out.write("Ha pedido "+ventaLibro.getCantidad()+" unidades del libro con el ISBN "+ventaLibro.getIsbn()+" -->"+libro.getTitulo()+"  al precio de: "+df.format(libro.getPrecio())+"€ - Subtotal:"+df.format(libro.getPrecio()*ventaLibro.getCantidad())+"€");
 						
