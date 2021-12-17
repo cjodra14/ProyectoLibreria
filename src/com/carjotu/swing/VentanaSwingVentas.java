@@ -196,6 +196,11 @@ public class VentanaSwingVentas {
 				Element numeroPedido=new Element("NPEDIDO");
 				numeroPedido.addContent(String.valueOf(npedido));
 				
+				Element elementofecha = new Element("FECHA");
+				elementofecha.addContent(String.valueOf(fecha));
+				
+				Element elementoUsuario = new Element("USUARIO");
+				elementoUsuario.addContent(String.valueOf(usuario));
 				Element detalle = new Element("DETALLES");
 				
 				try {
@@ -206,6 +211,8 @@ public class VentanaSwingVentas {
 						Element fila = new Element("FILA");
 						DAOVenta_libro ventaLibro= itVentasLibros.next();
 						DAOLibro libro= controladorLibro.obtenerLibro(ventaLibro.getIsbn());
+						fila.addContent(new Element("FECHA").addContent(String.valueOf(ventaLibro.getFecha())));
+						fila.addContent(new Element("USUARIO").addContent(String.valueOf(ventaLibro.getUsuario())));
 						fila.addContent(new Element("UDS").addContent(String.valueOf(ventaLibro.getCantidad())));
 						fila.addContent(new Element("TITULO").addContent(libro.getTitulo()));
 						
@@ -219,8 +226,8 @@ public class VentanaSwingVentas {
 					precioTotal.addContent(String.valueOf(total));
 					
 					raiz.addContent(numeroPedido);
-//					raiz.addContent(elementofecha);
-//					raiz.addContent(elementoUsuario);
+					raiz.addContent(elementofecha);
+					raiz.addContent(elementoUsuario);
 					raiz.addContent(detalle);
 					raiz.addContent(precioTotal);
 					
@@ -233,7 +240,7 @@ public class VentanaSwingVentas {
 				salida.output(doc, fw);
 				JOptionPane.showMessageDialog(null, "XML creado con exito");
 				}catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Erroral crear el archivo XML");
+					JOptionPane.showMessageDialog(null, "Error al crear el archivo XML");
 				}
 				
 				
