@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONTEXT>
+	<!-- 
+		name="Nombre arbitrario para el pool de conexiones con la BBDD"
+		type="tipo del pool de conexiones"
+		description="Descripción"
+		auth="autenticacion ante el gestor de recursos"
+		username="usuario autorizado para el recurso"
+		password="Clave del usuario autorizado"
+		driverClassName="Clase que conecta con el recurso"
+		url="localización del recurso"
+		maxActive="Máximo número de conexiones activas permitidas"
+		maxIdle="Máximo número de conexiones libre "
+		maxWait="Tiempo máximo esperando para obtener una conexión 5000ms son 5 segundos"
+	 -->
+	 <Resource name="poolConexiones" type="javax.sql.DataSource" description="Recurso para la conexión con la BBDD del proyecto: Libreria" auth="Container" username="root" password="romaol2" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/libreria?useSSL=false" maxActive="10" maxIdle="2" maxWait="5000"/>
+	 
+</CONTEXT>
